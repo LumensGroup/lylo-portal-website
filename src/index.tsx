@@ -13,11 +13,11 @@ const Components = {
 const components: any = Components;
 
 (() => {
-  const element = document.getElementById("booking-bar");
+  const element = document.getElementById("root");
 
   if (element) {
     const root = ReactDOM.createRoot(element);
-    const Component = BookingBar;
+    const Component = BookingEngine;
     root.render(<Component />);
   }
 })();
