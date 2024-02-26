@@ -1,0 +1,25 @@
+@import "../styles/mixin.scss";
+@import "../styles/variables.module.scss";
+
+.provider {
+  p {
+    font-size: map-get($font-size, sx);
+    font-family: $font-family;
+  }
+
+  h3 {
+    font-size: map-get($font-size, p3);
+    font-family: $font-family;
+  }
+
+  h2 {
+    font-size: map-get($font-size, p1);
+    font-family: $font-family;
+  }
+
+  h1 {
+    font-size: map-get($font-size, h6);
+    font-family: $font-family;
+    font-weight: 600;
+  }
+}
