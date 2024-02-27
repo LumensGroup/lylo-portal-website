@@ -2,17 +2,139 @@
 @import "../../../bases/styles/mixin.scss";
 
 .layout-header-container {
- 
+  &__header {
+    display: flex;
+    align-items: center;
+    background: white;
+    padding: 8px 24px;
+    width: 100%;
+    height: 65px;
+    justify-content: space-between;
+
+    .ant-menu-submenu-title {
+      color: map-get($colors, gray-5) !important;
+    }
+
+    .menu-toggle {
+      flex: 1;
+      align-items: center;
+
+      .custom-menu-header {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 0;
+        justify-content: flex-end;
+        color: map-get($colors, gray-5) !important;
+
+        &.ant-menu-light.ant-menu-horizontal {
+          border: none;
+          line-height: 46px;
+
+          .ant-menu-item {
+            box-sizing: content-box;
+            width: 100px;
+            display: flex;
+            justify-content: center;
+            font-weight: 600;
+
+            &::after {
+              border: none;
+            }
+
+            &:hover {
+              color: map-get($colors, blue-1);
+              &::after {
+                content: '';
+                display: block;
+                position: absolute;
+                height: 4px;
+                background: map-get($colors, blue-1);
+                bottom: -10px;
+              }
+            }
+          }
+
+          .ant-menu-submenu {
+            display: flex;
+            width: 100px;
+            margin-bottom: 10px;
+            align-items: center;
+            justify-content: center;
+
+            &::after {
+              border: none;
+            }
+
+            &-selected::after {
+              border-bottom: 4px solid map-get($colors, blue-1) !important;
+            }
+
+            &-title {
+              width: max-content;
+            }
+          }
+
+          .ant-menu-item-selected {
+            color: map-get($colors, blue-1) !important;
+
+            &::after {
+              content: '';
+              display: block;
+              position: absolute;
+              height: 4px;
+              background: map-get($colors, blue-1);
+              bottom: -10px
+            }
+          }
+        }
+      }
+
+      .contact-btn {
+        border: none;
+        box-shadow: none;
+        height: 40px;
+        margin-left: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 15px;
+        font-weight: 400;
+        line-height: 15px;
+      }
+    }
+
+    &__logo {
+      display: inline-block;
+
+      &.ant-image-img {
+        width: 51px;
+      }
+    }
+
+    .header-container {
+      display: flex;
+      align-items: center;
+      background: white;
+      justify-content: space-between;
+      padding: 0 100px 0 60px;
+      height: 90px;
+    }
+  }
+
   .layout-footer {
     height: 300px;
     background-color: yellowgreen;
     padding: 0;
+
     // background-image: linear-gradient(180deg, #377e90 0%, #031a2c 100%);
     &__wrapper {
       display: flex;
       @include main-container;
       justify-content: center;
       padding: 80px 0 0 0;
+
       &__menus {
         @include flex-column;
         margin: 0 32px;
@@ -27,36 +149,44 @@
       align-items: center;
       justify-content: center;
     }
+
     &__icon {
       height: 20px;
       width: 16px;
       outline-color: #59a2b5;
     }
+
     &__copyright {
       @include main-container;
+
       &__wrapper {
         color: map-get($colors, teal-3) !important;
         padding: 8px 0;
       }
+
       &__policy {
         color: map-get($colors, teal-3);
       }
     }
+
     .ant-menu-light {
       display: flex;
       border: none;
       background: transparent !important;
       flex-direction: column !important;
+
       .ant-menu-item {
         color: white;
         justify-content: center;
       }
+
       .ant-menu-submenu {
         padding: 0;
         margin: 0;
         display: flex;
         align-items: center;
         justify-content: center;
+
         &-title {
           width: max-content;
         }
@@ -72,9 +202,11 @@
       overflow: hidden;
       border-bottom: 1px solid #e6e6e6;
       box-shadow: 0 0px 4px rgba(0, 0, 0, 0.05);
+
       &:hover {
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); // Adjust values for hover effect
       }
+
       .menu-toggle {
         flex: 1;
         display: flex;
@@ -95,21 +227,26 @@
 
       &__logo {
         display: inline-block;
+
         &.ant-image-img {
           width: 155px;
         }
       }
     }
   }
+
   .layout-footer {
     height: 200px;
+
     &__wrapper {
       @include flex-column;
       align-items: center;
+
       &__menus {
         margin: 48px 0 !important;
       }
     }
+
     &__copyright {
       &__wrapper {
         flex: 1;
@@ -118,10 +255,12 @@
         align-items: center;
       }
     }
+
     &__social {
       margin: 40px 0;
     }
   }
+
   .layout-header {
     &__drawer {
       .ant-menu-inline {
@@ -129,6 +268,7 @@
           color: map-get($colors, gray-2) !important;
         }
       }
+
       .ant-menu-submenu-title {
         color: map-get($colors, gray-2) !important;
       }
