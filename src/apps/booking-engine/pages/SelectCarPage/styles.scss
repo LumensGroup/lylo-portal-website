@@ -1,0 +1,9 @@
+@import "/src//bases/styles//variables.module.scss";
+
+
+.car-select_main-layout {
+    padding: 0px 24px;
+    background: map-get($colors, blue-5);
+    width: 100%;
+    border: 1px solid red;
+}

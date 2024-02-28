@@ -1,16 +1,16 @@
-$colors: (
-  white: #ffffff,
+$colors: (white: #ffffff,
   black: #000000,
   black-1: #333333,
   black-2: #2c353b,
-  blue-1: #002732,
-  blue-2: #00495c,
-  blue-3: #003449,
-  blue-4: #499dc7,
-  teal-1: #59a2b5,
-  teal-2: #00708d,
-  teal-3: #389fb5,
-  teal-4: #01647d,
+  blue-1: #3762F6,
+  blue-2: #6386FF,
+  blue-3: #7D9AFC,
+  blue-4: #C4D1FF,
+  blue-5:#E3E9FF,
+  teal-1: #3762F6,
+  teal-2: #3762F6,
+  teal-3: #3762F6,
+  teal-4: #3762F6,
   light-blue-1: #a6cdd7,
   light-blue-2: #ebf4f6,
   light-blue-3: #baefed,
@@ -46,15 +46,13 @@ $colors: (
   green-background: #00800a,
 );
 
-$spacing: (
-  padding: 17px,
+$spacing: (padding: 17px,
   margin: 17px,
   radius: 8px,
   lg-radius: 14px,
 );
 
-$font-size: (
-  lg: 18px,
+$font-size: (lg: 18px,
 
   h1: 60px,
   h2: 48px,
@@ -69,13 +67,13 @@ $font-size: (
   p4: 12px,
 );
 
-$font-family: "ToyotaType", sans-serif;
+$font-family: "ToyotaType",
+sans-serif;
 
 $box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.08);
 
 //--- responsive config
-$breakpoints: (
-  none: 0px,
+$breakpoints: (none: 0px,
   xxs: 400px,
   xs: 600px,
   sm: 768px,
@@ -89,6 +87,7 @@ $breakpoints: (
   font: {
     family: $font-family;
   }
+
   colors: {
     primary: map-get($colors, teal-2);
     light-blue-2: map-get($colors, light-blue-2);

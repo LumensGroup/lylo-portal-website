@@ -1,0 +1,15 @@
+name: deployment
+on:
+  push:
+    branches:
+      - master
+      - beta
+      - dev
+    paths:
+      - src/**
+
+
+
+jobs:
+  dockerize:
+  deploy:

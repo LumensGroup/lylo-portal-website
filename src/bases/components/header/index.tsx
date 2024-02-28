@@ -1,7 +1,8 @@
 import { MenuOutlined } from "@ant-design/icons";
-import { Button, Drawer, Flex, Layout, Menu } from "antd";
+import { Button, Drawer, Flex, Image, Layout, Menu } from "antd";
 import { useState } from "react";
 import { useMediaQuery } from "react-responsive";
+import Icon from "../icon";
 import "./styles.scss";
 // import Icon from "../icon";
 // import { IconSource } from "base/model";
@@ -11,20 +12,20 @@ const { Header, Content, Footer } = Layout;
 const HeaderlLylo = ({ children }: any) => {
   const items = [
     {
-      label: "Home",
-      href: "/",
+      label: "About",
+      // href: "/",
     },
     {
-      label: "Pricing",
-      href: "/pricing",
+      label: "Rent A Car",
+      href: "/carBooking/#/car-select",
     },
     {
-      label: "Membership",
+      label: "Services",
       href: "/kinto-share-member-tncs",
     },
 
     {
-      label: "FAQ",
+      label: "Contact",
       href: "/faqs",
     },
   ].map((item) => {
@@ -56,11 +57,11 @@ const HeaderlLylo = ({ children }: any) => {
         <Flex style={{ flex: 1 }}>
           <Flex>
             <a href="/">
-              {/* <Image
+              <Image
                 preview={false}
                 className="layout-header-container__header__logo"
-                src={require("base/assets/images/ic_logo_kinto.png")}
-              /> */}
+                src={require("../../assets/imgs/logo.jpg")}
+              />
             </a>
           </Flex>
           <Flex className="menu-toggle">
@@ -80,9 +81,7 @@ const HeaderlLylo = ({ children }: any) => {
                 >
                   {items}
                 </Menu>
-                <Button type="primary" className="contact-btn" href="/contact">
-                  Contact Us
-                </Button>
+                <Icon source="leading-icon" className="icon" />
               </>
             )}
           </Flex>
