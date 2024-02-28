@@ -110,29 +110,6 @@ const HeaderlLylo = ({ children }: any) => {
         </Drawer>
       </Header>
       <Content>{children}</Content>
-      <Footer className="layout-footer">
-        {/* <Flex className="layout-footer__copyright">
-          <Typography.Text
-            ellipsis
-            className="layout-footer__copyright__wrapper"
-          >
-            2024 Lylo Singapore Ptd Ltd{" "}
-            <Link
-              className="layout-footer__copyright__policy"
-              to={"/car-rental"}
-            >
-              | Privacy Policy
-            </Link>{" "}
-            <Link
-              className="layout-footer__copyright__policy"
-              to={"/car-rental"}
-            >
-              | Terms & Conditions
-            </Link>
-          </Typography.Text>
-        </Flex> */}
-        底部区域
-      </Footer>
     </Layout>
   );
 };
