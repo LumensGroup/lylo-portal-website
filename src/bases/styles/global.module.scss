@@ -18,8 +18,10 @@
   }
 
   h1 {
-    font-size: map-get($font-size, h6);
+    font-size: map-get($font-size, p0);
     font-family: $font-family;
     font-weight: 600;
+    line-height: 27px;
   }
+
 }
