@@ -12,7 +12,7 @@ const Icon: React.FC<IconProps> = ({ source, className }) => {
 
   if (!isRemoteSource) {
     try {
-      src = require(`@/bases/assets/icons/${source}.webp`);
+      src = require(`@/bases/assets/icons/${source}.svg`);
     } catch {
       src = null;
     }
