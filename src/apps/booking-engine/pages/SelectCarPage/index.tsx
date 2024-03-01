@@ -1,4 +1,5 @@
 import CarCard from "./components/car-card";
+import SelectCarDetail from "./components/details";
 import ImportantInfo from "./components/important-info";
 import Infomation from "./components/info";
 import Select from "./components/select";
@@ -18,6 +19,8 @@ const SelectCarPage = () => {
       <CarCard active={false} />
 
       <ImportantInfo />
+
+      <SelectCarDetail />
     </div>
   );
 };
