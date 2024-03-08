@@ -128,7 +128,7 @@ const NewSearch: React.FC = () => {
     }
   };
   const timePickerClick = (value:any) => {
-    if(document.body.clientWidth>850){
+    if(document.body.clientWidth>950){
       setSelectType(true)
       SetClickType(value)
     }else{
