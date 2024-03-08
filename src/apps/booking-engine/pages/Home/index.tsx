@@ -39,7 +39,7 @@ const HomePage = () => {
       <div>
         ICON demo <Icon source="ic_automatic" className="icon" />
       </div>
-      <div style={{ width: "969px",padding:'20px',margin:'auto' }}>
+      <div style={{ padding:'20px',margin:'auto' }}>
         <Search></Search>
       </div>
     </div>

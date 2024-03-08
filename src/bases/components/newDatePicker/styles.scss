@@ -1,7 +1,15 @@
 
-.picker-box{
+.picker-box,.picker-box-mobile{
   position: relative;
   width: 48PX;
+  position: absolute;
+  opacity: 0;
+  top:0px;
+  z-index: 20;
+  height:100%;
+}
+.picker-box-mobile{
+  display: none;
 }
 .saerch-content-left{
   position: relative;
@@ -20,12 +28,6 @@
   line-height: 22px;
   letter-spacing: 0em;  
   color:rgba(44, 53, 59, 1);
-}
-.picker-box{
-  position: absolute;
-  opacity: 0;
-  top:0px;
-  z-index: 20;
 }
 .footer-picker>div:nth-child(1){
   width:30px;
@@ -55,4 +57,99 @@
 }
 .popup-box .ant-picker-dropdown .ant-picker-footer{
   border-top:none
+}
+.picker-mobile-max{
+  position: fixed;
+  height:100vh;
+  width: 100vw;
+  z-index: 100;
+  background-color: #FFFFFF;
+  top:0px;
+  left: 0px;
+}
+.picker-mobile-max-header{
+  padding:17px 24px;
+  font-family: Noto Sans;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 22px;
+  letter-spacing: 0em;
+  text-align: left;  
+  position: relative;
+  border-bottom: 1px solid rgba(202, 202, 202, 1);
+}
+.close-div{
+  position: absolute;
+  top:17px;
+  right:24px;
+}
+.adm-calendar-picker-view-header{
+  display: none;
+}
+.picker-mobile-max-content{
+  height:364px;
+  overflow: hidden;
+}
+.adm-calendar-picker-view,.adm-calendar-picker-view-body{
+  height: 100% !important;
+}
+.picker-mobile-max-footer{
+  margin-top: 24px;
+}
+.picker-mobile-max-footer>div:nth-child(1){
+  float: left;
+  margin: 0px 10px 0px 24px;
+}
+.picker-mobile-max-footer>div:nth-child(2){
+  margin-left: 10px;
+  float: left;
+  width:312px
+}
+.picker-mobile-max-footer>div:nth-child(2)>div:nth-child(1){
+  font-family: Noto Sans;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 19px;
+  letter-spacing: 0.5px;
+  text-align: left;
+}
+.picker-mobile-max-footer>div:nth-child(2)>div:nth-child(2){
+  font-family: Noto Sans;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: 0.5px;
+  text-align: left;
+}
+.picker-mobile-max-button{
+  width:342px;
+  height:54px;
+  border-radius: 49px;
+  background: rgba(55, 98, 246, 1);
+  font-family: Noto Sans;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 22px;
+  letter-spacing: 0em;  
+  color:#FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.picker-mobile-max-button-box{
+  position: absolute;
+  bottom:24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height:54px;
+  width:100%
+}
+@media (max-width: 850px) {
+  .picker-box{
+    display: none;
+  }
+  .picker-box-mobile{
+    display: block;
+  }
 }

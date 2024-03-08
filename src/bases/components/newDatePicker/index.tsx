@@ -1,10 +1,23 @@
 import "./styles.scss";
 import { DatePicker } from 'antd';
-import { InfoCircleOutlined } from '@ant-design/icons';
-import type { DatePickerProps, RangePickerProps } from 'antd/es/date-picker';
+import { InfoCircleOutlined, CloseOutlined } from '@ant-design/icons';
+import { CalendarPickerView, ConfigProvider } from 'antd-mobile'
+import { useState } from "react";
+import enUS from 'antd-mobile/es/locales/en-US'
 
-const NewDatePicker: React.FC = () => {
+type NewDatePickerProps = {
+  name?: string;
+  childData?: any
+};
+
+const NewDatePicker = ({
+  name,
+  childData,
+}: NewDatePickerProps) => {
+    console.log('我的名字'+name)
     const { RangePicker } = DatePicker;
+    const [selectType, setSelectType] = useState<any>(true);
+    const [maxType, setMaxType] = useState<any>(false);
     const renderExtraFooterValue = () => {
       return (
         <div className="footer-picker">
@@ -18,6 +31,47 @@ const NewDatePicker: React.FC = () => {
            </div>
         </div>
       )
+    }
+    const buttonClick= ()=>{
+      // childData({name:"我是zzz"})
+      setMaxType(false)
+    }
+    const pickerMobileMaxDate = ()=>{
+        return (
+          <div className="picker-mobile-max">
+              <div className="picker-mobile-max-header">
+                 Select pickup date
+                 <div className="close-div" onClick={()=>{
+                    setMaxType(false)
+                 }}>
+                   <CloseOutlined />
+                 </div>
+              </div>
+              <div className="picker-mobile-max-content">
+                <ConfigProvider locale={enUS}>
+                  <CalendarPickerView  selectionMode='range'></CalendarPickerView>
+                </ConfigProvider>
+              </div>
+              <div className="picker-mobile-max-footer">
+                  <div>
+                    <InfoCircleOutlined></InfoCircleOutlined>
+                  </div>
+                  <div>
+                      <div>
+                        Blackout dates: 8 Jan, 10 Jan, 15 - 16 Jan, 25 Jan
+                      </div>
+                      <div>
+                        Certain dates not selectable because there are no operations and staff available for picking up / returning cars, please select other dates instead.
+                      </div>
+                  </div>
+              </div>
+              <div className="picker-mobile-max-button-box">
+                <div className="picker-mobile-max-button" onClick={buttonClick}>
+                  Apply
+                </div>
+              </div>
+          </div>
+        )
     }
     return (
       <div className="date-box">
@@ -41,6 +95,41 @@ const NewDatePicker: React.FC = () => {
                   renderExtraFooter={renderExtraFooterValue}
                 />
           </div>
+          <div className="picker-box-mobile" onClick={()=>{
+              console.log("被点击")
+              setMaxType(true)
+          }}>
+          </div>
+          {maxType&&pickerMobileMaxDate()}
+          {/* <div className="picker-mobile-max">
+              <div className="picker-mobile-max-header">
+                 Select pickup date
+                 <div className="close-div">
+                   <CloseOutlined />
+                 </div>
+              </div>
+              <div className="picker-mobile-max-content">
+                <ConfigProvider locale={enUS}>
+                  <CalendarPickerView  selectionMode='range'></CalendarPickerView>
+                </ConfigProvider>
+              </div>
+              <div className="picker-mobile-max-footer">
+                  <div>
+                    <InfoCircleOutlined></InfoCircleOutlined>
+                  </div>
+                  <div>
+                      <div>
+                        Blackout dates: 8 Jan, 10 Jan, 15 - 16 Jan, 25 Jan
+                      </div>
+                      <div>
+                        Certain dates not selectable because there are no operations and staff available for picking up / returning cars, please select other dates instead.
+                      </div>
+                  </div>
+              </div>
+              <div className="picker-mobile-max-button" onClick={test}>
+                 Apply
+              </div>
+          </div> */}
       </div>
     );
   };
