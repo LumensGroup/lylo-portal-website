@@ -221,7 +221,11 @@ const pickerMobileMaxForm = ()=>{
       <div className="search-content-right-one" style={{width:rightTwoValue}}>
         <div>drop-off location</div>
         <div onClick={()=>{
-          setLocationFormType(true)
+            if(document.body.clientWidth>950){
+              setLocationFormType(true)
+            }else{
+              setPickerMobileMaxFormType(true)
+           }
         }}>
           Lylohaus - 300 Sin Ming Rd, Singapore 575626
         </div>
@@ -274,7 +278,7 @@ const pickerMobileMaxForm = ()=>{
                   <div className="search-content-right-one" style={{width:rightOneValue,marginRight:'12px'}}>
                     <div>{rightOneTitle}</div>
                     <div onClick={()=>{
-                        if(document.body.clientWidth>850){
+                        if(document.body.clientWidth>950){
                           setLocationFormType(true)
                            console.log("1")
                         }else{
