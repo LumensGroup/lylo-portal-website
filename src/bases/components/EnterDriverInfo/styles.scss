@@ -1,0 +1,40 @@
+.enterDriverInfo-box{
+  position: relative;
+}
+.enterDriverInfo-box .ant-form-item{
+  margin-bottom: 0px;
+}
+.enterDriverInfo-box .ant-input-outlined,.enterDriverInfo-box .ant-input-outlined:focus{
+  border-color: #ffffff;
+}
+.left-box{
+  position: absolute;
+  top:16px;
+  left: 14px;
+  width: 640px;
+  min-height: 300px;
+  padding: 16px;
+  border-radius: 16px;
+  gap: 16px;
+  background-color: #fff;
+}
+.left-box-title{
+  font-family: Noto Sans;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 22px;
+  letter-spacing: 0em;
+  margin-bottom: 16px;
+}
+.form-box{
+  display: flex; 
+}
+.form-border-box{
+  padding:8px 12px 8px 12px;
+  border: 1px solid rgba(171, 183, 186, 1);
+  border-radius: 8px;
+}
+.form-border-box>div:nth-child(1){
+  color: rgba(139, 139, 139, 1);
+  font-size: 12px;
+}
