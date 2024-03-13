@@ -1,5 +1,7 @@
 import Icon from "@/bases/components/icon";
-import { Collapse, Image, Typography } from "antd";
+import { Image, Typography } from "antd";
+
+import CustomizedCollapse from "@/bases/components/collapse";
 import "./styles.scss";
 
 const SelectCarDetail = () => {
@@ -61,7 +63,9 @@ const SelectCarDetail = () => {
 
   const carDetail = (
     <div className="addons__cardetail">
-      <Typography.Title level={2}>Honda Fit</Typography.Title>
+      <Typography.Title level={2} style={{ marginTop: "3px" }}>
+        Honda Fit
+      </Typography.Title>
       <div className="addons__content">
         {" "}
         <Image
@@ -80,27 +84,14 @@ const SelectCarDetail = () => {
       <div className="addons__includesWrapper">{renderIncluedes()}</div>
     </div>
   );
+  const Header = <h1>Details</h1>;
 
   return (
     <div className="addons__detail">
-      <Collapse
-        accordion
-        ghost
-        expandIconPosition="end"
-        defaultActiveKey="1"
-        expandIcon={({ isActive }) =>
-          isActive ? (
-            <Icon source="collaps_down_arrow" className="collaps_arrow" />
-          ) : (
-            <Icon source="collaps_up_arrow" className="collaps_arrow" />
-          )
-        }
-      >
-        <Collapse.Panel header={<h1>Deatils </h1>} key="1">
-          {carDetail}
-          {packageIncludes}
-        </Collapse.Panel>
-      </Collapse>
+      <CustomizedCollapse header={Header}>
+        {carDetail}
+        {packageIncludes}
+      </CustomizedCollapse>
     </div>
   );
 };

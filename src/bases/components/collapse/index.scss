@@ -1,0 +1,13 @@
+ .customized-collapse {
+
+     background: #ffffff;
+     border-radius: 16px;
+
+     .ant-collapse-header {
+         padding: 4px 20px !important;
+     }
+
+     .ant-collapse-content-box {
+         padding: 0px 20px !important;
+     }
+ }

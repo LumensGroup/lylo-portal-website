@@ -1,7 +1,10 @@
+import Addons from "./components/addons";
 import CarCard from "./components/car-card";
+import CDW from "./components/cdw";
 import SelectCarDetail from "./components/details";
 import ImportantInfo from "./components/important-info";
 import Infomation from "./components/info";
+import PickUp from "./components/pickup";
 import Select from "./components/select";
 import "./styles.scss";
 const SelectCarPage = () => {
@@ -21,6 +24,9 @@ const SelectCarPage = () => {
       <ImportantInfo />
 
       <SelectCarDetail />
+      <CDW />
+      <PickUp />
+      <Addons />
     </div>
   );
 };
