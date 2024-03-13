@@ -1,5 +1,5 @@
 import "./styles.scss";
-import { Tabs, Form, Input  } from "antd";
+import { Tabs, Form, Input, DatePicker, Select } from "antd";
 import type { TabsProps } from 'antd';
 
 const EnterDriverInfo = () => {
@@ -39,17 +39,72 @@ const EnterDriverInfo = () => {
             <TabPane tab='Manual Form' key='2'>
                 <Form
                   name="basic"
-                  labelCol={{ span: 8 }}
-                  wrapperCol={{ span: 16 }}
+                  labelCol={{ span: 0 }}
+                  wrapperCol={{ span: 24 }}
                 >
-                  <div className="form-box">
+                  <div className="form-row">
                     <div className="form-border-box">
                         <div>
                            First Name
                         </div>
                         <div>
                         <Form.Item name="note" label="" >
-                            <Input/>
+                            <Input style={{height:'22px'}}/>
+                        </Form.Item>
+                        </div>
+                    </div>
+                    <div className="form-border-box">
+                        <div>
+                          Last Name 
+                        </div>
+                        <div>
+                        <Form.Item name="note" label="" >
+                          <Input style={{height:'22px'}}/>
+                        </Form.Item>
+                        </div>
+                    </div>
+                  </div>
+                  <div className="form-row">
+                    <div className="form-border-box">
+                        <div>
+                          NRIC / FIN / Passport
+                        </div>
+                        <div>
+                        <Form.Item name="note" label="" >
+                            <Input style={{height:'22px'}}/>
+                        </Form.Item>
+                        </div>
+                    </div>
+                    <div className="form-border-box">
+                        <div>
+                          Date of Birth 
+                        </div>
+                        <div>
+                        <Form.Item name="note" label="">
+                          <div>
+                            <DatePicker/>
+                          </div>
+                        </Form.Item>
+                        </div>
+                    </div>
+                  </div>
+                  <div className="form-row">
+                    <div className="form-border-box">
+                        <div>
+                          NRIC / FIN / Passport
+                        </div>
+                        <div>
+                        <Form.Item name="add" label="" >
+                        <Select
+                          defaultValue="lucy"
+                          style={{height:'22px',width:'100%'}}
+                          options={[
+                            { value: 'jack', label: 'Jack' },
+                            { value: 'lucy', label: 'Lucy' },
+                            { value: 'Yiminghe', label: 'yiminghe' },
+                            { value: 'disabled', label: 'Disabled'},
+                          ]}
+                        />
                         </Form.Item>
                         </div>
                     </div>
