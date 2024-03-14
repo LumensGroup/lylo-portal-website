@@ -1,11 +1,7 @@
 import { Flex,Image } from 'antd'
 import React from 'react'
+import { ImportantInfoData } from './ImportantInfoItem'
 
-export interface ImportantInfoData{
-  title:string
-  desc:string
-  icon:string
-}
 
 const ImportantInfoContactItem:React.FC<ImportantInfoData> = ({title,desc,icon}) => {
   return (
