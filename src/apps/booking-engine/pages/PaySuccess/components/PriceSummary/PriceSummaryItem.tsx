@@ -1,4 +1,4 @@
-import { Divider, Flex } from 'antd'
+import { Flex } from 'antd'
 import React from 'react'
 
 export interface PriceSummaryItemData{
