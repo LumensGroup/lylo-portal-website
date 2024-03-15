@@ -6,6 +6,7 @@ import ImportantInfo from "./components/important-info";
 import Infomation from "./components/info";
 import PickUp from "./components/pickup";
 import Select from "./components/select";
+import { CollapseSummary } from "./components/summary";
 import "./styles.scss";
 const SelectCarPage = () => {
   return (
@@ -27,6 +28,7 @@ const SelectCarPage = () => {
       <CDW />
       <PickUp />
       <Addons />
+      <CollapseSummary />
     </div>
   );
 };

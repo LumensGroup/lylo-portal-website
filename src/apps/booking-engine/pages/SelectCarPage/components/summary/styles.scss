@@ -1,0 +1,129 @@
+.addons__summary {
+    .summary__item {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 8px;
+        align-items: end
+    }
+
+    .summary__label {
+        font-size: 16px;
+        color: #1D1B20;
+        max-width: 163px;
+
+    }
+
+    .summary__value {}
+}
+
+.rate-desc__label {
+    .rate-desc__label__name {
+        font-size: 16px;
+        color: #1D1B20
+    }
+
+    .rate-desc__label__price {
+        font-size: 16px;
+        color: #1D1B20;
+        font-weight: 600;
+    }
+}
+
+.promo-label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    color: #1D1B20;
+    background-color: #E3E9FF;
+    padding: 4px 8px;
+    border-radius: 8px;
+    font-size: 14px;
+    min-width: 116px
+}
+
+.break-line {
+    width: 100%;
+    height: 1px;
+    background: #CAC4D0;
+    margin: 24px auto;
+}
+
+.avg-rental {
+    font-size: 16px;
+    line-height: 22px;
+    color: #626F71;
+    margin-left: auto;
+    width: fit-content;
+}
+
+
+.TC-tip {
+    font-size: 14px;
+    color: #1D1B20;
+
+    .TC-link {
+        color: #499DC7;
+        font-size: 16px;
+    }
+}
+
+
+.payment-card {
+    &__layout {
+        border-radius: 8px;
+        border: 1px solid #3762F6;
+        padding: 16px 12px;
+        background: transparent;
+        color: #3762F6;
+
+        &.selected {
+            background-color: #3762F6;
+            color: #ffffff;
+
+            .lylo-money {
+                color: #ffffff !important;
+            }
+        }
+
+        button {
+            width: 100%;
+            border-radius: 49px;
+            border: 1px solid #ffffff;
+            background: #3762F6;
+            color: #ffffff;
+            font-weight: 600;
+            height: 40px;
+            font-size: 16px;
+            margin-top: 12px;
+        }
+    }
+
+    &__title,
+    &__price {
+        font-size: 16px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .lylo-money {
+            color: #3762F6;
+        }
+
+    }
+
+    &__desc {
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        margin-top: 10px;
+    }
+
+
+}
+
+.payment-card__layout:first-of-type {
+    margin-top: 16px;
+    margin-bottom: 16px;
+}

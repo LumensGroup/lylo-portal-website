@@ -6,12 +6,15 @@ import "./index.scss";
 const CustomizedCollapse = ({
   children,
   header,
+  style,
 }: {
   children: ReactNode;
   header: ReactNode;
+  style?: React.CSSProperties;
 }) => {
   return (
     <Collapse
+      style={style}
       accordion
       ghost
       expandIconPosition="end"

@@ -2,7 +2,7 @@
 import React, { useMemo } from "react";
 import { IconProps } from "./types";
 
-const Icon: React.FC<IconProps> = ({ source, className }) => {
+const Icon: React.FC<IconProps> = ({ source, className, handleClick }) => {
   const isRemoteSource = useMemo(
     () => source?.startsWith("https://") || source?.startsWith("http://"),
     [source]
@@ -18,7 +18,9 @@ const Icon: React.FC<IconProps> = ({ source, className }) => {
     }
   }
 
-  return <img className={className} src={src} alt="Icon" />;
+  return (
+    <img className={className} src={src} alt="Icon" onClick={handleClick} />
+  );
 };
 
 export default Icon;
