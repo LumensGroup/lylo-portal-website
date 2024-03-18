@@ -1,7 +1,8 @@
 import Icon from "@/bases/components/icon";
-import { Button, Collapse, Typography } from "antd";
+import { Button, Typography } from "antd";
 import { useMemo } from "react";
 
+import CustomizedCollapse from "@/bases/components/collapse";
 import "./styles.scss";
 
 const ImportantInfo = () => {
@@ -63,24 +64,10 @@ const ImportantInfo = () => {
   );
   return (
     <div className="important-info">
-      <Collapse
-        accordion
-        ghost
-        expandIconPosition="end"
-        defaultActiveKey="1"
-        expandIcon={({ isActive }) =>
-          isActive ? (
-            <Icon source="collaps_down_arrow" className="collaps_arrow" />
-          ) : (
-            <Icon source="collaps_up_arrow" className="collaps_arrow" />
-          )
-        }
-      >
-        <Collapse.Panel header={<h1>Important Info</h1>} key="1">
-          {packageInfo}
-          <Button className="tm-btn">View full Terms & Conditions</Button>
-        </Collapse.Panel>
-      </Collapse>
+      <CustomizedCollapse header={<h1>Important Info</h1>}>
+        {packageInfo}
+        <Button className="tm-btn">View full Terms & Conditions</Button>
+      </CustomizedCollapse>
     </div>
   );
 };

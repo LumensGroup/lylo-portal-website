@@ -1,0 +1,22 @@
+.addons__layout {
+    width: 1024px;
+    background: #F6FAFF;
+    border: 1px solid pink;
+
+    &__content {
+        padding: 16px 24px;
+
+        .addons__layout__leftArea {
+            max-width: 640px;
+            min-width: 640px;
+            margin-right: 24px;
+        }
+
+        .addons__layout__rightArea {
+            max-width: 312px;
+            min-width: 312px;
+        }
+    }
+
+
+}
