@@ -1,0 +1,77 @@
+.add-ons-item-card {
+  padding: 0px;
+
+  overflow: hidden;
+  // background: #3762F6;
+  color: #1d1b20;
+  font-family: "Noto Sans";
+
+  .addons-image {
+    width: 265px;
+    height: 216px;
+  }
+  .addons-right-content {
+    border-radius: 0px 8px 8px 0px;
+    border-right: 1px solid #abb7ba;
+    border-bottom: 1px solid #abb7ba;
+    border-top: 1px solid #abb7ba;
+    padding: 16px;
+
+    .addons-title {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .addons-desc {
+      font-size: 16px;
+      font-weight: 400;
+    }
+    .addons-price {
+      font-size: 24px;
+      font-weight: 600;
+    }
+
+    .addons-button{
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .addons-button-add {
+      
+      color: white;
+      background-color: #3762f6;
+      border: none;
+    }
+    .addons-button-remove {
+      color: #3762f6;
+      background-color: white;
+      border: 1px solid #3762f6;
+     
+    }
+  }
+
+  .add-ons-left-image {
+    position: relative;
+    .add-ons-popular-mark {
+      position: absolute;
+      left: 8px;
+      top: 10px;
+      border-radius: 8px;
+      background: #3762f6;
+      color: white;
+      padding: 4px 8px;
+
+      text-align: center;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 20px; /* 142.857% */
+      letter-spacing: 0.1px;
+
+      .addons-star-icon {
+        width: 14px;
+        height: 14px;
+        margin-top: -2px;
+      }
+    }
+  }
+}

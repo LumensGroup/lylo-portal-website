@@ -6,6 +6,7 @@ import DriverInfo from './components/DriverInfo'
 import PriceSummary from './components/PriceSummary'
 import ImportantInfo from './components/ImportantInfo'
 import { Flex } from 'antd'
+import { PopupAddons } from './PopupAddons'
 
 export default function PaySuccess() {
   return (
@@ -15,6 +16,7 @@ export default function PaySuccess() {
       <DriverInfo />
       <PriceSummary />
       <ImportantInfo />
+      <PopupAddons />
     </Flex>
   )
 }
