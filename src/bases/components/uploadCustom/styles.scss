@@ -1,0 +1,96 @@
+.upload-box-title{
+  font-family: Noto Sans;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 19px;
+  letter-spacing: 0em;
+}
+.upload-content{
+  min-height:100px;
+  padding: 30px 16px 30px 16px;
+  border-radius: 8px;
+  background: rgba(231, 235, 251, 1);
+  margin-top: 8px;
+  position: relative;
+}
+.upload-content-right>div{
+  font-size: 14px;
+}
+.upload-content-right>div:nth-child(1){
+  font-weight: bold;
+}
+.upload-content-left{
+  width: 105px;
+  height: 40px;
+  border-radius: 8px;
+  border: 1px solid rgba(55, 98, 246, 1);
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 35px;
+  text-align: center;
+  position: absolute;
+  right:16px;
+  top:30px;
+  color: rgba(55, 98, 246, 1);
+  cursor: pointer;
+}
+.document-title{
+  font-size: 14px;
+  margin-top: 18px;
+  width:80%;
+  position: relative;
+}
+.upload-box .ant-upload-list{
+  display: none;
+}
+.document-box{
+  width: 50%;
+}
+.progress-box{
+  flex-wrap: wrap;
+  display: flex;
+}
+.progress-box>div:nth-child(1){
+  width: 90%;
+}
+.progress-box>div:nth-child(2){
+  width: 10%;
+  cursor: pointer;
+  padding-left: 20px;
+}
+.upload-box .ant-progress.ant-progress-status-success .ant-progress-bg{
+  background-color:rgba(5, 135, 76, 1)
+}
+.upload-box .ant-progress.ant-progress-status-success .ant-progress-text{
+  color:rgba(5, 135, 76, 1)
+}
+.document-list{
+  display: flex;
+  flex-wrap: wrap;
+}
+@media (max-width: 950px) {
+  .form-row{
+    display:block;
+  }
+  .form-border-box{
+    width: 100%;
+  }
+  .form-row>div:nth-child(2){
+    position: relative;
+    margin-top: 16px;
+  }
+  .upload-content-right{
+    width: 100%;
+  }
+  .document-box{
+    width: 100%;
+  }
+  .progress-box>div:nth-child(2){
+    padding-left: 10px; 
+  }
+  .upload-content-left{
+    position: static;
+    width: 100%;
+    margin-top: 12px;
+  }
+}
