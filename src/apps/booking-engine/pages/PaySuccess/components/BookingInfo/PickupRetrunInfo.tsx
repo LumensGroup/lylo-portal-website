@@ -1,4 +1,4 @@
-import { Divider, Flex,Image } from "antd";
+import { Flex,Image } from "antd";
 import React from "react";
 import { AddressTimeInfo } from "./AddressTimeInfo";
 import BookingInfoPickUpImg from "../../../../../../bases/assets/imgs/booking_info_pickup.svg";
