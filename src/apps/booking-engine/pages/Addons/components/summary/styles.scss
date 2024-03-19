@@ -2,7 +2,7 @@
     .summary__item {
         display: flex;
         justify-content: space-between;
-        margin-bottom: 8px;
+        margin-bottom: 16px;
         align-items: end
     }
 
@@ -13,7 +13,6 @@
 
     }
 
-    .summary__value {}
 }
 
 .rate-desc__label {
@@ -59,31 +58,51 @@
 
 
 .TC-tip {
-    font-size: 14px;
+    font-size: 12px;
     color: #1D1B20;
+    text-align: center;
 
     .TC-link {
         color: #499DC7;
-        font-size: 16px;
     }
 }
 
 
 .payment-card {
     &__layout {
+        cursor: pointer;
         border-radius: 8px;
-        border: 1px solid #3762F6;
+        border: 1px solid #E3E9EB;
         padding: 16px 12px;
         background: transparent;
         color: #3762F6;
+        box-shadow: 2px 4px 6px 0px #00000040;
+        height: 100px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
 
         &.selected {
-            background-color: #3762F6;
-            color: #ffffff;
+            background-color: #ffffff;
+            color: #000000;
+            border: 2px solid #3762F6;
 
             .lylo-money {
-                color: #ffffff !important;
+                color: #000000;
             }
+
+
+            .payment-card__desc {
+                color: #3762F6;
+                font-size: 13px;
+                line-height: 17px;
+            }
+
+            .payment-card__title,
+            .payment-card__price {
+                color: #000000;
+            }
+
         }
 
         button {
@@ -106,9 +125,10 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
+        color: #7D9AFC;
 
         .lylo-money {
-            color: #3762F6;
+            color: #7D9AFC;
         }
 
     }
@@ -117,13 +137,16 @@
         font-size: 14px;
         display: flex;
         align-items: center;
-        margin-top: 10px;
+        color: #7D9AFC
     }
 
-
+    &__tip {
+        font-size: 12px;
+        font-weight: 400;
+    }
 }
 
-.payment-card__layout:first-of-type {
+.payment-card__layout {
     margin-top: 16px;
     margin-bottom: 16px;
 }

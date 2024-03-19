@@ -1,6 +1,6 @@
 import CustomizedCollapse from "@/bases/components/collapse";
 import Icon from "@/bases/components/icon";
-import { Button, Flex, Typography } from "antd";
+import { Flex } from "antd";
 import clsx from "clsx";
 import { useState } from "react";
 import MoneyComponent from "../money";
@@ -18,8 +18,8 @@ interface SummaryProps {
 }
 
 interface PriceCardProps {
-  title: string;
-  price: number | JSX.Element;
+  tip: string;
+  price: string;
   description: string | JSX.Element;
   isSelected?: boolean;
   onSelect: () => void;
@@ -118,9 +118,9 @@ const AvgRentalTip = ({ price }: { price: number }) => {
 };
 
 const PaymentCard = ({
-  title,
   price,
   description,
+  tip,
   isSelected = false,
   onSelect,
 }: PriceCardProps) => {
@@ -130,19 +130,32 @@ const PaymentCard = ({
       onClick={onSelect}
     >
       <div className="payment-card__title">
-        {title}
+        <Flex>
+          {"Pay"}
+          &nbsp;
+          <MoneyComponent price={price} />
+          &nbsp;
+          <Flex className="payment-card__tip" align="center">
+            &nbsp;
+            {`(${tip})`}
+          </Flex>
+        </Flex>
         <Icon source={isSelected ? "check_circle" : "uncheck_circle"} />
       </div>
-      <div className="payment-card__price">{price}</div>
       <div className="payment-card__desc">{description}</div>
-      {isSelected && <Button>Checkout</Button>}
     </div>
   );
 };
 
-const TCTip = ({ tcUrl }: { tcUrl?: string }) => {
+const TCTip = ({
+  tcUrl,
+  style,
+}: {
+  tcUrl?: string;
+  style?: React.CSSProperties;
+}) => {
   return (
-    <div className="TC-tip">
+    <div className="TC-tip" style={style}>
       By clicking Checkout, I acknowledge that I have read and agree to Lylo’s
       <a className="TC-link" target="_blank" rel="noreferrer" href={tcUrl}>
         Terms & Conditions.
@@ -151,63 +164,50 @@ const TCTip = ({ tcUrl }: { tcUrl?: string }) => {
   );
 };
 
-const PaymentContent = () => {
+const Payment = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   return (
     <>
-      {[
-        {
-          title: "Pay in full",
-          price: <MoneyComponent price={"630"} />,
-          desc: (
-            <Flex align="center">
-              <Icon source="acute" className="acute" />
-              <div style={{ marginLeft: 9 }}>
-                {"Faster vehicle collection!"}
-              </div>
-            </Flex>
-          ),
-        },
-        {
-          title: "Pay in less upfront",
-          price: (
-            <Flex align="center">
-              <MoneyComponent price={"630"} />{" "}
-              <span style={{ fontWeight: 400, fontSize: 14, marginLeft: 4 }}>
-                now
-              </span>
-            </Flex>
-          ),
-          desc: "The rest ($315.00) will be charged during vehicle collection. No extra fees.",
-        },
-      ].map(({ title, price, desc }, index) => {
-        return (
-          <PaymentCard
-            key={index}
-            title={title}
-            price={price}
-            description={desc}
-            isSelected={selectedIndex === index}
-            onSelect={() => setSelectedIndex(index)}
-          />
-        );
-      })}
+      <PaymentCard
+        tip="in full"
+        key={1}
+        price={"123"}
+        description={
+          <Flex align="center">
+            <Icon source="acute" className="acute" />
+            <div className="desc" style={{ marginLeft: 9 }}>
+              {"Faster vehicle collection!"}
+            </div>
+          </Flex>
+        }
+        isSelected={selectedIndex === 1}
+        onSelect={() => setSelectedIndex(1)}
+      />
+      <PaymentCard
+        tip="less upfront"
+        key={2}
+        price={"345"}
+        description={
+          <div className="desc">
+            {
+              "The rest ($315.00) will be charged during vehicle collection. No extra fees."
+            }
+          </div>
+        }
+        isSelected={selectedIndex === 2}
+        onSelect={() => setSelectedIndex(2)}
+      />
     </>
   );
 };
 
-const Payment = () => {
-  return (
-    <CustomizedCollapse
-      header={<Typography.Title level={2}>Payment</Typography.Title>}
-      style={{
-        padding: "16px",
-        background: "#F2F5FF",
-      }}
-    >
-      <PaymentContent />
-    </CustomizedCollapse>
-  );
+export {
+  AvgRentalTip,
+  BreakLine,
+  CollapseSummary,
+  Payment,
+  PromoLabel,
+  RateDescLabel,
+  Summary,
+  TCTip,
 };
-
-export { BreakLine, CollapseSummary, Payment, PromoLabel, Summary, TCTip };

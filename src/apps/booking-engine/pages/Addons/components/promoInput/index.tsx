@@ -9,19 +9,19 @@ const PromoCode = () => {
     <ConfigProvider
       theme={{
         components: {
-          Button: {
-            colorPrimary: "#3762F6",
-            contentFontSize: 16,
-            fontWeight: 700,
-            paddingInline: 20,
-            borderColorDisabled: "#A2B7FF",
-            defaultBorderColor: "#3762F6",
-            defaultColor: "#3762F6",
-            borderRadius: 8,
-            dangerColor: "#A2B7FF",
-            colorBgContainerDisabled: "#ffffff",
-            colorTextDisabled: "#A2B7FF",
-          },
+          // Button: {
+          //   colorPrimary: "#3762F6",
+          //   contentFontSize: 16,
+          //   fontWeight: 700,
+          //   paddingInline: 20,
+          //   borderColorDisabled: "#A2B7FF",
+          //   defaultBorderColor: "#3762F6",
+          //   defaultColor: "#3762F6",
+          //   borderRadius: 8,
+          //   dangerColor: "#A2B7FF",
+          //   colorBgContainerDisabled: "#ffffff",
+          //   colorTextDisabled: "#A2B7FF",
+          // },
           Form: {
             colorError: "#EB4820",
           },
@@ -29,7 +29,7 @@ const PromoCode = () => {
       }}
     >
       {" "}
-      <Form>
+      <Form style={{ height: 40 }}>
         <Flex align="center">
           <Form.Item
             name="promoCode"
@@ -43,9 +43,10 @@ const PromoCode = () => {
                 },
               }),
             ]}
+            style={{ flex: 1 }}
           >
             <Input
-              style={{ fontWeight: "bold", borderRadius: 8, maxWidth: 170 }}
+              style={{ fontWeight: "bold", borderRadius: 8 }}
               // status="error"
             />
           </Form.Item>
