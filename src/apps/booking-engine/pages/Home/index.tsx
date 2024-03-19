@@ -30,7 +30,7 @@ const HomePage = () => {
   };
   return (
     <div>
-      {/* 路由跳转DEMO:
+      路由跳转DEMO:
       <Button onClick={handleClick}>click to reduxDemo 计数：{count}</Button>
       <div>
         发请求DEMO:
@@ -39,10 +39,6 @@ const HomePage = () => {
       <div>
         ICON demo <Icon source="ic_automatic" className="icon" />
       </div>
-      <div style={{ padding:'20px',margin:'auto' }}>
-        <Search></Search>
-      </div> */}
-      <EnterDriverInfo></EnterDriverInfo>
     </div>
   );
 };
