@@ -1,7 +1,7 @@
 import Icon from "@/bases/components/icon";
 import { Space } from "antd";
-import Infomation from "../SelectCarPage/components/info";
-import Select from "../SelectCarPage/components/select";
+import Infomation from "../Addons/components/info";
+import Select from "../Addons/components/select";
 import BreakLine from "./components/breakline";
 import CarCard from "./components/car-card";
 import "./styles.scss";
