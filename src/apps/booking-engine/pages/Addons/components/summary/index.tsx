@@ -94,9 +94,10 @@ const CollapseSummary = () => {
       />
       <AvgRentalTip price={10} />
       <BreakLine />
-      <TCTip />
+
       <Payment />
       <BreakLine />
+      <TCTip />
       <PromoCode />
     </CustomizedCollapse>
   );

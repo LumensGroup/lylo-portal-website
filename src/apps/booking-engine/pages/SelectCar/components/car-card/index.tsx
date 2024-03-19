@@ -5,19 +5,21 @@ import "./styles.scss";
 
 type CarCardProps = {
   active: boolean;
+  onCardClick?: () => void;
 };
-const CarCard: React.FC<CarCardProps> = ({ active }) => {
+const CarCard: React.FC<CarCardProps> = ({ active, onCardClick }) => {
   return (
-    <div className={clsx("car-card__layout", { isActive: active })}>
+    <div
+      className={clsx("car-card__layout", { isActive: active })}
+      onClick={onCardClick}
+    >
       <div className="car-card__title">toyota</div>
       <div className="car-card__subscription">
         <div className="car-card__item">
           <Icon source={"person"} className={"logo"} />
           <span style={{ margin: "0 4px" }}>5</span>
           <Tooltip title="prompt text" color={"#3762F6"} key={1}>
-            <>
-              <Icon source={"info"} className={"logo"} />
-            </>
+            <Icon source={"info"} className={"logo"} />
           </Tooltip>
         </div>
         <div className="car-card__item" style={{ margin: "0 20px" }}>

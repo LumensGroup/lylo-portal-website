@@ -1,11 +1,16 @@
 import Icon from "@/bases/components/icon";
 import { Space } from "antd";
+import { useNavigate } from "react-router-dom";
+
 import Infomation from "../Addons/components/info";
 import Select from "../Addons/components/select";
 import BreakLine from "./components/breakline";
 import CarCard from "./components/car-card";
+
 import "./styles.scss";
 const AddonsPage = () => {
+  const navigate = useNavigate();
+
   const ActionBar = () => {
     return (
       <Space className="select-cars__actionBar" size={16} align="start">
@@ -50,6 +55,10 @@ const AddonsPage = () => {
     );
   };
 
+  const handleCardClick = () => {
+    navigate("/add-ons");
+  };
+
   return (
     <div className="select-cars__layouts">
       <div>calendar</div>
@@ -60,7 +69,9 @@ const AddonsPage = () => {
       />
       <Space className="select-cars__content" wrap size={16}>
         {[1, 2, 3, 4, 5, 6, 6, 7, 8, 9, 10].map((index) => {
-          return <CarCard active={false} key={index} />;
+          return (
+            <CarCard active={false} key={index} onCardClick={handleCardClick} />
+          );
         })}
       </Space>
     </div>

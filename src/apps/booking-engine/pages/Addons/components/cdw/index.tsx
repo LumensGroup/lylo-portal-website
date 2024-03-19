@@ -1,4 +1,4 @@
-import { Button, Collapse } from "antd";
+import { Button, Collapse, Space } from "antd";
 import "./styles.scss";
 
 import CustomizedCollapse from "@/bases/components/collapse";
@@ -75,10 +75,15 @@ const FooterComponent = ({
   }
 };
 
-const CDWCardsArea = () => {
+const CDWCardsArea = ({ direction }: any) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   return (
-    <div className="cdw-card-wrapper">
+    <Space
+      className="cdw-card-wrapper"
+      size={16}
+      direction={direction}
+      style={{ display: "flex" }}
+    >
       {[
         { title: "CDW Basic", footer: <FooterComponent desc="Include" /> },
         { title: "CDW", footer: <FooterComponent price={18} /> },
@@ -98,16 +103,16 @@ const CDWCardsArea = () => {
           </div>
         );
       })}
-    </div>
+    </Space>
   );
 };
-const CDW = () => {
+const CDW = ({ direction }: { direction: string }) => {
   return (
     <CustomizedCollapse
       header={<h1>Add-ons 1/2 : Collision Damage Waiver (CDW) </h1>}
     >
       <TextArea />
-      <CDWCardsArea />
+      <CDWCardsArea direction={direction} />
     </CustomizedCollapse>
   );
 };

@@ -1,8 +1,8 @@
  .customized-collapse {
-
      background: #ffffff;
      border-radius: 16px;
      max-width: 640px;
+     border: 1px solid pink;
 
      .ant-collapse-header {
          padding: 4px 20px !important;
@@ -11,6 +11,6 @@
      }
 
      .ant-collapse-content-box {
-         padding: 0px 20px !important;
+         padding: 0px 20px 24px !important;
      }
  }
