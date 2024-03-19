@@ -1,6 +1,6 @@
 import "./styles.scss";
 import { useState } from "react";
-import { Button, Progress,Pagination   } from "antd";
+import { Button, Progress } from "antd";
 import { CheckCircleOutlined, DeleteOutlined } from '@ant-design/icons';
 
 
@@ -77,9 +77,6 @@ const UploadCustom = ({
               </div>
               <div className="document-list">
                 {uploadList(uploadListData)}
-              </div>
-              <div>
-                <Pagination defaultCurrent={1} total={60} />; 
               </div>
          </div>
       </div>
