@@ -1,0 +1,31 @@
+.pickup_steps {
+
+    .step-icon {
+        width: 20px;
+        height: 20px;
+    }
+
+    .ant-steps-item-tail {
+        // &::after {
+
+  //     width: 1px !important;
+
+  //     background-image: linear-gradient(to bottom, gray 50%, transparent 50%);
+  //     background-size: 100% 10px;
+  // }
+    }
+
+    .desc {
+        color: #00ADF8;
+        font-weight: 600;
+        font-size: 16px;
+        text-decoration: underline;
+        line-height: 21px;
+    }
+
+    .title {
+        color: #1D1B20;
+        font-size: 14px;
+        line-height: 19px
+    }
+}

@@ -1,0 +1,46 @@
+.add-ons__list {
+    .add-ons__item {
+        .description {
+            font-size: 16px;
+            color: #1D1B20;
+        }
+
+        .checkbox-item {
+            .ant-checkbox-inner {
+                border: 1px solid #7F7F7F;
+                width: 18px;
+                height: 18px;
+            }
+
+            .ant-checkbox-checked {
+
+
+                .ant-checkbox-inner {
+                    background-color: #3762F6;
+                    border-color: #3762F6;
+                }
+            }
+        }
+
+        .add-ons__inputNumber {
+            border: 1px solid #7F7F7F;
+            border-radius: 8px;
+            height: 44px;
+            padding: 8px 17px 8px 17px;
+            display: flex;
+            align-items: center;
+            margin-left: auto;
+            
+
+            .input {
+                max-width: 32px;
+                border: none;
+                color: #1D1B20;
+                font-weight: 600;
+                font-size: 16px;
+                text-align: center;
+
+            }
+        }
+    }
+}

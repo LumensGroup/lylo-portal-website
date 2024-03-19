@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import Icon from "../../../../bases/components/icon";
 import request from "../../../../bases/request";
 import { RootState } from "../../../../bases/store/reducers";
-import { Search,EnterDriverInfo } from "../../../../bases/components";
 
 const HomePage = () => {
   const { count } = useSelector((state: RootState) => state.count);
@@ -39,7 +38,6 @@ const HomePage = () => {
       <div>
         ICON demo <Icon source="ic_automatic" className="icon" />
       </div>
-      <EnterDriverInfo></EnterDriverInfo>
     </div>
   );
 };

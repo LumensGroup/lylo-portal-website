@@ -5,9 +5,7 @@
   flex-direction: column;
 }
 
-.ant-collapse-header {
-  padding: 12px 16px 6px 16px !important;
-}
+
 .ant-tag {
   padding-bottom: 3px;
 }
@@ -20,6 +18,11 @@
 @mixin center-alignment {
   align-items: center;
   justify-content: center;
+}
+
+@mixin alignment {
+  align-items: center;
+  display: flex;
 }
 
 @mixin box-shadow {
@@ -48,8 +51,7 @@
     font-weight: 600;
   }
 
-  &__content {
-  }
+  &__content {}
 }
 
 @mixin media-between-sizes($lower, $upper) {

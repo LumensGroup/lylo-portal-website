@@ -1,0 +1,50 @@
+.addons__detail {
+    .addons__cardetail {
+        .addons__content {
+            display: flex;
+            align-items: center;
+            margin: 16px 0px;
+            padding: 0px 59px;
+
+            .item-wrapper {
+                display: flex;
+                width: 252px;
+                height: 100px;
+                flex-wrap: wrap;
+                margin-left: 24px;
+
+                .addons__desc_item {
+                    width: 120px;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+
+                    .icon {
+                        width: 16px;
+                        height: 16px;
+                    }
+                }
+            }
+
+        }
+    }
+
+    .addons__packageIncludes {
+        .addons__includesWrapper {
+            display: flex;
+            flex-wrap: wrap;
+            max-width: 600px;
+
+            .addons_includes_items {
+                display: flex;
+                margin-bottom: 16px;
+                width: 50%;
+
+                .desc {
+                    font-size: 16px;
+                    margin-left: 16px;
+                }
+            }
+        }
+    }
+}

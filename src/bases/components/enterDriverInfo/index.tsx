@@ -1,7 +1,7 @@
 import "./styles.scss";
 import { Tabs, Form, Input, DatePicker, Select } from "antd";
 import { InfoCircleOutlined } from '@ant-design/icons';
-import { UploadCustom } from "../index";
+import UploadCustom from "@/bases/components/uploadCustom";
 import type { TabsProps } from 'antd';
 
 const EnterDriverInfo = () => {
