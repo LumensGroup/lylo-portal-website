@@ -1,0 +1,16 @@
+ .customized-collapse {
+
+     background: #ffffff;
+     border-radius: 16px;
+     max-width: 640px;
+
+     .ant-collapse-header {
+         padding: 4px 20px !important;
+         align-items: center !important;
+
+     }
+
+     .ant-collapse-content-box {
+         padding: 0px 20px !important;
+     }
+ }

@@ -1,0 +1,56 @@
+.important-info {
+    .ant-collapse {
+        background: #ffffff;
+        border-radius: 16px;
+
+        .ant-collapse-header {
+            padding: 4px 20px;
+        }
+
+    }
+
+    &__info {
+        .item {
+            display: flex;
+            margin-bottom: 24px;
+
+            .description,
+            .title {
+                font-weight: 600;
+                font-size: 16px;
+                color: #1D1B20
+            }
+
+            .description {
+                font-weight: 400;
+            }
+
+            .icon {
+                width: 32px;
+                height: 32px;
+            }
+        }
+
+
+    }
+
+
+    .tm-btn {
+        margin: auto;
+        display: flex;
+        align-items: center;
+        height: 32px;
+        border: 1px solid #3762F6;
+        padding: 8px 16px;
+        border-radius: 49px;
+        font-size: 14px;
+        color: #3762F6;
+        font-weight: 700;
+        line-height: 19px;
+    }
+
+    .collaps_arrow {
+        width: 20px;
+        height: 20px;
+    }
+}

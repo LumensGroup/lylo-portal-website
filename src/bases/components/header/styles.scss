@@ -45,6 +45,7 @@
 
             &:hover {
               color: map-get($colors, blue-1);
+
               &::after {
                 content: '';
                 display: block;

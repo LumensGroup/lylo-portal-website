@@ -1,0 +1,115 @@
+.customized-collapse {
+    .hideButton {
+        color: #3762F6;
+        font-weight: 700;
+        font-size: 14px;
+        padding-right: 0px;
+
+        span {
+            text-decoration: underline;
+        }
+    }
+
+    .cdw-content-collapse {
+        .ant-collapse-header {
+            font-size: 16px;
+            line-height: 21px;
+            color: #1D1B20;
+            padding: 0px !important;
+        }
+
+        .ant-collapse-content {
+            font-size: 14px;
+            line-height: 20px;
+            color: #1D1B20;
+
+            .ant-collapse-content-box {
+                padding-left: 0px !important;
+            }
+        }
+
+    }
+
+    .cdw-card-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 16px;
+
+        .card {
+            border-radius: 8px;
+            border: 1px solid #3762F6;
+            padding: 24px;
+            background-color: #ffffff;
+            height: 148px;
+            width: calc(33.33% - 16px);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            font-weight: 600;
+            color: #3762F6;
+
+            &.active {
+                background: #3762F6;
+                color: #ffffff
+            }
+
+            .title {
+                font-size: 16px;
+                font-weight: 600;
+                display: flex;
+                align-items: center;
+            }
+
+            .footer-desc {
+                font-size: 16px;
+            }
+
+            .footer {
+                font-size: 20px;
+
+                .footer-unit {
+                    font-size: 16px;
+                }
+            }
+        }
+
+
+    }
+
+
+    .circle {
+        width: 20px;
+        height: 20px;
+        border: 2px solid #3762F6;
+        border-radius: 50%;
+
+        &.active {
+            position: relative;
+            width: 20px;
+            height: 20px;
+            border: 3px solid white;
+            border-radius: 50%;
+            background-color: #3762F6;
+
+            /* 填充色为蓝色 */
+            &::before {
+                content: "";
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 8px;
+                /* 内部实心圆直径为8px */
+                height: 8px;
+                background-color: white;
+                /* 内部实心圆颜色为白色 */
+                border-radius: 50%;
+            }
+        }
+    }
+
+
+
+
+}

@@ -23,7 +23,15 @@ const theme: ThemeConfig = {
       paddingInlineLG: 30,
       paddingInline: 20,
       paddingInlineSM: 10,
+       borderRadius: 8,
     },
+    Input: {
+      paddingBlock: 8,
+      paddingInline: 16,
+      activeBorderColor: '#3762F6',
+      inputFontSize: 14,
+      colorText: "#1D1B20",
+    }
   },
 };
 
