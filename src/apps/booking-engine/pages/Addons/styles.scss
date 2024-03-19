@@ -1,6 +1,6 @@
 @import "/src//bases/styles//variables.module.scss";
 
-.car-select_main-layout {
+.add-ons__main__layout {
     padding: 0px 24px;
     background: map-get($colors, blue-5);
     width: 100%;
@@ -18,4 +18,14 @@
     margin-top: 8px;
     margin-left: 16px;
     font-weight: 600;
+}
+
+.add-ons__mobile__layout {
+    width: 100%;
+    border: 1px solid red;
+    padding: 16px 24px;
+    background: map-get($colors, blue-5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
