@@ -61,11 +61,11 @@
   box-shadow:none;
   padding:0px
 }
-.enterDriverInfo-box :where(.css-dev-only-do-not-override-1ugbaeu).ant-select-single:not(.ant-select-customize-input) .ant-select-selector{
+.enterDriverInfo-box .ant-select-selector{
   border: none !important;
   box-shadow:none !important;
   border-color:#ffffff !important;
-  padding-left: 0px;
+  padding-left: 0px !important;
 }
 .form-title{
   font-family: Noto Sans;

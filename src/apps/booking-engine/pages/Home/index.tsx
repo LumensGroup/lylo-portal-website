@@ -39,6 +39,7 @@ const HomePage = () => {
       <div>
         ICON demo <Icon source="ic_automatic" className="icon" />
       </div>
+      <EnterDriverInfo></EnterDriverInfo>
     </div>
   );
 };
