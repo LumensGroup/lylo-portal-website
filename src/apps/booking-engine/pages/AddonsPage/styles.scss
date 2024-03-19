@@ -1,0 +1,25 @@
+.select-cars {
+    &__layouts {
+        display: flex;
+        justify-content: center;
+        background: #F6FAFF;
+        flex-direction: column;
+        align-items: center;
+
+        .select-cars__content {
+            width: 976px;
+
+        }
+
+        .select-cars__actionBar {
+            width: 976px;
+            height: 68px;
+            padding: 24px 0px 12px 0px;
+        }
+    }
+
+    &__actionBar {
+        display: flex;
+        align-items: center;
+    }
+}

@@ -6,13 +6,15 @@
         border-radius: 16px;
         padding: 16px;
         background-color: #ffffff;
+        box-shadow: 0px 0px 5px 0px #00000026;
+        cursor: pointer;
 
-
-        &.isActive {
+        &.isActive,
+        &:hover {
             border: 4px solid #6386FF;
         }
 
-        transition: transform 0.35s ease-out;
+        transition: transform 0.2s ease-out;
 
         &:hover {
             transform: scale(1.1);

@@ -8,7 +8,7 @@ type CarCardProps = {
 };
 const CarCard: React.FC<CarCardProps> = ({ active }) => {
   return (
-    <div className={clsx("car-card__layout", { isActive: true })}>
+    <div className={clsx("car-card__layout", { isActive: active })}>
       <div className="car-card__title">toyota</div>
       <div className="car-card__subscription">
         <div className="car-card__item">
@@ -34,7 +34,7 @@ const CarCard: React.FC<CarCardProps> = ({ active }) => {
           <span style={{ fontSize: 14 }}>.00/day</span>
         </div>
         <div className="rightText">
-          <Icon source="check" className="check-logo" />
+          <Icon source="car_check" className="check-logo" />
           Free entry
         </div>
       </div>

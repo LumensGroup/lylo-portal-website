@@ -26,17 +26,6 @@ const SelectCarPage = () => {
 
   return (
     <div className="car-select_main-layout">
-      {/* <Select
-        name="Car"
-        multiple={true}
-        options={[
-          { value: "1", label: "gas" },
-          { value: "2", label: "elec" },
-        ]}
-      />
-      <Infomation content="The vehicle images shown are examples. Specific models within a car class may vary in availability." />
-      <CarCard active={false} />
-      */}
       <AddonsLayout LeftChildren={LeftChildren} RightChildren={RightChildren} />
     </div>
   );
