@@ -2325,7 +2325,7 @@
   "resolved" "https://mirrors.tencent.com/npm/@types/range-parser/-/range-parser-1.2.7.tgz"
   "version" "1.2.7"
 
-"@types/react-dom@^18.0.0", "@types/react-dom@^18.2.22":
+"@types/react-dom@^18.0.0":
   "integrity" "sha512-fHkBXPeNtfvri6gdsMYyW+dW7RXFo6Ad09nLFK0VQWR7yGLai/Cyvyj696gbwYvBnhGtevUG9cET0pmUbMtoPQ=="
   "resolved" "https://mirrors.tencent.com/npm/@types/react-dom/-/react-dom-18.2.22.tgz"
   "version" "18.2.22"
@@ -3646,7 +3646,7 @@
 
 "clsx@^2.1.0":
   "integrity" "sha512-m3iNNWpd9rl3jvvcBnu70ylMdrXt8Vlq4HYadnU5fwcOtvkSQWPmj7amUcDT2qYI7risszBjI5AUIUox9D16pg=="
-  "resolved" "https://mirrors.tencent.com/npm/clsx/-/clsx-2.1.0.tgz"
+  "resolved" "https://registry.npmjs.org/clsx/-/clsx-2.1.0.tgz"
   "version" "2.1.0"
 
 "co@^4.6.0":

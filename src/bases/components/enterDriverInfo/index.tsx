@@ -24,7 +24,7 @@ const EnterDriverInfo = () => {
     },
     {
       key: '3',
-      label: 'Tab 3',
+      label: 'Tab 31',
       children: 'Content of Tab Pane 3',
     },
   ];
