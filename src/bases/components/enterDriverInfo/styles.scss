@@ -1,0 +1,121 @@
+.enterDriverInfo-box{
+  position: relative;
+}
+.enterDriverInfo-box .ant-form-item{
+  margin-bottom: 0px;
+}
+.enterDriverInfo-box .ant-input-outlined,.enterDriverInfo-box .ant-input-outlined:focus{
+  border-color: #ffffff;
+  box-shadow:none
+}
+.left-box{
+  position: absolute;
+  top:16px;
+  left: 14px;
+  width: 100%;
+  min-height: 300px;
+  padding: 16px;
+  border-radius: 16px;
+  gap: 16px;
+  background-color: #fff;
+}
+.left-box-title{
+  font-family: Noto Sans;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 22px;
+  letter-spacing: 0em;
+  margin-bottom: 16px;
+}
+.form-row{
+  display: flex; 
+  margin-bottom: 16px;
+  position: relative;
+}
+.form-border-box{
+  padding:8px 12px 8px 12px;
+  border: 1px solid rgba(171, 183, 186, 1);
+  border-radius: 8px;
+  width:45%;
+  height:57px
+}
+.form-border-box>div:nth-child(1),.form-border-boxMini>div:nth-child(1),.form-border-boxMax>div:nth-child(1){
+  color: rgba(139, 139, 139, 1);
+  font-size: 12px;
+}
+.enterDriverInfo-box .ant-form-item .ant-form-item-control-input {
+  min-height: 22px;
+}
+.enterDriverInfo-box .ant-input{
+  padding-left: 0px;
+}
+.form-row>div:nth-child(2){
+  position: absolute;
+  right:0px;
+}
+.enterDriverInfo-box .ant-picker-outlined{
+  border-color: #ffffff;
+}
+.enterDriverInfo-box .ant-picker{
+  width: 100%;
+  box-shadow:none;
+  padding:0px
+}
+.enterDriverInfo-box .ant-select-selector{
+  border: none !important;
+  box-shadow:none !important;
+  border-color:#ffffff !important;
+  padding-left: 0px !important;
+}
+.form-title{
+  font-family: Noto Sans;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 22px;
+  letter-spacing: 0em; 
+  margin: 32px 0px 16px 0px;
+}
+.phone-box{
+  display: flex;
+  width: 45%;
+}
+.form-border-boxMini{
+  width: 40%;
+  min-height: 57px;
+  padding: 8px 12px 8px 12px;
+  gap: 10px;
+  border-radius: 8px 0px 0px 8px;
+  border: 1px solid rgba(171, 183, 186, 1);
+}
+.form-border-boxPhone{
+  width: 60%;
+  min-height: 57px;
+  padding: 8px 12px 8px 12px;
+  border-radius: 0px 8px 8px 0px;
+  border: 1px solid rgba(171, 183, 186, 1);
+  border-left: none;
+}
+.form-border-boxMax{
+  width: 100%;
+}
+.form-border-boxMax{
+  padding: 8px 12px 8px 12px;
+  border: 1px solid rgb(171, 183, 186);
+  border-radius: 8px;
+  height:57px
+}
+@media (max-width: 950px) {
+  .phone-box{
+    width: 100%;
+  }
+  .form-border-boxMini{
+    width: 35%;
+    border-radius:8px
+  }
+  .form-border-boxPhone{
+    width: 60%;
+    margin-left: 5%;
+    border-left: 1px solid rgb(171, 183, 186);
+    border-radius:8px
+  }
+}
