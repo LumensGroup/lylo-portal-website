@@ -3,6 +3,7 @@ import Icon from "@/bases/components/icon";
 import { Checkbox, List } from "antd";
 import clsx from "clsx";
 import { useState } from "react";
+import { useMediaQuery } from "react-responsive";
 import InnerSelect from "../inner-select";
 import MoneyComponent from "../money";
 import "./styles.scss";
@@ -23,6 +24,13 @@ const renderItem = () => {
   const decrement = () => {
     setNumber((prevCount) => prevCount - 1);
   };
+
+  const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
+
+  const priceStyle = {
+    marginLeft: "auto",
+    ...(isMobile && { marginTop: 16 }),
+  };
   return (
     <List.Item className="add-ons__item">
       <Checkbox className={clsx("checkbox-item")}>
@@ -41,7 +49,7 @@ const renderItem = () => {
           handleClick={increment}
         />
       </div>
-      <MoneyComponent price="1233" style={{ marginLeft: 40 }} />
+      <MoneyComponent price="1233" style={priceStyle} />
     </List.Item>
   );
 };

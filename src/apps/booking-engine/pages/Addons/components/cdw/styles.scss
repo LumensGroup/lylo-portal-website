@@ -36,14 +36,20 @@
         justify-content: space-between;
         margin-top: 16px;
 
+        .ant-space-item {
+            display: flex;
+            flex: 1;
+        }
+
         .card {
             border-radius: 8px;
             border: 1px solid #3762F6;
             padding: 24px;
             background-color: #ffffff;
             height: 148px;
-            width: calc(33.33% - 16px);
+            max-width: 189px;
             display: flex;
+            flex: 1;
             flex-direction: column;
             justify-content: space-between;
             font-weight: 600;
@@ -74,42 +80,61 @@
             }
         }
 
-
     }
 
+    @media (max-width: 767px) {
+        .cdw-card-wrapper {
+            flex-direction: column;
 
-    .circle {
-        width: 20px;
-        height: 20px;
-        border: 2px solid #3762F6;
-        border-radius: 50%;
-
-        &.active {
-            position: relative;
-            width: 20px;
-            height: 20px;
-            border: 3px solid white;
-            border-radius: 50%;
-            background-color: #3762F6;
-
-            /* 填充色为蓝色 */
-            &::before {
-                content: "";
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                width: 8px;
-                /* 内部实心圆直径为8px */
-                height: 8px;
-                background-color: white;
-                /* 内部实心圆颜色为白色 */
-                border-radius: 50%;
+            .card {
+                height: 72px;
+                max-width: 302px;
+                min-width: 302px;
+                flex-direction: row;
+                align-items: center;
             }
         }
+
+
+        .circle {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #3762F6;
+            border-radius: 50%;
+
+            &.active {
+                position: relative;
+                width: 20px;
+                height: 20px;
+                border: 3px solid white;
+                border-radius: 50%;
+                background-color: #3762F6;
+
+                /* 填充色为蓝色 */
+                &::before {
+                    content: "";
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    width: 8px;
+                    /* 内部实心圆直径为8px */
+                    height: 8px;
+                    background-color: white;
+                    /* 内部实心圆颜色为白色 */
+                    border-radius: 50%;
+                }
+            }
+        }
+
     }
 
+    ul {
+        padding-left: 20px;
+    }
 
-
-
+    li {
+        margin-bottom: 10px;
+        /* 设置每个li元素的下边距 */
+    }
 }

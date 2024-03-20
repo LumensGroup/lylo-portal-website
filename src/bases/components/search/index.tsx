@@ -1,6 +1,6 @@
 import "./styles.scss";
 import { useState } from "react";
-import { NewDatePicker } from "../index";
+import NewDatePicker from "@/bases/components/newDatePicker";
 import { DownOutlined,InfoCircleOutlined,CloseOutlined } from '@ant-design/icons';
 import {
   Button,
