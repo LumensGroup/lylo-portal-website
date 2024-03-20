@@ -77,7 +77,7 @@
         background: transparent;
         color: #3762F6;
         box-shadow: 2px 4px 6px 0px #00000040;
-        height: 100px;
+        min-height: 100px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -149,4 +149,13 @@
 .payment-card__layout {
     margin-top: 16px;
     margin-bottom: 16px;
+}
+
+.payment-checkout__button {
+    height: 40px;
+    background: #3762F6;
+    border-radius: 8px;
+    width: 100%;
+    color: #ffffff;
+    margin-top: 8px;
 }

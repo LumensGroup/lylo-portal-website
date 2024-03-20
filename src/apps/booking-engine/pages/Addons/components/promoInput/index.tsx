@@ -28,8 +28,8 @@ const PromoCode = () => {
         },
       }}
     >
-      {" "}
-      <Form style={{ height: 40 }}>
+      <h2>Promo code</h2>
+      <Form style={{ height: 40, marginTop: 8 }}>
         <Flex align="center">
           <Form.Item
             name="promoCode"

@@ -114,7 +114,7 @@ const SelectCarPage = () => {
   );
 
   if (isMobile) {
-    return PriceOverLay;
+    return MobileAddons;
   }
   return (
     <div className="add-ons__main__layout">

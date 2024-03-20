@@ -1,6 +1,6 @@
 import CustomizedCollapse from "@/bases/components/collapse";
 import Icon from "@/bases/components/icon";
-import { Flex } from "antd";
+import { Button, Flex } from "antd";
 import clsx from "clsx";
 import { useState } from "react";
 import MoneyComponent from "../money";
@@ -94,11 +94,11 @@ const CollapseSummary = () => {
       />
       <AvgRentalTip price={10} />
       <BreakLine />
-
+      <PromoCode />
+      <BreakLine />
       <Payment />
       <BreakLine />
       <TCTip />
-      <PromoCode />
     </CustomizedCollapse>
   );
 };
@@ -197,6 +197,8 @@ const Payment = () => {
         isSelected={selectedIndex === 2}
         onSelect={() => setSelectedIndex(2)}
       />
+
+      <Button className="payment-checkout__button">Checkout</Button>
     </>
   );
 };

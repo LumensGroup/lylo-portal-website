@@ -80,6 +80,33 @@
             }
         }
 
+        .circle {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #3762F6;
+            border-radius: 50%;
+
+            &.active {
+                position: relative;
+                width: 20px;
+                height: 20px;
+                border: 3px solid white;
+                border-radius: 50%;
+                background-color: #3762F6;
+
+                &::before {
+                    content: "";
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    width: 8px;
+                    height: 8px;
+                    background-color: white;
+                    border-radius: 50%;
+                }
+            }
+        }
     }
 
     @media (max-width: 767px) {
@@ -96,36 +123,7 @@
         }
 
 
-        .circle {
-            width: 20px;
-            height: 20px;
-            border: 2px solid #3762F6;
-            border-radius: 50%;
 
-            &.active {
-                position: relative;
-                width: 20px;
-                height: 20px;
-                border: 3px solid white;
-                border-radius: 50%;
-                background-color: #3762F6;
-
-                /* 填充色为蓝色 */
-                &::before {
-                    content: "";
-                    position: absolute;
-                    top: 50%;
-                    left: 50%;
-                    transform: translate(-50%, -50%);
-                    width: 8px;
-                    /* 内部实心圆直径为8px */
-                    height: 8px;
-                    background-color: white;
-                    /* 内部实心圆颜色为白色 */
-                    border-radius: 50%;
-                }
-            }
-        }
 
     }
 
