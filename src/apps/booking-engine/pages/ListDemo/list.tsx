@@ -1,11 +1,13 @@
 import YourComponent from "../../../../bases/store/demoComponent";
-import EnterDriverInfo from "@/bases/components/enterDriverInfo";
+import NewSearch from "@/bases/components/newSearch";
 
 const ListPage = () => {
   return (
     <>
       redux demo:
-      <EnterDriverInfo />
+      <div style={{width:'100%'}}>
+        <NewSearch />
+      </div>
     </>
   );
 };

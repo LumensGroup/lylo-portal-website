@@ -6,9 +6,10 @@ import {
   Button,
   Form,
   Input,
-  Checkbox,
+  Checkbox
 } from 'antd';
 import type { CheckboxChangeEvent } from 'antd/es/checkbox';
+import request from "../../../bases/request";
 
 
 const NewSearch: React.FC = () => {
@@ -34,6 +35,7 @@ const NewSearch: React.FC = () => {
   const timeSelectMouerLeave = () => {
     setSelectType(false)
   }
+
   const timeSelectData = [
     {start:'09:00 ',end:"10:00",id:1},
     {start:'10:00 ',end:"11:00",id:2},
