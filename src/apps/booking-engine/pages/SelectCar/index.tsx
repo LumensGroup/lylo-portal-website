@@ -9,6 +9,7 @@ import CarCard from "./components/car-card";
 
 import { useMediaQuery } from "react-responsive";
 import MobileActionBar from "./components/action-bar";
+import PickUpEdit from "./components/pickup-edit";
 import "./styles.scss";
 
 const AddonsPage = () => {
@@ -65,7 +66,7 @@ const AddonsPage = () => {
 
   return (
     <>
-      <div>calendar</div>
+      {isMobile && <PickUpEdit />}
       {isMobile && <MobileActionBar />}
       <div className="select-cars__layouts">
         {!isMobile && <ActionBar />}
