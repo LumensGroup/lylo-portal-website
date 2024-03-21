@@ -1,0 +1,75 @@
+.booking-result-card.booking-info {
+  color: #1d1b20;
+  font-size: 20px;
+  overflow: hidden;
+
+  .booking-info-vertical-divider {
+    background: #cac4d0;
+    height: 20px;
+  }
+
+  .booking-info-name {
+    font-weight: 600;
+  }
+  .booking-info-orderid {
+    font-weight: 400;
+    span {
+      font-weight: 600;
+    }
+  }
+
+  .booking-info-time-lbl {
+    font-size: 16px;
+    font-weight: 400;
+    span {
+      font-weight: 600;
+    }
+  }
+
+  .booking-info-address-lbl {
+    color: #00adf8;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration-line: underline;
+  }
+
+  .booking-info-day-count {
+    border-radius: 49px;
+    border: 1px solid #1d1b20;
+    padding: 4px 12px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .booking-info-left-vertical-line {
+    height: 84px;
+  }
+
+  .shorten-vehicle-collection-time {
+    background: #e3e9ff;
+    margin: 0 -32px -24px;
+    padding: 16px 32px;
+    .shorten-vehicle-collection-time-desc {
+      width: 220px;
+      font-size: 20px;
+      font-weight: 600;
+    }
+    .shorten-vehicle-collection-time-action {
+      border-radius: 16px;
+      background: #fff;
+      width: 294.5px;
+      padding: 20px;
+      img.video{
+        width: 120px;
+      }
+    }
+
+    .shorten-vehicle-collection-action-lbl {
+      font-size: 16px;
+      font-weight: 600;
+    }
+    .shorten-vehicle-collection-action-lbl.last{
+      width: 104px;
+    }
+  }
+}

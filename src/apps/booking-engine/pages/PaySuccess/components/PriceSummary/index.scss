@@ -1,0 +1,66 @@
+.booking-result-card.price-summary {
+  color: #1d1b20;
+  font-size: 16px;
+  .total-title {
+    color: #1d1b20;
+    font-size: 20px;
+    font-weight: 400;
+  }
+  .total-title.orange {
+    color: #eb4820;
+  }
+  .total-price {
+    font-size: 20px;
+    font-weight: 600;
+  }
+  .total-title-desc {
+    color: #eb4820;
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  .total-price.orange {
+    color: #eb4820;
+  }
+
+  .total-price-desc {
+    color: #626f71;
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  .total-price-desc.orange {
+    color: #eb4820;
+  }
+
+  .price-summary-item-title {
+    font-weight: 400;
+  }
+
+  .price-summary-item-sub-title {
+    font-weight: 600;
+  }
+
+  .price-summary-item-discount {
+    border-radius: 8px;
+    background: #e3e9ff;
+    padding: 4px 8px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .price-summary-item-price {
+    font-weight: 600;
+  }
+
+  .price-summary-item-price-desc {
+    color: #626f71;
+    font-weight: 400;
+  }
+
+  .price-summary-divider{
+    padding: 0;
+    margin: 0;
+    margin-bottom: 16px;
+    background: #CAC4D0;
+  }
+}
