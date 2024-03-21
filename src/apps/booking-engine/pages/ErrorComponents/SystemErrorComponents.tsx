@@ -1,4 +1,4 @@
-import { Empty } from 'antd'
+import { Empty, Flex } from 'antd'
 import React, { ReactNode } from 'react'
 import SysErrImg from '../../../../bases/assets/imgs/sys_err_img.svg'
 import './index.scss'
@@ -17,9 +17,12 @@ export const SystemErrorComponents:React.FC<ErrorInfoData> = (props) => {
       description={null}
       className='error-component'
     >
-      <div className='error-msg' dangerouslySetInnerHTML={{__html:props.errorMsg}}></div>
+      <Flex vertical align='center'>
+      <div className='error-msg' >{props.errorMsg}</div>
       <div className='error-detail-info'>{props.errorDetailInfo}</div>
       {props.children}
+      </Flex>
+      
     </Empty>
   )
 }
