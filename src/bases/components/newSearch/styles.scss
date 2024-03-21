@@ -89,10 +89,12 @@
   line-height: 22px;
   letter-spacing: 0.5px;
   text-align: center;
-  cursor: pointer;
 }
 .time-picker-select>div:hover{
   background-color: rgba(230, 236, 255, 1);
+}
+.time-picker-select>.time-picker-select-disable:hover,.time-picker-select>.time-picker-select-disable{
+  background-color: #f1f1f1;
 }
 .search-content-right{
   position: relative;
@@ -183,6 +185,15 @@
   background: rgba(196, 209, 255, 1);
   border:none;
   color:rgba(255, 255, 255, 1);
+}
+.submit-div{
+  width: 60px;
+  height: 52px;
+  padding: 16px 20px 16px 20px;
+  border-radius: 50%;
+  position: absolute;
+  right:-16px;
+  background: #3762F6;
 }
 .search-footer{
   margin-top:8px;
@@ -326,7 +337,7 @@
   height:54px;
   width:100%
 }
-.mobile-time-select{
+.mobile-time-select,.mobile-time-select-disable{
   height:64px;
   display: flex;
   align-items: center;
@@ -336,6 +347,9 @@
   font-weight: 600;
   line-height: 22px;
   letter-spacing: 0.5px;
+}
+.mobile-time-select-disable,.mobile-time-select-disable:hover{
+  background-color: #f1f1f1;
 }
 .mobile-time-select:hover{
   background: rgba(230, 236, 255, 1);

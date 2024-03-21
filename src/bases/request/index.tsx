@@ -3,6 +3,7 @@ import type { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
 import axios from "axios";
 
 type Result<T> = {
+  data: any;
   code: number;
   message: string;
   result: T;

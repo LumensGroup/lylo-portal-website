@@ -145,6 +145,16 @@
   height:54px;
   width:100%
 }
+.picker-mobile-max .nut-calendarcard-day.weekend{
+  color:#000000
+}
+.picker-mobile-max .nut-calendarcard-day.start, .picker-mobile-max .nut-calendarcard-day.end, .picker-mobile-max .nut-calendarcard-day.active{
+  background: rgb(55, 98, 246);
+}
+.picker-mobile-max .nut-calendarcard-day.mid{
+ background: rgb(230, 236, 255);
+ color: #000000;
+}
 @media (max-width: 950px) {
   .picker-box{
     display: none;

@@ -1,31 +1,52 @@
 import "./styles.scss";
-import { DatePicker, notification } from 'antd';
+import { DatePicker } from 'antd';
 import { InfoCircleOutlined, CloseOutlined } from '@ant-design/icons';
-import { CalendarPickerView, ConfigProvider } from 'antd-mobile'
 import { useState, useEffect } from "react";
-import enUS from 'antd-mobile/es/locales/en-US'
-import request from "../../../bases/request";
 import moment from 'moment';
+import { CalendarCard, ConfigProvider  } from '@nutui/nutui-react';
+import en from "@nutui/nutui-react/dist/locales/en-US";
+import '@nutui/nutui-react/dist/style.css'
 
 type NewDatePickerProps = {
-  name?: string;
-  childData?: any
+  childData?: any;
+  dateData?: any;
+  type?: string;
+  pickupDate?: string;
+  dropOffData?: string
 };
 
 const NewDatePicker = ({
-  name,
   childData,
+  dateData,
+  type,
+  pickupDate,
+  dropOffData
 }: NewDatePickerProps) => {
-    console.log('我的名字'+name)
     const { RangePicker } = DatePicker;
     const [maxType, setMaxType] = useState<any>(false);
-    const [blackoutDateData, setBlackoutDateData] = useState<any>([]);
-    
+    const [blackoutDateValue, setBlackoutDateValue] = useState<any>([]);
+    const [startDate, setStartDate] = useState<any>('');
+    const [endData, setEndData] = useState<any>(''); 
+    // const [pickupDate, setPickupDate] = useState<any>('3-21'); 
+    // const [dropOffData, setDropOffData] = useState<any>('3-22'); 
     const disabledDate = (current:any) => {
       // 如果当前日期是数组中的一个元素，则禁用
-      return blackoutDateData.some((day:any) => current.isSame(day, 'day'));
+      return blackoutDateValue.some((day:any) => current.isSame(day, 'day'));
     };
-     
+    const getNutuiDisableDay = (value:any) =>{
+      let newmonth ='', newday = ''
+      if(value.month<10){
+        newmonth ='0'+value.month
+      }else{
+        newmonth =value.month
+      }
+      if(value.date<10){
+        newday ='0'+value.date
+      }else{
+        newday =value.date
+      }
+      return value.year+'-'+newmonth+'-'+newday
+    }
      //获取范围时间
     const getAllDatesBetween = (startDateStr:any, endDateStr:any) =>{  
       const startDate = moment(startDateStr);  
@@ -40,46 +61,21 @@ const NewDatePicker = ({
       
       return dates;  
     }  
-    const  getBlackoutDate = async (value:any) =>{
-      const arrayData: any[] = []
-      value.map((item:any)=>{
-        if(!item){
-          return false
-        }
-        const newValue = item['from_date'].split('')
-        const indexValue = newValue.indexOf('T')
-        newValue.splice(indexValue,99)
-        const dateString = newValue.join('')
-        arrayData.push(
-          moment(dateString)
-        )
-      })
-      await setBlackoutDateData(arrayData)
-    }
+
     useEffect(() => {
-      const startDate = '2023-01-01';  
-      const endDate = '2023-01-05';  
-        
-      const allDates = getAllDatesBetween(startDate, endDate);  
-        
-      console.log(allDates); // 输出开始日期和结束日期之间的所有日期
-      (async () => {
-        await request
-        .get("/blackout_date/getlist")
-        .then ((res:any) => {
-          if(res.data.code == 0){
-            getBlackoutDate(res.data.data.lists)
-          }
-        })
-        .catch((e) => {
-          notification.error({
-            message: `Notification`,
-            description: e?.statusText,
-            placement: "topRight",
-          });
-        })
-      })();
-    }, []);
+      console.log("父组件传过来的数据")
+      console.log(dateData)
+      setBlackoutDateValue(dateData)
+      setStartDate(dateData[0])
+      setEndData(dateData[dateData.length-1])
+    }, [dateData]);
+    const renderPanel = () =>{
+      return (
+        <div>
+          565656
+        </div>
+      )
+    }
     const renderExtraFooterValue = () => {
       return (
         <div className="footer-picker">
@@ -99,6 +95,10 @@ const NewDatePicker = ({
       setMaxType(false)
     }
     const pickerMobileMaxDate = ()=>{
+       let type =false
+       setTimeout(function() {
+         type = true
+        }, 1000)
         return (
           <div className="picker-mobile-max">
               <div className="picker-mobile-max-header">
@@ -110,9 +110,14 @@ const NewDatePicker = ({
                  </div>
               </div>
               <div className="picker-mobile-max-content">
-                <ConfigProvider locale={enUS}>
-                  <CalendarPickerView  selectionMode='range'></CalendarPickerView>
-                </ConfigProvider>
+                  <ConfigProvider locale={en}>
+                    <CalendarCard   
+                      type="range" 
+                      disableDay={(day) => {
+                        const newDay =getNutuiDisableDay(day)
+                        return dateData.includes(newDay);
+                      }}></CalendarCard>
+                  </ConfigProvider>,
               </div>
               <div className="picker-mobile-max-footer">
                   <div>
@@ -137,11 +142,13 @@ const NewDatePicker = ({
     }
     return (
       <div className="date-box">
-          <div>12:50</div>
+          <div>{type=='Pick-up'?pickupDate:dropOffData}</div>
           <div className="picker-box">
                 <RangePicker 
-                  onChange={() => {
-                     console.log("11111")
+                  onChange={(value:any) => {
+                     childData(value)
+                    //  setPickupDate(`${value[0].$d.getMonth() + 1}-${value[0].$d.getDate()}`)
+                    //  setDropOffData(`${value[1].$d.getMonth() + 1}-${value[1].$d.getDate()}`)
                     }}
                   onFocus={() => {
                     console.log("565")
@@ -164,35 +171,6 @@ const NewDatePicker = ({
           }}>
           </div>
           {maxType&&pickerMobileMaxDate()}
-          {/* <div className="picker-mobile-max">
-              <div className="picker-mobile-max-header">
-                 Select pickup date
-                 <div className="close-div">
-                   <CloseOutlined />
-                 </div>
-              </div>
-              <div className="picker-mobile-max-content">
-                <ConfigProvider locale={enUS}>
-                  <CalendarPickerView  selectionMode='range'></CalendarPickerView>
-                </ConfigProvider>
-              </div>
-              <div className="picker-mobile-max-footer">
-                  <div>
-                    <InfoCircleOutlined></InfoCircleOutlined>
-                  </div>
-                  <div>
-                      <div>
-                        Blackout dates: 8 Jan, 10 Jan, 15 - 16 Jan, 25 Jan
-                      </div>
-                      <div>
-                        Certain dates not selectable because there are no operations and staff available for picking up / returning cars, please select other dates instead.
-                      </div>
-                  </div>
-              </div>
-              <div className="picker-mobile-max-button" onClick={test}>
-                 Apply
-              </div>
-          </div> */}
       </div>
     );
   };

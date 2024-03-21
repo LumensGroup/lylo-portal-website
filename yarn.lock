@@ -1159,7 +1159,7 @@
   "resolved" "https://mirrors.tencent.com/npm/@babel/regjsgen/-/regjsgen-0.8.0.tgz"
   "version" "0.8.0"
 
-"@babel/runtime@^7.10.1", "@babel/runtime@^7.10.4", "@babel/runtime@^7.11.1", "@babel/runtime@^7.11.2", "@babel/runtime@^7.12.5", "@babel/runtime@^7.16.3", "@babel/runtime@^7.16.7", "@babel/runtime@^7.18.0", "@babel/runtime@^7.18.3", "@babel/runtime@^7.20.0", "@babel/runtime@^7.20.7", "@babel/runtime@^7.21.0", "@babel/runtime@^7.22.5", "@babel/runtime@^7.23.2", "@babel/runtime@^7.23.6", "@babel/runtime@^7.23.9", "@babel/runtime@^7.24.0", "@babel/runtime@^7.8.4", "@babel/runtime@^7.9.2":
+"@babel/runtime@^7.10.1", "@babel/runtime@^7.10.4", "@babel/runtime@^7.11.1", "@babel/runtime@^7.11.2", "@babel/runtime@^7.12.5", "@babel/runtime@^7.16.3", "@babel/runtime@^7.16.7", "@babel/runtime@^7.18.0", "@babel/runtime@^7.18.3", "@babel/runtime@^7.20.0", "@babel/runtime@^7.20.7", "@babel/runtime@^7.21.0", "@babel/runtime@^7.22.5", "@babel/runtime@^7.23.2", "@babel/runtime@^7.23.6", "@babel/runtime@^7.23.9", "@babel/runtime@^7.24.0", "@babel/runtime@^7.5.5", "@babel/runtime@^7.8.4", "@babel/runtime@^7.8.7", "@babel/runtime@^7.9.2":
   "integrity" "sha512-Chk32uHMg6TnQdvw2e9IlqPpFX/6NLuK0Ys2PqLb7/gL5uFn9mXvK715FGLlOLQrcO4qIkNHkvPGktzzXexsFw=="
   "resolved" "https://mirrors.tencent.com/npm/@babel/runtime/-/runtime-7.24.0.tgz"
   "version" "7.24.0"
@@ -1712,6 +1712,32 @@
   dependencies:
     "@nodelib/fs.scandir" "2.1.5"
     "fastq" "^1.6.0"
+
+"@nutui/icons-react@^1.0.2":
+  "integrity" "sha512-hyjErskjGGqe5ROrb9z5yauBvHYUQQOLQnPDPqvwN210YR8ARwcBpnW+kUvCw/3ONZuS8Vgh+3CA+SM1qip5/Q=="
+  "resolved" "https://registry.npmjs.org/@nutui/icons-react/-/icons-react-1.0.2.tgz"
+  "version" "1.0.2"
+
+"@nutui/nutui-react@^2.4.2":
+  "integrity" "sha512-kUuqPBapXyDzGn8Vj/eOh3iiKUeI+KlZXG6D+XU4PtrNme9eFvTvH2QO1hKckdH389/L2pQEvps3HBxUOm2Qcw=="
+  "resolved" "https://registry.npmjs.org/@nutui/nutui-react/-/nutui-react-2.4.2.tgz"
+  "version" "2.4.2"
+  dependencies:
+    "@babel/runtime" "^7.23.9"
+    "@nutui/icons-react" "^1.0.2"
+    "@nutui/touch-emulator" "^1.0.0"
+    "@react-spring/web" "~9.6.1"
+    "@use-gesture/react" "10.2.20"
+    "async-validator" "^4.2.5"
+    "classnames" "^2.5.1"
+    "lodash.isequal" "^4.5.0"
+    "lodash.kebabcase" "^4.1.1"
+    "react-transition-group" "^4.4.5"
+
+"@nutui/touch-emulator@^1.0.0":
+  "integrity" "sha512-k2hvI/9LlRA7Ph1Chni27pTuvPmKPt+/I10sWWd2sWzqiCOYRerD79eIwCMRGUF/q6WVDEKVnv00t9CEUL4sPA=="
+  "resolved" "https://registry.npmjs.org/@nutui/touch-emulator/-/touch-emulator-1.0.0.tgz"
+  "version" "1.0.0"
 
 "@pkgjs/parseargs@^0.11.0":
   "integrity" "sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg=="
@@ -2545,10 +2571,22 @@
   "resolved" "https://mirrors.tencent.com/npm/@ungap/structured-clone/-/structured-clone-1.2.0.tgz"
   "version" "1.2.0"
 
+"@use-gesture/core@10.2.20":
+  "integrity" "sha512-4lFhHc8so4yIHkBEs641DnEsBxPyhJ5GEjB4PURFDH4p/FcZriH6w99knZgI63zN/MBFfylMyb8+PDuj6RIXKQ=="
+  "resolved" "https://registry.npmjs.org/@use-gesture/core/-/core-10.2.20.tgz"
+  "version" "10.2.20"
+
 "@use-gesture/core@10.3.0":
   "integrity" "sha512-rh+6MND31zfHcy9VU3dOZCqGY511lvGcfyJenN4cWZe0u1BH6brBpBddLVXhF2r4BMqWbvxfsbL7D287thJU2A=="
   "resolved" "https://mirrors.tencent.com/npm/@use-gesture/core/-/core-10.3.0.tgz"
   "version" "10.3.0"
+
+"@use-gesture/react@10.2.20":
+  "integrity" "sha512-KnJq9ZSqprWA6uNhWTUHZqTCh+rfa0j8ehTzqeBhktUPrmTj7yVOBvEQ/vSFU/7d72cGgWSsJ0f5T6GQCHXnvg=="
+  "resolved" "https://registry.npmjs.org/@use-gesture/react/-/react-10.2.20.tgz"
+  "version" "10.2.20"
+  dependencies:
+    "@use-gesture/core" "10.2.20"
 
 "@use-gesture/react@10.3.0":
   "integrity" "sha512-3zc+Ve99z4usVP6l9knYVbVnZgfqhKah7sIG+PS2w+vpig2v2OLct05vs+ZXMzwxdNCMka8B+8WlOo0z6Pn6DA=="
@@ -3133,7 +3171,7 @@
   "resolved" "https://mirrors.tencent.com/npm/ast-types-flow/-/ast-types-flow-0.0.8.tgz"
   "version" "0.0.8"
 
-"async-validator@^4.1.0":
+"async-validator@^4.1.0", "async-validator@^4.2.5":
   "integrity" "sha512-7HhHjtERjqlNbZtqNqy2rckN/SpOOlmDliet+lP7k+eKZEjPk3DgyeU9lIXLdeLz0uBbbVp+9Qdow9wJWgwwfg=="
   "resolved" "https://mirrors.tencent.com/npm/async-validator/-/async-validator-4.2.5.tgz"
   "version" "4.2.5"
@@ -4324,6 +4362,14 @@
   "version" "0.2.0"
   dependencies:
     "utila" "~0.4"
+
+"dom-helpers@^5.0.1":
+  "integrity" "sha512-nRCa7CK3VTrM2NmGkIy4cbK7IZlgBE/PYMn55rrXefr5xXDP0LdtfPnblFDoVdcAfslJ7or6iqAUnx0CCGIWQA=="
+  "resolved" "https://registry.npmjs.org/dom-helpers/-/dom-helpers-5.2.1.tgz"
+  "version" "5.2.1"
+  dependencies:
+    "@babel/runtime" "^7.8.7"
+    "csstype" "^3.0.2"
 
 "dom-serializer@^1.0.1":
   "integrity" "sha512-VHwB3KfrcOOkelEG2ZOfxqLZdfkil8PtJi4P8N2MMXucZq2yLp75ClViUlOVwyoHEDjYU433Aq+5zWP61+RGag=="
@@ -6907,6 +6953,16 @@
   "resolved" "https://mirrors.tencent.com/npm/lodash.debounce/-/lodash.debounce-4.0.8.tgz"
   "version" "4.0.8"
 
+"lodash.isequal@^4.5.0":
+  "integrity" "sha512-pDo3lu8Jhfjqls6GkMgpahsF9kCyayhgykjyLMNFTKWrpVdAQtYyB4muAMWozBB4ig/dtWAmsMxLEI8wuz+DYQ=="
+  "resolved" "https://registry.npmjs.org/lodash.isequal/-/lodash.isequal-4.5.0.tgz"
+  "version" "4.5.0"
+
+"lodash.kebabcase@^4.1.1":
+  "integrity" "sha512-N8XRTIMMqqDgSy4VLKPnJ/+hpGZN+PHQiJnSenYqPaVV/NCqEogTnAdZLQiGKhxX+JCs8waWq2t1XHWKOmlY8g=="
+  "resolved" "https://registry.npmjs.org/lodash.kebabcase/-/lodash.kebabcase-4.1.1.tgz"
+  "version" "4.1.1"
+
 "lodash.memoize@^4.1.2":
   "integrity" "sha512-t7j+NzmgnQzTAYXcsHYLgimltOV1MXHtlOWf6GjL9Kj8GK5FInw5JotxvbOs+IvV1/Dzo04/fCGfLVs7aXb4Ag== sha1-vMbEmkKihA7Zl/Mj6tpezRguC/4="
   "resolved" "https://mirrors.tencent.com/npm/lodash.memoize/-/lodash.memoize-4.1.2.tgz"
@@ -8222,7 +8278,7 @@
     "kleur" "^3.0.3"
     "sisteransi" "^1.0.5"
 
-"prop-types@^15.6.1", "prop-types@^15.8.1":
+"prop-types@^15.6.1", "prop-types@^15.6.2", "prop-types@^15.8.1":
   "integrity" "sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg=="
   "resolved" "https://mirrors.tencent.com/npm/prop-types/-/prop-types-15.8.1.tgz"
   "version" "15.8.1"
@@ -8712,7 +8768,7 @@
     "strip-ansi" "^6.0.1"
     "text-table" "^0.2.0"
 
-"react-dom@*", "react-dom@^16.8.0 || ^17.0.0 || ^18.0.0", "react-dom@^18.0.0", "react-dom@^18.2.0", "react-dom@>=16.0.0", "react-dom@>=16.11.0", "react-dom@>=16.8", "react-dom@>=16.9.0":
+"react-dom@*", "react-dom@^16.8.0 || ^17.0.0 || ^18.0.0", "react-dom@^18.0.0", "react-dom@^18.2.0", "react-dom@>=16.0.0", "react-dom@>=16.11.0", "react-dom@>=16.6.0", "react-dom@>=16.8", "react-dom@>=16.9.0":
   "integrity" "sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g=="
   "resolved" "https://mirrors.tencent.com/npm/react-dom/-/react-dom-18.2.0.tgz"
   "version" "18.2.0"
@@ -8788,7 +8844,17 @@
   dependencies:
     "@remix-run/router" "1.15.1"
 
-"react@*", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^16.9.0 || ^17.0.0 || ^18", "react@^18.0", "react@^18.0.0", "react@^18.2.0", "react@>= 16.8.0", "react@>=16.0.0", "react@>=16.11.0", "react@>=16.8", "react@>=16.8.0", "react@>=16.9.0":
+"react-transition-group@^4.4.5":
+  "integrity" "sha512-pZcd1MCJoiKiBR2NRxeCRg13uCXbydPnmB4EOeRrY7480qNWO8IIgQG6zlDkm6uRMsURXPuKq0GWtiM59a5Q6g=="
+  "resolved" "https://registry.npmjs.org/react-transition-group/-/react-transition-group-4.4.5.tgz"
+  "version" "4.4.5"
+  dependencies:
+    "@babel/runtime" "^7.5.5"
+    "dom-helpers" "^5.0.1"
+    "loose-envify" "^1.4.0"
+    "prop-types" "^15.6.2"
+
+"react@*", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^16.9.0 || ^17.0.0 || ^18", "react@^18.0", "react@^18.0.0", "react@^18.2.0", "react@>= 16.8.0", "react@>=16.0.0", "react@>=16.11.0", "react@>=16.6.0", "react@>=16.8", "react@>=16.8.0", "react@>=16.9.0":
   "integrity" "sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ=="
   "resolved" "https://mirrors.tencent.com/npm/react/-/react-18.2.0.tgz"
   "version" "18.2.0"
