@@ -7,6 +7,7 @@ import Select from "../Addons/components/select";
 import BreakLine from "./components/breakline";
 import CarCard from "./components/car-card";
 
+import StepInfoBar from "@/bases/components/steps";
 import request from "@/bases/request";
 import { useEffect } from "react";
 import { useMediaQuery } from "react-responsive";
@@ -83,6 +84,7 @@ const AddonsPage = () => {
 
   return (
     <>
+      <StepInfoBar currentIndex={0} />
       {isMobile && <PickUpEdit />}
       {isMobile && <MobileActionBar />}
       <div className="select-cars__layouts">

@@ -1,6 +1,7 @@
 import AddonsLayout from "@/bases/components/addons-layout";
 import CustomizedCollapse from "@/bases/components/collapse";
 import Icon from "@/bases/components/icon";
+import StepInfoBar from "@/bases/components/steps";
 import { Button, Flex, Space } from "antd";
 import { useMediaQuery } from "react-responsive";
 import Addons from "./components/addons";
@@ -95,6 +96,7 @@ const SelectCarPage = () => {
 
   const MobileAddons = (
     <>
+      <StepInfoBar currentIndex={1} />
       <div className="add-ons__mobile__layout">{MobileChildren}</div>{" "}
       <div className="add-ons__footer">
         <Flex justify="space-between">
@@ -117,9 +119,15 @@ const SelectCarPage = () => {
     return MobileAddons;
   }
   return (
-    <div className="add-ons__main__layout">
-      <AddonsLayout LeftChildren={LeftChildren} RightChildren={RightChildren} />
-    </div>
+    <>
+      <StepInfoBar currentIndex={1} />
+      <div className="add-ons__main__layout">
+        <AddonsLayout
+          LeftChildren={LeftChildren}
+          RightChildren={RightChildren}
+        />
+      </div>
+    </>
   );
 };
 
