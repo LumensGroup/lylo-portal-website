@@ -7,9 +7,27 @@ import Select from "../Addons/components/select";
 import BreakLine from "./components/breakline";
 import CarCard from "./components/car-card";
 
+import request from "@/bases/request";
+import { useEffect } from "react";
+import { useMediaQuery } from "react-responsive";
+import MobileActionBar from "./components/action-bar";
+import PickUpEdit from "./components/pickup-edit";
 import "./styles.scss";
+
 const AddonsPage = () => {
   const navigate = useNavigate();
+  const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
+
+  const getCarList = async () => {
+    request
+      .get("/item/getlist")
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
 
   const ActionBar = () => {
     return (
@@ -59,22 +77,30 @@ const AddonsPage = () => {
     navigate("/add-ons");
   };
 
+  useEffect(() => {
+    getCarList();
+  }, []);
+
   return (
-    <div className="select-cars__layouts">
-      <div>calendar</div>
-      <ActionBar />
-      <Infomation
-        content="The vehicle images shown are examples. Specific models within a car class may vary in availability."
-        style={{ width: "976px", marginTop: 8, marginBottom: 16 }}
-      />
-      <Space className="select-cars__content" wrap size={16}>
-        {[1, 2, 3, 4, 5, 6, 6, 7, 8, 9, 10].map((index) => {
-          return (
-            <CarCard active={false} key={index} onCardClick={handleCardClick} />
-          );
-        })}
-      </Space>
-    </div>
+    <>
+      {isMobile && <PickUpEdit />}
+      {isMobile && <MobileActionBar />}
+      <div className="select-cars__layouts">
+        {!isMobile && <ActionBar />}
+        <Infomation content="The vehicle images shown are examples. Specific models within a car class may vary in availability." />
+        <Space className="select-cars__content" wrap size={16}>
+          {[1, 2, 3, 4, 5, 6, 6, 7, 8, 9, 10].map((index) => {
+            return (
+              <CarCard
+                active={false}
+                key={index}
+                onCardClick={handleCardClick}
+              />
+            );
+          })}
+        </Space>
+      </div>
+    </>
   );
 };
 export default AddonsPage;

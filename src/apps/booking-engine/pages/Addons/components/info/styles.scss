@@ -5,9 +5,26 @@
     font-weight: 600;
     color: #ffffff;
     display: flex;
-    align-items: center;
+
+    margin-top: 8px;
+    margin-bottom: 16px;
 
     .infomation {
         margin-right: 10px;
+        margin-bottom: auto;
+    }
+
+    @media(max-width:767px) {
+        max-width: 342px;
+    }
+
+    @media(min-width:767px) and (max-width:1024px) {
+        width: 640px;
+        align-items: center;
+    }
+
+    @media (min-width:1024px) {
+        width: 976px;
+        align-items: center;
     }
 }

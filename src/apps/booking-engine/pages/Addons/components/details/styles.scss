@@ -27,6 +27,8 @@
             }
 
         }
+
+
     }
 
     .addons__packageIncludes {
@@ -34,6 +36,7 @@
             display: flex;
             flex-wrap: wrap;
             max-width: 600px;
+            margin-top: 16px;
 
             .addons_includes_items {
                 display: flex;
@@ -46,5 +49,19 @@
                 }
             }
         }
+    }
+
+    @media (max-width: 767px) {
+
+        .addons__content,
+        .addons__includesWrapper {
+            flex-direction: column;
+
+            .addons_includes_items {
+                width: 100% !important;
+            }
+        }
+
+
     }
 }
