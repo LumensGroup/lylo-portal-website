@@ -12,7 +12,7 @@ export default function ImportantInfo() {
 
   const contactInfos = [
     {icon:'hotline_icon.svg',title:'Lylo hotline',desc:'+65 9880 5924'},
-    {icon:'phone24h_call.svg',title:'24 hour Roadside Assistance',desc:'+65 9880 5924'}
+    {icon:'phone24h_call.svg',title:'24 hour Roadside Assistance',desc:'+65 8828 9159'}
   ]
 
   return (
@@ -25,7 +25,7 @@ export default function ImportantInfo() {
           ))
         }
       </Flex>
-      <div>Please refer to <a>Terms & Condition</a> for more details</div>
+      <div>Please refer to <a href=' https://lylo.sg/terms-and-conditions'>Terms & Condition</a> for more details</div>
       <h4>Need help?</h4>
       <Flex vertical gap={24}>
         {
