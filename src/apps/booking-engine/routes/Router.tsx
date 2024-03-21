@@ -3,10 +3,10 @@ import HeaderLylo from "../../../bases/components/header";
 import App from "../App";
 
 const Router = () => (
-  <HeaderLylo>
-    <HashRouter>
+  <HashRouter>
+    <HeaderLylo>
       <App />
-    </HashRouter>
-  </HeaderLylo>
+    </HeaderLylo>
+  </HashRouter>
 );
 export default Router;

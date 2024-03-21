@@ -7,6 +7,8 @@ import Select from "../Addons/components/select";
 import BreakLine from "./components/breakline";
 import CarCard from "./components/car-card";
 
+import request from "@/bases/request";
+import { useEffect } from "react";
 import { useMediaQuery } from "react-responsive";
 import MobileActionBar from "./components/action-bar";
 import PickUpEdit from "./components/pickup-edit";
@@ -15,6 +17,17 @@ import "./styles.scss";
 const AddonsPage = () => {
   const navigate = useNavigate();
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
+
+  const getCarList = async () => {
+    request
+      .get("/item/getlist")
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
 
   const ActionBar = () => {
     return (
@@ -63,6 +76,10 @@ const AddonsPage = () => {
   const handleCardClick = () => {
     navigate("/add-ons");
   };
+
+  useEffect(() => {
+    getCarList();
+  }, []);
 
   return (
     <>

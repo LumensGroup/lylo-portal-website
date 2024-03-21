@@ -1,4 +1,5 @@
 // index.ts
+import { notification } from "antd";
 import type { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
 import axios from "axios";
 
@@ -9,6 +10,7 @@ type Result<T> = {
 };
 
 const BASE_API_URL = process.env.REACT_APP_BASE_API_URL as string;
+
 // 导出Request类，可以用来自定义传递配置来创建实例
 export class Request {
   // axios 实例
@@ -39,6 +41,7 @@ export class Request {
 
     this.instance.interceptors.response.use(
       (res: AxiosResponse) => {
+        console.log(res, "res");
         return res;
       },
       (err: any) => {
@@ -82,8 +85,12 @@ export class Request {
           default:
             message = `连接出错(${err.response.status})!`;
         }
-        // 这里错误消息可以使用全局弹框展示出来
-        // 这里是AxiosError类型，所以一般我们只reject我们需要的响应即可
+
+        notification.error({
+          message: "Error!",
+          description: message,
+        });
+
         return Promise.reject(err.response);
       }
     );
@@ -93,6 +100,7 @@ export class Request {
   request(config: AxiosRequestConfig): Promise<AxiosResponse> {
     return this.instance.request(config);
   }
+
   public get<T = any>(
     url: string,
     config?: AxiosRequestConfig
