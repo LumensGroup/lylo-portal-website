@@ -76,8 +76,8 @@ const HeaderlLylo = ({ children }: any) => {
               <>
                 <Menu
                   mode="horizontal"
-                  defaultSelectedKeys={["1"]}
                   className={"custom-menu-header"}
+                  selectedKeys={["1"]}
                 >
                   {items}
                 </Menu>

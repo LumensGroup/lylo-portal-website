@@ -1,4 +1,5 @@
 // index.ts
+import { notification } from "antd";
 import type { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
 import axios from "axios";
 
@@ -9,6 +10,7 @@ type Result<T> = {
 };
 
 const BASE_API_URL = process.env.REACT_APP_BASE_API_URL as string;
+
 // 导出Request类，可以用来自定义传递配置来创建实例
 export class Request {
   // axios 实例
@@ -39,51 +41,52 @@ export class Request {
 
     this.instance.interceptors.response.use(
       (res: AxiosResponse) => {
+        console.log(res, "res");
         return res;
       },
       (err: any) => {
-        // 这里用来处理http常见错误，进行全局提示
         let message = "";
         switch (err.response.status) {
           case 400:
-            message = "请求错误(400)";
+            message = "Bad Request";
             break;
           case 401:
-            message = "未授权，请重新登录(401)";
+            message = "Unauthorized";
             // 这里可以做清空storage并跳转到登录页的操作
             break;
           case 403:
-            message = "拒绝访问(403)";
+            message = "Forbidden";
             break;
           case 404:
-            message = "请求出错(404)";
+            message = "Not Found";
             break;
           case 408:
-            message = "请求超时(408)";
+            message = "Request Timeout";
             break;
           case 500:
-            message = "服务器错误(500)";
-            break;
-          case 501:
-            message = "服务未实现(501)";
+            message = "Internal Server Error";
             break;
           case 502:
-            message = "网络错误(502)";
+            message = "Bad Gateway";
             break;
           case 503:
-            message = "服务不可用(503)";
+            message = "Service Unavailable";
             break;
           case 504:
-            message = "网络超时(504)";
+            message = "Gateway Timeout";
             break;
           case 505:
             message = "HTTP版本不受支持(505)";
             break;
           default:
-            message = `连接出错(${err.response.status})!`;
+            message = `link error(${err.response.status})!`;
         }
-        // 这里错误消息可以使用全局弹框展示出来
-        // 这里是AxiosError类型，所以一般我们只reject我们需要的响应即可
+
+        notification.error({
+          message: "Error!",
+          description: message,
+        });
+
         return Promise.reject(err.response);
       }
     );
@@ -93,6 +96,7 @@ export class Request {
   request(config: AxiosRequestConfig): Promise<AxiosResponse> {
     return this.instance.request(config);
   }
+
   public get<T = any>(
     url: string,
     config?: AxiosRequestConfig

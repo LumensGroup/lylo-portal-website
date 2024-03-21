@@ -47,8 +47,6 @@
         height: 20px;
     }
 
-
-
     &__img {
 
         img {
@@ -86,5 +84,12 @@
         .check-logo {
             margin-right: 4px;
         }
+    }
+
+}
+
+@media(max-width:767px) {
+    .car-card__layout {
+        width: 342px;
     }
 }
