@@ -1,8 +1,10 @@
+@import "/src/bases/styles/variables.module.scss";
+
 .add-ons-item-card {
   padding: 0px;
 
   overflow: hidden;
-  // background: #3762F6;
+  // background: map-get($colors, blue-1);
   color: #1d1b20;
   font-family: "Noto Sans";
 
@@ -38,14 +40,14 @@
 
     .addons-button-add {
       
-      color: white;
-      background-color: #3762f6;
+      color: map-get($colors, white);
+      background-color: map-get($colors, blue-1);
       border: none;
     }
     .addons-button-remove {
-      color: #3762f6;
-      background-color: white;
-      border: 1px solid #3762f6;
+      color: map-get($colors, blue-1);
+      background-color: map-get($colors, white);
+      border: 1px solid map-get($colors, blue-1);
      
     }
   }
@@ -57,8 +59,8 @@
       left: 8px;
       top: 10px;
       border-radius: 8px;
-      background: #3762f6;
-      color: white;
+      background: map-get($colors, blue-1);
+      color: map-get($colors, white);
       padding: 4px 8px;
 
       text-align: center;
