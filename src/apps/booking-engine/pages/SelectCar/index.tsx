@@ -1,5 +1,5 @@
 import Icon from "@/bases/components/icon";
-import { Slider, Space } from "antd";
+import { Slider, Space, Spin } from "antd";
 import { useNavigate } from "react-router-dom";
 
 import Infomation from "../Addons/components/info";
@@ -85,6 +85,7 @@ const AddonsPage = () => {
   });
   const [sortCondition, setSortCondition] = useState();
   const [carList, setCarList] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSort = (value: any) => setSortCondition(value);
   const handleFilter = (keyName: string, value: any) => {
@@ -95,8 +96,8 @@ const AddonsPage = () => {
   };
 
   const getCarList = async () => {
+    setIsLoading(true);
     const params: any = {};
-
     if (sortCondition) {
       params["sorter[sale_price]"] = sortCondition;
     }
@@ -121,6 +122,7 @@ const AddonsPage = () => {
     const data = await request.get("/vehicle/getlist", { params });
     const { lists } = data as any;
     setCarList(lists);
+    setIsLoading(false);
   };
 
   const handleCardClick = () => {
@@ -143,18 +145,21 @@ const AddonsPage = () => {
           <ActionBar handleFilter={handleFilter} handleSort={handleSort} />
         )}
         <Infomation content="The vehicle images shown are examples. Specific models within a car class may vary in availability." />
-        <Space className="select-cars__content" wrap size={16}>
-          {carList?.map((item, index) => {
-            return (
-              <CarCard
-                item={item}
-                active={false}
-                key={index}
-                onCardClick={handleCardClick}
-              />
-            );
-          })}
-        </Space>
+        {isLoading && <Spin />}
+        {!isLoading && (
+          <Space className="select-cars__content" wrap size={16}>
+            {carList?.map((item, index) => {
+              return (
+                <CarCard
+                  item={item}
+                  active={false}
+                  key={index}
+                  onCardClick={handleCardClick}
+                />
+              );
+            })}
+          </Space>
+        )}
       </div>
     </>
   );
