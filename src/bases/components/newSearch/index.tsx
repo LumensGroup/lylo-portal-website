@@ -8,7 +8,7 @@ import {
   Input,
   Checkbox,
   notification,
-  type FormProps,
+  Image
 } from 'antd';
 import type { CheckboxChangeEvent } from 'antd/es/checkbox';
 import request from "../../../bases/request";
@@ -30,41 +30,122 @@ const NewSearch: React.FC = () => {
   const [pickerMobileMaxFormType, setPickerMobileMaxFormType] = useState<any>(false);
   const [blackoutDateData, setBlackoutDateData] = useState<any>([]);
   const [locationFormValue] = Form.useForm();
+  const [searchForm] = useState<any>({})
   const [pickupDate, setPickupDate] = useState<any>('3-21'); 
   const [dropOffData, setDropOffData] = useState<any>('3-22'); 
-
-
+  const [openData, setOpenData] = useState<any>([]);
+  const [pickupName, setPickupName] = useState<any>('');  //开始日期对应的周几
+  const [dropOffName, setDropOffName] = useState<any>('');  //结束日期对应的周几
+  const [addressLineOne, setAddressLineOne] = useState<any>('Lylohaus - 300 Sin Ming Rd');
+  const [addressLineTwo, setAddressLineTwo] = useState<any>('Singapore 575626');
+  
+  
+  const [timeSelectData, setTimeSelectData] = useState<any>([    
+    {start:'09:00',end:"10:00",id:1,fromTime:9,endTime:10,disable:true},
+    {start:'10:00',end:"11:00",id:2,fromTime:10,endTime:11,disable:true},
+    {start:'11:00',end:"12:00",id:3,fromTime:11,endTime:12,disable:true},
+    {start:'12:00',end:"13:00",id:4,fromTime:12,endTime:13,disable:true},
+    {start:'13:00',end:"14:00",id:5,fromTime:13,endTime:14,disable:true},
+    {start:'14:00',end:"15:00",id:6,fromTime:14,endTime:15,disable:true},
+    {start:'15:00',end:"16:00",id:7,fromTime:15,endTime:16,disable:true},
+    {start:'16:00',end:"17:00",id:8,fromTime:16,endTime:17,disable:true},
+    {start:'17:00',end:"18:00",id:9,fromTime:17,endTime:18,disable:true},
+  ]);
+  const [timeSelectDataTwo, setTimeSelectDataTwo] = useState<any>([    
+    {start:'09:00',end:"10:00",id:1,fromTime:9,endTime:10,disable:true},
+    {start:'10:00',end:"11:00",id:2,fromTime:10,endTime:11,disable:true},
+    {start:'11:00',end:"12:00",id:3,fromTime:11,endTime:12,disable:true},
+    {start:'12:00',end:"13:00",id:4,fromTime:12,endTime:13,disable:true},
+    {start:'13:00',end:"14:00",id:5,fromTime:13,endTime:14,disable:true},
+    {start:'14:00',end:"15:00",id:6,fromTime:14,endTime:15,disable:true},
+    {start:'15:00',end:"16:00",id:7,fromTime:15,endTime:16,disable:true},
+    {start:'16:00',end:"17:00",id:8,fromTime:16,endTime:17,disable:true},
+    {start:'17:00',end:"18:00",id:9,fromTime:17,endTime:18,disable:true},
+  ]);
+  const [mobileForm] = Form.useForm();
+  
   type FieldType = {
     username?: string;
     password?: string;
     remember?: string;
   };
-  const childDataFc = (value:any,type:any) =>{
-    console.log("接收到子组件的数据"+value)
-    setPickupDate(`${value[0].$d.getMonth() + 1}-${value[0].$d.getDate()}`)
-    setDropOffData(`${value[1].$d.getMonth() + 1}-${value[1].$d.getDate()}`)
+  const childDataFc = (value:any,equipment:any,type:any) =>{
+    console.log("接收到子组件的数据")
+    console.log(value)
+    console.log(type)
+    console.log(equipment)
+    if(type=='Pick-up'&&equipment=='pc'){
+      searchForm['pick_up_date'] =value[0].$d
+      searchForm['pick_off_date'] =value[1].$d
+    }else if (type=='Pick-up'&&equipment=='mobile'){
+      console.log('56565')
+      searchForm['pick_up_date'] =value[0]
+      searchForm['pick_off_date'] =value[1]
+    }else if(type=='Pick-off'&&equipment=='pc'){
+      searchForm['pick_up_date'] =value[0].$d
+      searchForm['pick_off_date'] =value[1].$d
+    } else if (type=='Pick-off'&&equipment=='mobile'){
+      searchForm['pick_up_date'] =value[0]
+      searchForm['pick_off_date'] =value[1]
+    }
+    const pickupOpengTime : any[] = [];
+    const dropOffOpengTime : any[] = [];
+    if(equipment=='pc'){
+      setPickupDate(`${value[0].$d.getMonth() + 1}-${value[0].$d.getDate()}`)
+      setDropOffData(`${value[1].$d.getMonth() + 1}-${value[1].$d.getDate()}`)
+    }else{
+      const valueOne = value[0]?new Date(value[0]):''
+      const valueTwo = value[1]?new Date(value[1]):''
+      console.log('valueOne')
+      console.log(valueTwo)
+      setPickupDate(valueOne?`${valueOne.getMonth() + 1}-${valueOne.getDate()}`:'')
+      setDropOffData(valueTwo?`${valueTwo.getMonth() + 1}-${valueTwo.getDate()}`:'')
+    }
+    setPickupName(moment(value[0]).format('dddd'))
+    const pickupName =  moment(value[0]).format('dddd').toUpperCase()
+    const dropOffName = moment(value[1]).format('dddd').toUpperCase()
+    console.log(pickupName)
+    console.log(openData[0])
+    openData[0].opening_hours.map((item:any)=>{
+      if(item.weekday == pickupName){
+        pickupOpengTime.push(parseFloat(item.open_from)+8)
+        pickupOpengTime.push(parseFloat(item.open_until)+8)
+      }else if(item.weekday == dropOffName){
+        dropOffOpengTime.push(parseFloat(item.open_from)+8)
+        dropOffOpengTime.push(parseFloat(item.open_until)+8)
+      }
+    })
+    console.log(pickupOpengTime)
+    // pick-up不可选日期
+    const timeSelectValue = [...timeSelectData]
+    timeSelectValue.map((item:any)=>{
+      if(item.fromTime>=pickupOpengTime[0]&&item.endTime<=pickupOpengTime[1]){
+        item.disable = false
+      }
+    })
+    setTimeSelectData(timeSelectValue)
+    //drop-off不可选日期
+    const timeSelectValueTwo = [...timeSelectDataTwo]
+    timeSelectValueTwo.map((item:any)=>{
+      if(item.fromTime>=pickupOpengTime[0]&&item.endTime<=pickupOpengTime[1]){
+        item.disable = false
+      }
+    })
+    setTimeSelectDataTwo(timeSelectValueTwo)
+    console.log('searchForm')
+    console.log(searchForm)
+    // console.log(parseFloat(pickupOpengTime[1]))
   }
 
   const timeSelectMouerLeave = () => {
     setSelectType(false)
   }
 
-  const timeSelectData = [
-    {start:'09:00 ',end:"10:00",id:1,fromTime:'09:00 ',endTime:"10:00",disable:false},
-    {start:'10:00 ',end:"11:00",id:2,fromTime:'10:00 ',endTime:"11:00",disable:false},
-    {start:'11:00 ',end:"12:00",id:3,fromTime:'11:00 ',endTime:"12:00",disable:false},
-    {start:'12:00 ',end:"13:00",id:4,fromTime:'12:00 ',endTime:"01:00",disable:false},
-    {start:'13:00 ',end:"14:00",id:5,fromTime:'01:00 ',endTime:"02:00",disable:false},
-    {start:'14:00 ',end:"15:00",id:6,fromTime:'02:00 ',endTime:"03:00",disable:false},
-    {start:'15:00 ',end:"16:00",id:7,fromTime:'03:00 ',endTime:"04:00",disable:false},
-    {start:'16:00 ',end:"17:00",id:8,fromTime:'04:00 ',endTime:"05:00",disable:true},
-    {start:'17:00 ',end:"18:00",id:9,fromTime:'05:00 ',endTime:"06:00",disable:false},
-  ]
-  const renderExtraFooterValue = () => {
+  const renderExtraFooterValue = (data:any) => {
     return (
       <div className="time-picker-select" style={{display:selectType?'block':'none'}} onMouseLeave={timeSelectMouerLeave}>
           {
-            timeSelectData.map(item => (
+            data.map((item:any) => (
             <div key={item.id} 
             style={{cursor:item.disable?'no-drop':'pointer'}}
             className={item.disable?'time-picker-select-disable':''}
@@ -72,7 +153,11 @@ const NewSearch: React.FC = () => {
               setSelectTimeValue(item.start)
               setSelectType(false)
               clickType=='Pick-up'?SetPickUp(item.start):''
-              console.log(item)
+              if(!item.disable){
+                searchForm['start_time']=item.start
+                searchForm['end_time']=item.end
+              }
+              console.log(searchForm)
             }}>
               {item.start} - {item.end}
             </div>
@@ -83,7 +168,18 @@ const NewSearch: React.FC = () => {
   }
   const locationFormOnFinish = (values:any) => {
     console.log('Success:', values);
+    Object.assign(searchForm,values)
+    setAddressLineOne(values.address_line_one)
+    setAddressLineTwo(values.address_line_two_optional)
     setLocationFormType(false)
+  };
+  const locationFormMobileOnFinish = (values:any) => {
+    setPickerMobileMaxFormType(false)
+    console.log('Success:', values);
+    Object.assign(searchForm,values)
+    setLocationFormType(false)
+    setAddressLineOne(values.address_line_one)
+    setAddressLineTwo(values.address_line_two_optional)
   };
   const locationForm = () => {
     return (
@@ -91,7 +187,7 @@ const NewSearch: React.FC = () => {
         <div>Lylohaus - 300 Sin Ming Rd, Singapore 575626</div>
         <div className="location-form-content">
           <div>
-              Deliver vehicle to my location*
+              Deliver vehicle to my location*   
           </div>
           <div>
           <Form
@@ -100,16 +196,16 @@ const NewSearch: React.FC = () => {
               layout="horizontal"
               onFinish={locationFormOnFinish}
             >
-              <Form.Item name='Postalcode'>
+              <Form.Item name='postalcode'>
                 <Input style={{height:'54px'}}  placeholder='Postal code'/>
               </Form.Item>
-              <Form.Item name='AddresslineOne'>
+              <Form.Item name='address_line_one'>
                 <Input style={{height:'54px'}} placeholder='Address line 1'/>
               </Form.Item>
-              <Form.Item name='AddresslineTwo' >
+              <Form.Item name='address_line_two_optional' >
                 <Input style={{height:'54px'}} placeholder='Address line 2 - optional'/>
               </Form.Item>
-              <Form.Item name='Remarks'>
+              <Form.Item name='remarks'>
                 <Input style={{height:'54px'}} placeholder='Remarks'/>
               </Form.Item>
               <Form.Item>
@@ -149,6 +245,9 @@ const NewSearch: React.FC = () => {
       setRightOneTitle('Pick-up & drop-off location')
     }
   };
+  const submitButton =()=>{
+    console.log(searchForm)
+  }
   const timePickerClick = (value:any) => {
     if(document.body.clientWidth>950){
       setSelectType(true)
@@ -197,11 +296,12 @@ const NewSearch: React.FC = () => {
           placement: "topRight",
         });
       })
+      // 获取开放时间
       await request
       .get("/opening_hour/getlist")
       .then ((res:any) => {
         if(res.data.code == 0){
-          console.log(res)
+          setOpenData(res.data.data.lists)
         }
       })
       .catch((e) => {
@@ -214,7 +314,7 @@ const NewSearch: React.FC = () => {
     })();
   }, []);
   const buttonClick= ()=>{
-    // childData({name:"我是zzz"})
+    setPickerMobileMaxTimeType(false)
   }
   const pickerMobileMaxTime = ()=>{
     return (
@@ -229,7 +329,7 @@ const NewSearch: React.FC = () => {
           </div>
           <div className="picker-mobile-max-time-content">
                 {
-                  timeSelectData.map(item => (
+                  timeSelectData.map((item:any) => (
                   <div key={item.id} 
                   style={{cursor:item.disable?'no-drop':'pointer'}}
                   className={item.disable?'mobile-time-select-disable':'mobile-time-select'}
@@ -237,7 +337,11 @@ const NewSearch: React.FC = () => {
                     setSelectTimeValue(item.start)
                     setSelectType(false)
                     clickType=='Pick-up'?SetPickUp(item.start):''
-                    console.log(item)
+                    if(!item.disable){
+                      searchForm['start_time']=item.start
+                      searchForm['end_time']=item.end
+                    }
+                    console.log(searchForm)
                   }}>
                     {item.start} - {item.end}
                   </div>
@@ -256,7 +360,9 @@ const pickerMobileMaxForm = ()=>{
   return (
     <div className="picker-mobile-max-time">
         <div className="picker-mobile-max-time-header">
-           Lylohaus - 300 Sin Ming Rd, Singapore 575626
+            <div style={{width:'350px'}}>
+              {addressLineOne}, {addressLineTwo}
+            </div>
            <div className="close-div" onClick={()=>{
             setPickerMobileMaxFormType(false)
            }}>
@@ -268,17 +374,19 @@ const pickerMobileMaxForm = ()=>{
                     labelCol={{ span: 0 }}
                     wrapperCol={{ span: 24 }}
                     layout="horizontal"
+                    onFinish={locationFormMobileOnFinish}
+                    form={mobileForm}
                   >
-                    <Form.Item>
+                    <Form.Item name='postalcode'>
                       <Input style={{height:'54px'}} placeholder='Postal code'/>
                     </Form.Item>
-                    <Form.Item>
+                    <Form.Item name='address_line_one'>
                       <Input style={{height:'54px'}} placeholder='Address line 1'/>
                     </Form.Item>
-                    <Form.Item>
+                    <Form.Item name='address_line_two_optional'>
                       <Input style={{height:'54px'}} placeholder='Address line 2 - optional'/>
                     </Form.Item>
-                    <Form.Item>
+                    <Form.Item name='remarks'>
                       <Input style={{height:'54px'}} placeholder='Remarks'/>
                     </Form.Item>
                     <Form.Item>
@@ -288,9 +396,9 @@ const pickerMobileMaxForm = ()=>{
                     </Form.Item>                       
                     <Form.Item label="">
                       <div className="picker-mobile-max-form-button-box">
-                        <Button className="picker-mobile-max-form-button" onClick={()=>{
-                          setPickerMobileMaxFormType(false)
-                        }}>Apply</Button>
+                        <Button 
+                        className="picker-mobile-max-form-button" 
+                        htmlType="submit">Apply</Button>
                       </div>
                     </Form.Item>
                   </Form>
@@ -309,7 +417,7 @@ const pickerMobileMaxForm = ()=>{
               setPickerMobileMaxFormType(true)
            }
         }}>
-          Lylohaus - 300 Sin Ming Rd, Singapore 575626
+          {addressLineTwo}
         </div>
       </div>
     )
@@ -325,26 +433,36 @@ const pickerMobileMaxForm = ()=>{
                   <div>
                     <div>Pick-up date</div>
                     <div>
-                    <NewDatePicker childData={childDataFc}  pickupDate={pickupDate}  dateData={blackoutDateData} type='Pick-up'></NewDatePicker>
+                    <NewDatePicker 
+                    childData={childDataFc}  
+                    pickupDate={pickupDate}  
+                    dateData={blackoutDateData} 
+                    typePicker='Pick-up'
+                    ></NewDatePicker>
                       <div className="line-div"></div>
                       <div className="time-picker" onClick={()=>timePickerClick('Pick-up')}>
                         <span>{pickUp}</span>
                         <DownOutlined/>
                       </div>
                     </div>
-                    {clickType=='Pick-up'&&renderExtraFooterValue()}
+                    {clickType=='Pick-up'&&renderExtraFooterValue(timeSelectData)}
                   </div>
                   <div>
                     <div>Drop-off date</div>
                     <div>
-                      <NewDatePicker  childData={childDataFc} dropOffData={dropOffData} dateData={blackoutDateData} type='Pick-off'></NewDatePicker>
+                      <NewDatePicker  
+                      childData={childDataFc} 
+                      dropOffData={dropOffData} 
+                      dateData={blackoutDateData} 
+                      typePicker='Pick-off'
+                      ></NewDatePicker>
                       <div className="line-div"></div>
                       <div className="time-picker" onClick={()=>timePickerClick('Drop-off')}>
                         <span>{pickUp}</span>
                         <DownOutlined/>
                       </div>
                     </div>
-                    {clickType=='Drop-off'&&renderExtraFooterValue()}
+                    {clickType=='Drop-off'&&renderExtraFooterValue(timeSelectDataTwo)}
                   </div>
                 </div>
                 <div className="search-content-left-footer">
@@ -368,12 +486,17 @@ const pickerMobileMaxForm = ()=>{
                            console.log('2')
                          }
                     }}>
-                      Lylohaus - 300 Sin Ming Rd, Singapore 575626
+                      {addressLineOne}{!searchContentType&&','+addressLineTwo}
                     </div>
                     {locationFormType&&locationForm()}
                   </div>
                   {searchContentType&&rightTwoData()}
-                  <div className="submit-div"></div>
+                  <div className="submit-div-pc" onClick={submitButton}>
+                    <img 
+                      height={52}
+                      width={60}
+                      src={require("@/bases/assets/imgs/look_over.png")}/>
+                  </div>
                 </div>
                 <div className='search-content-right-footer'>
                   <Checkbox onChange={onChangeCheckbox}></Checkbox>
@@ -381,6 +504,10 @@ const pickerMobileMaxForm = ()=>{
                     Return car to a different location
                   </div>
                 </div>
+             </div>
+             <div className="mobile-submit">
+               <img src={require("@/bases/assets/imgs/look_over.png")} alt="" />
+               Explore
              </div>
         </div>
         {pickerMobileMaxTimeType&&pickerMobileMaxTime()}

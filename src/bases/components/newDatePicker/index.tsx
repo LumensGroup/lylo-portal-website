@@ -10,17 +10,19 @@ import '@nutui/nutui-react/dist/style.css'
 type NewDatePickerProps = {
   childData?: any;
   dateData?: any;
-  type?: string;
+  typePicker?: string;
   pickupDate?: string;
-  dropOffData?: string
+  dropOffData?: string;
+  equipment?: string
 };
 
 const NewDatePicker = ({
   childData,
   dateData,
-  type,
+  typePicker,
   pickupDate,
-  dropOffData
+  dropOffData,
+  equipment,
 }: NewDatePickerProps) => {
     const { RangePicker } = DatePicker;
     const [maxType, setMaxType] = useState<any>(false);
@@ -112,6 +114,9 @@ const NewDatePicker = ({
               <div className="picker-mobile-max-content">
                   <ConfigProvider locale={en}>
                     <CalendarCard   
+                    onChange={(value:any) => {
+                      childData(value,'mobile',typePicker)
+                    }}
                       type="range" 
                       disableDay={(day) => {
                         const newDay =getNutuiDisableDay(day)
@@ -142,11 +147,11 @@ const NewDatePicker = ({
     }
     return (
       <div className="date-box">
-          <div>{type=='Pick-up'?pickupDate:dropOffData}</div>
+          <div>{typePicker=='Pick-up'?pickupDate:dropOffData}</div>
           <div className="picker-box">
                 <RangePicker 
                   onChange={(value:any) => {
-                     childData(value)
+                     childData(value,'pc',typePicker)
                     //  setPickupDate(`${value[0].$d.getMonth() + 1}-${value[0].$d.getDate()}`)
                     //  setDropOffData(`${value[1].$d.getMonth() + 1}-${value[1].$d.getDate()}`)
                     }}

@@ -1,4 +1,4 @@
-
+@import "../../../bases/styles/mixin.scss";
 .enterDriverInfo-box .ant-form-item{
   margin-bottom: 0px;
 }
@@ -40,7 +40,7 @@
   box-shadow:none;
   padding:0px
 }
-.enterDriverInfo-box .ant-select-selector{
+.phone-box .ant-select-selector{
   border: none !important;
   box-shadow:none !important;
   border-color:#ffffff !important;
@@ -83,6 +83,62 @@
   border-radius: 8px;
   height:57px
 }
+.submitBox-delete{
+  height: 40px;
+  padding: 16px 24px 16px 24px;
+  border-radius: 37px;
+  border: 1px solid rgba(235, 72, 32, 1);
+  font-family: Noto Sans;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 21.79px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color:rgba(235, 72, 32, 1);
+  width:180px;
+  cursor: pointer;
+}
+.form-row-submitBox{
+  margin-top:40px;
+  position: relative;
+  width:100%;
+}
+.submitBox-submit{
+  position: absolute;
+  right:0px;
+  top:0px;
+  width:260px;
+  height: 40px;
+  padding: 16px 24px 16px 24px;
+  border-radius: 37px;
+  border: 1px solid rgba(55, 98, 246, 1);
+  font-family: Noto Sans;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 21.79px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color:map-get($colors, blue-text);
+  cursor: pointer;
+}
+.form-row-disable{
+  background: map-get($colors, grey-background);
+  border: none;
+}
+.form-row-disable .ant-input-outlined,.form-row-disable .ant-input-outlined:focus{
+  background: map-get($colors, grey-background);
+  box-shadow:none;
+  border-color:map-get($colors, grey-background);
+}
+.form-row .form-row-disable .ant-select-selector{
+  border: none !important;
+  box-shadow:none !important;
+  background: map-get($colors, grey-background) !important;
+  border-color:map-get($colors, grey-background) !important;
+  padding-left: 0px !important;
+}
 @media (max-width: 950px) {
   .phone-box{
     width: 100%;
@@ -96,5 +152,14 @@
     margin-left: 5%;
     border-left: 1px solid rgb(171, 183, 186);
     border-radius:8px
+  }
+  .submitBox-submit{
+    top:10px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .submitBox-delete{
+    width:260px;
+    margin: 0 auto;
   }
 }
