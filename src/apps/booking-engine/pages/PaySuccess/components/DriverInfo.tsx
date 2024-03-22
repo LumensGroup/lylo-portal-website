@@ -2,14 +2,21 @@ import { Flex } from 'antd'
 import React from 'react'
 import DriverItem,{DriverItemInfo} from './DriverItem'
 import { BookingData } from './BookingStatus';
+import { JSX } from 'react/jsx-runtime';
 
-export const DriverInfo:React.FC<BookingData> = () => {
-  const additionalDrivers = [
-    {name:'Toh Si Ling',phone:'1234 8349',email:'xxx@xxx.com'},
-    {name:'Toh Si Ling',phone:'1234 8349',email:'xxx@xxx.com'},
-    {name:'Toh Si Ling',phone:'1234 8349',email:'xxx@xxx.com'},
-  ];
-  const mainDriver:DriverItemInfo = {name:'Toh Si Ling',phone:'1234 8349',email:'xxx@xxx.com'};
+export const DriverInfo:React.FC<BookingData> = ({orderData}) => {
+
+  console.log(orderData);
+  
+
+  const additionalDrivers:[DriverItemInfo] = orderData['additional_drivers'].map((e: { [x: string]: any; })=>{
+    return {name:e['full_name'],phone:e['phone_number'],email:e['email']};
+  });
+
+  const mainDriver:DriverItemInfo = {
+    name:orderData['main_driver']['full_name'],
+    phone:orderData['main_driver']['phone_number'],
+    email:orderData['main_driver']['email']};
 
   return (
     <Flex vertical className='booking-result-card driver-info'>
@@ -19,7 +26,7 @@ export const DriverInfo:React.FC<BookingData> = () => {
       <div className='driver-title'>Additional Driver(s)</div>
       <Flex vertical gap={10}>
       {
-        additionalDrivers.map((e,index)=>(<DriverItem {...e} key={index}/>))
+        additionalDrivers.map((e:DriverItemInfo)=>(<DriverItem {...e} key={e.email}/>))
       }
       </Flex>
       
