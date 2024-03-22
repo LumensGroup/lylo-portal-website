@@ -1,13 +1,13 @@
+import EmptyDataMovingCar from "@/bases/assets/imgs/empty_data_moving_car.svg";
 import { Empty, Flex } from "antd";
 import React, { ReactNode } from "react";
-import EmptyDataMovingCar from "../../../../bases/assets/imgs/empty_data_moving_car.svg";
 import "./index.scss";
 
 export interface EmptyMesgData {
   errorMsg: string;
   errorDetailInfo: string;
   children?: ReactNode;
-  alignStart?:boolean
+  alignStart?: boolean;
 }
 
 export const EmptyDataComponents: React.FC<EmptyMesgData> = (props) => {
@@ -19,7 +19,12 @@ export const EmptyDataComponents: React.FC<EmptyMesgData> = (props) => {
       className="empty-component"
     >
       <Flex vertical align="center">
-        <div className={["empty-msg-container", props.alignStart ? "align-start" : null].join(" ")}>
+        <div
+          className={[
+            "empty-msg-container",
+            props.alignStart ? "align-start" : null,
+          ].join(" ")}
+        >
           <div className="empty-msg">{props.errorMsg}</div>
           <div className="empty-detail-info">{props.errorDetailInfo}</div>
         </div>

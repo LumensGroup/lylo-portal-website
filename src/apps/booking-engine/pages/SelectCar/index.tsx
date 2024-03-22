@@ -7,7 +7,7 @@ import Select from "../Addons/components/select";
 import BreakLine from "./components/breakline";
 import CarCard from "./components/car-card";
 
-import StepInfoBar from "@/bases/components/steps";
+import { EmptyDataComponents } from "@/bases/components/errorComponents/EmptyDataComponents";
 import request from "@/bases/request";
 import { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
@@ -135,10 +135,14 @@ const AddonsPage = () => {
 
   return (
     <>
-      <StepInfoBar currentIndex={0} />
-      {isMobile && <PickUpEdit />}
       {isMobile && (
-        <MobileActionBar handleFilter={handleFilter} handleSort={handleSort} />
+        <>
+          <PickUpEdit />
+          <MobileActionBar
+            handleFilter={handleFilter}
+            handleSort={handleSort}
+          />
+        </>
       )}
       <div className="select-cars__layouts">
         {!isMobile && (
@@ -159,6 +163,14 @@ const AddonsPage = () => {
               );
             })}
           </Space>
+        )}
+
+        {carList?.length === 0 && (
+          <EmptyDataComponents
+            errorMsg="Oops! That’s a miss..."
+            errorDetailInfo="Sorry, this search combination has no results, please search with different criteria"
+            alignStart={true}
+          />
         )}
       </div>
     </>

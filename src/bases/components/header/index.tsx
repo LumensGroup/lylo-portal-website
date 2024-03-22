@@ -7,7 +7,7 @@ import "./styles.scss";
 // import Icon from "../icon";
 // import { IconSource } from "base/model";
 
-const { Header, Content, Footer } = Layout;
+const { Header, Content } = Layout;
 
 const HeaderlLylo = ({ children }: any) => {
   const items = [
@@ -108,7 +108,7 @@ const HeaderlLylo = ({ children }: any) => {
           </Menu>
         </Drawer>
       </Header>
-      <Content>{children}</Content>
+      <Content className="layout-header-container__content">{children}</Content>
     </Layout>
   );
 };
