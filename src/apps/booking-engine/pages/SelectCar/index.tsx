@@ -1,5 +1,5 @@
 import Icon from "@/bases/components/icon";
-import { Space } from "antd";
+import { Slider, Space } from "antd";
 import { useNavigate } from "react-router-dom";
 
 import Infomation from "../Addons/components/info";
@@ -17,6 +17,13 @@ import "./styles.scss";
 import { FilterConditionState } from "./types";
 
 const ActionBar = ({ handleSort, handleFilter }: any) => {
+  const onSlideChange = (value: any) => {
+    const formatValue = value?.map((item: any) => {
+      return { value: item };
+    });
+    handleFilter("sale_price", formatValue);
+  };
+
   return (
     <Space className="select-cars__actionBar" size={16} align="start">
       <Icon source="swap_vert" />
@@ -26,28 +33,20 @@ const ActionBar = ({ handleSort, handleFilter }: any) => {
         name="price"
         multiple={false}
         options={[
-          { value: "1", label: "Lowest price" },
-          { value: "2", label: "Highlight price" },
+          { value: "DESC", label: "Lowest price" },
+          { value: "ASC", label: "Highlight price" },
         ]}
-        handleClick={(value) => {
-          console.log(value, "value");
+        handleClick={(item) => {
+          const { value } = item;
           handleSort(value);
         }}
       />
       <BreakLine direction="vertical" height="32px" color="#717171" />
       <Icon source="filter_alt" />
       <h2>Filter by</h2>
-      <Select
-        name="Price range"
-        multiple={true}
-        options={[
-          { value: "1", label: "gas" },
-          { value: "2", label: "elec" },
-        ]}
-        handleClick={(value) => {
-          handleFilter("sale_price", value);
-        }}
-      />
+      <Select name="Price range" multiple={true}>
+        <Slider range onChangeComplete={onSlideChange} />
+      </Select>
       <Select
         name="Seats"
         multiple={true}
@@ -89,7 +88,6 @@ const AddonsPage = () => {
 
   const handleSort = (value: any) => setSortCondition(value);
   const handleFilter = (keyName: string, value: any) => {
-    console.log(keyName, value);
     setFilterCondition((prevState) => ({
       ...prevState,
       [keyName]: value,
@@ -100,11 +98,7 @@ const AddonsPage = () => {
     const params: any = {};
 
     if (sortCondition) {
-      if (sortCondition === "1") {
-        params.sort = "lowestPrice";
-      } else if (sortCondition === "2") {
-        params.sort = "highestPrice";
-      }
+      params["sorter[sale_price]"] = sortCondition;
     }
 
     if (filterCondition.sale_price.length > 0) {
@@ -151,7 +145,6 @@ const AddonsPage = () => {
         <Infomation content="The vehicle images shown are examples. Specific models within a car class may vary in availability." />
         <Space className="select-cars__content" wrap size={16}>
           {carList?.map((item, index) => {
-            console.log(item, "item");
             return (
               <CarCard
                 item={item}

@@ -1,6 +1,6 @@
 import Icon from "@/bases/components/icon";
 import clsx from "clsx";
-import React, { useEffect, useRef, useState } from "react";
+import React, { ReactNode, useEffect, useRef, useState } from "react";
 import "./styles.scss";
 interface Option {
   value: string;
@@ -8,11 +8,12 @@ interface Option {
 }
 
 interface SelectProps {
-  options: Option[];
+  options?: Option[];
   multiple?: boolean;
   name: string;
   defaultValue?: Option;
   handleClick?: (value: any) => void;
+  children?: ReactNode;
 }
 
 const Select: React.FC<SelectProps> = ({
@@ -21,6 +22,7 @@ const Select: React.FC<SelectProps> = ({
   name,
   defaultValue,
   handleClick,
+  children,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState<Option[]>(
@@ -88,7 +90,7 @@ const Select: React.FC<SelectProps> = ({
       </div>
 
       <div className={clsx("select__dropdown", isOpen && "show")}>
-        {options.map((option) => (
+        {options?.map((option) => (
           <div
             key={option.value}
             className={`select__option ${
@@ -100,13 +102,6 @@ const Select: React.FC<SelectProps> = ({
             }`}
             onClick={() => handleOptionClick(option)}
           >
-            {/* <input
-                type="checkbox"
-                checked={selectedOptions.some(
-                  (selectedOption) => selectedOption.value === option.value
-                )}
-                readOnly
-              /> */}
             <Icon
               source={
                 selectedOptions.some(
@@ -120,6 +115,7 @@ const Select: React.FC<SelectProps> = ({
             <span className="select__option-label">{option.label}</span>
           </div>
         ))}
+        {children}
       </div>
     </div>
   );

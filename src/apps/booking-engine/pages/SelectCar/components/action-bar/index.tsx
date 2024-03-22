@@ -27,10 +27,17 @@ const vehicleTypeOptions = [
   { label: "Plug-in Hybrid", value: 5 },
 ];
 
-const PopupContent = ({ handleSort, handleFilter }: any) => {
+const PopupContent = ({ handleFilter }: any) => {
   const [priceRange, setPriceRange] = useState<number[]>([0, 0]);
 
   const toastValue = (value: number | number[]) => {
+    const formatValue = (value as number[])?.map((item) => {
+      return {
+        value: item,
+      };
+    });
+
+    handleFilter("sale_price", formatValue);
     setPriceRange(value as number[]);
   };
   return (
@@ -60,19 +67,16 @@ const PopupContent = ({ handleSort, handleFilter }: any) => {
 
 const Card = ({ title, options, handleFilter }: CardProps) => {
   const onChange = (value: number[]) => {
-    const nameObj = {
-      Seats: "seating_category",
-      ["Vehicle type"]: "vehicle_type_category",
-    };
     const resultArray = value.map((value) => ({ value }));
-
-    handleFilter(nameObj[title], resultArray);
-    console.log(resultArray, "resultArray");
+    const mapping: { [key: string]: string } = {
+      Seats: "seating_category",
+      "Vehicle type": "vehicle_type_category",
+    };
+    handleFilter(mapping[title], resultArray);
   };
   return (
     <div>
       <div className="mobile-action__card__title">{title}</div>
-
       <div className="mobile-action__card__item">
         {" "}
         <Checkbox.Group onChange={onChange} options={options} />
@@ -83,11 +87,21 @@ const Card = ({ title, options, handleFilter }: CardProps) => {
 
 const MobileActionBar = ({ handleSort, handleFilter }: any) => {
   const [visible, setVisible] = useState(false);
+  const [sortParam, setSortParam] = useState("DESC");
+
+  const sort = () => {
+    if (sortParam === "DESC") {
+      setSortParam("ASC");
+    } else {
+      setSortParam("DESC");
+    }
+    handleSort(sortParam);
+  };
 
   return (
     <>
       <Flex className="mobile-action__bar">
-        <Flex className="flex-item">
+        <Flex className="flex-item" onClick={sort}>
           <Icon source="swap_vert" className="icon" />
           <div className="action__title">Sort</div>
           <div className="point" />
@@ -109,7 +123,7 @@ const MobileActionBar = ({ handleSort, handleFilter }: any) => {
         }}
         bodyStyle={{ height: "50vh" }}
       >
-        <PopupContent handleSort={handleSort} handleFilter={handleFilter} />
+        <PopupContent handleFilter={handleFilter} />
       </Popup>
     </>
   );

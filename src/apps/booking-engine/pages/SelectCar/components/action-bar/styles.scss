@@ -48,8 +48,17 @@
     }
 
     .mobile-action__card__item {
-        padding: 8px;
+
         font-size: 14px;
+
+        .ant-checkbox-group {
+            display: flex;
+            flex-direction: column;
+
+            .ant-checkbox-group-item {
+                padding: 8px;
+            }
+        }
     }
 
     .mobile-action__card__content {
