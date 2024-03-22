@@ -1,7 +1,7 @@
 import { Flex,Image } from 'antd'
 import React from 'react'
-import CheckSafetyVideo from '../../../../../../bases/assets/imgs/check_safety_video.svg'
-import SignControactImg from '../../../../../../bases/assets/imgs/sign_contract_img.svg'
+import CheckSafetyVideo from '@/bases/assets/imgs/check_safety_video.svg'
+import SignControactImg from '@/bases/assets/imgs/sign_contract_img.svg'
 
 const ShortenCollectionTime = () => {
   const openUrl = (url:string)=>{

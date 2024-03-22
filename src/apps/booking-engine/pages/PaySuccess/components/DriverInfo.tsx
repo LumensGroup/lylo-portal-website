@@ -1,8 +1,9 @@
 import { Flex } from 'antd'
 import React from 'react'
 import DriverItem,{DriverItemInfo} from './DriverItem'
+import { BookingData } from './BookingStatus';
 
-export default function DriverInfo() {
+export const DriverInfo:React.FC<BookingData> = () => {
   const additionalDrivers = [
     {name:'Toh Si Ling',phone:'1234 8349',email:'xxx@xxx.com'},
     {name:'Toh Si Ling',phone:'1234 8349',email:'xxx@xxx.com'},
@@ -18,7 +19,7 @@ export default function DriverInfo() {
       <div className='driver-title'>Additional Driver(s)</div>
       <Flex vertical gap={10}>
       {
-        additionalDrivers.map(e=>(<DriverItem {...e} key={e.email}/>))
+        additionalDrivers.map((e,index)=>(<DriverItem {...e} key={index}/>))
       }
       </Flex>
       

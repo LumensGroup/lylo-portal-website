@@ -2,8 +2,9 @@ import { Divider, Flex } from "antd";
 import React from "react";
 import "./index.scss";
 import PriceSummaryItem from "./PriceSummaryItem";
+import { BookingData } from "../BookingStatus";
 
-export default function PriceSummary() {
+export const PriceSummary:React.FC<BookingData> = () => {
 
   const priceItemDatas = [
     {title:'CDW Basic x 6 day(s)',price:'Included'},

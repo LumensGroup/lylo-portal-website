@@ -1,10 +1,14 @@
 import React from 'react'
 import { Flex, Image, Button } from "antd";
-import PaySuccessTop from "../../../../../bases/assets/imgs/pay_success_top.svg"
-import ChencCircle from "../../../../../bases/assets/imgs/check_circle.svg"
+import PaySuccessTop from "@/bases/assets/imgs/pay_success_top.svg"
+import ChencCircle from "@/bases/assets/imgs/check_circle.svg"
 
+export interface BookingData{
+  orderData:any
+}
 
-export default function BookingStatus() {
+export const BookingStatus:React.FC<BookingData> =() => {
+  
   return (
     <Flex 
       align='center'
