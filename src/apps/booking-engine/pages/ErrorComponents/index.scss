@@ -1,0 +1,73 @@
+.error-components-container {
+  width: 100%;
+  height: 100%;
+}
+
+.error-component {
+  color: #1d1b20;
+  font-family: "Noto Sans";
+  .error-msg {
+    margin-top: 40px;
+    font-size: 16px;
+    font-weight: 600;
+    max-width: 266px;
+  }
+  .error-detail-info {
+    font-size: 14px;
+    font-weight: 300;
+  }
+
+  .error-detail-link {
+    color: #499dc7;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration-line: underline;
+  }
+}
+
+.empty-component {
+  color: #1d1b20;
+  font-family: "Noto Sans";
+
+  .empty-msg-container {
+    //
+    // text-align: start;
+    .empty-msg {
+      font-size: 20px;
+      font-weight: 600;
+    }
+    .empty-detail-info {
+      font-size: 14px;
+      font-weight: 300;
+    }
+  }
+
+  .align-start {
+    width: 291px;
+    text-align: start;
+    align-items: start;
+  }
+  .empty-detail-link {
+    color: #499dc7;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration-line: underline;
+  }
+}
+
+.also-view-item {
+  border-radius: 8px;
+  border: 1px solid #3762f6;
+  overflow: hidden;
+  padding: 16px 8px;
+  background-color: #fff;
+  margin-top: 16px;
+  margin-bottom: 16px;
+
+  .also-view-item-title {
+    color:  #3762f6;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+  }
+}
