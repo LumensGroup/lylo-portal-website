@@ -6,9 +6,11 @@ const PickUpEdit = () => {
   const LocationContent = ({
     title,
     handleClick,
+    without,
   }: {
     title: string;
     handleClick: () => void;
+    without?: boolean;
   }) => {
     return (
       <Flex onClick={handleClick}>
@@ -19,7 +21,7 @@ const PickUpEdit = () => {
           </div>
           <div className="mobile-pickup__edit__time">14 Jan,09:00 - 10:00</div>
         </Flex>
-        <Icon source="edit" />
+        {!without && <Icon source="edit" />}
       </Flex>
     );
   };
@@ -30,6 +32,7 @@ const PickUpEdit = () => {
         handleClick={() => {
           console.log(1);
         }}
+        without={true}
       />
       <BreakLine height="37px" />
       <LocationContent

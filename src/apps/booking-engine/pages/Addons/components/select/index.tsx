@@ -11,17 +11,21 @@ interface SelectProps {
   options: Option[];
   multiple?: boolean;
   name: string;
-  handleClick?: () => void;
+  defaultValue?: Option;
+  handleClick?: (value: any) => void;
 }
 
 const Select: React.FC<SelectProps> = ({
   options,
   multiple,
   name,
+  defaultValue,
   handleClick,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOptions, setSelectedOptions] = useState<Option[]>([]);
+  const [selectedOptions, setSelectedOptions] = useState<Option[]>(
+    defaultValue ? [defaultValue] : []
+  );
   const selectRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -55,11 +59,13 @@ const Select: React.FC<SelectProps> = ({
       } else {
         setSelectedOptions([...selectedOptions, option]);
       }
+
+      handleClick?.([...selectedOptions, option]);
     } else {
       setSelectedOptions([option]);
       setIsOpen(false);
+      handleClick?.(option);
     }
-    handleClick?.();
   };
 
   return (
@@ -67,8 +73,8 @@ const Select: React.FC<SelectProps> = ({
       <div className="select__control" onClick={toggleDropdown}>
         <div className="select__selected-options">
           <span className="select__placeholder">
-            {name}{" "}
-            {selectedOptions?.length > 0 && (
+            {multiple ? name : selectedOptions?.[0]?.label}
+            {multiple && selectedOptions?.length > 0 && (
               <span
                 style={{ fontWeight: 600, marginLeft: 8 }}
               >{`(${selectedOptions?.length})`}</span>

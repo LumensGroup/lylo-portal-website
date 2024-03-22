@@ -13,6 +13,8 @@ interface CardProps {
   title: string;
   options: Option[];
   name?: string;
+  handleFilter: (name: string, value: any) => void;
+  handleSort?: () => void;
 }
 
 const seatOptions = [
@@ -25,7 +27,7 @@ const vehicleTypeOptions = [
   { label: "Plug-in Hybrid", value: 5 },
 ];
 
-const PopupContent = () => {
+const PopupContent = ({ handleSort, handleFilter }: any) => {
   const [priceRange, setPriceRange] = useState<number[]>([0, 0]);
 
   const toastValue = (value: number | number[]) => {
@@ -46,29 +48,40 @@ const PopupContent = () => {
         icon={<Icon source="slide_handle" />}
         onAfterChange={toastValue}
       />
-      <Card title="Seats" options={seatOptions} />
-      <Card title="Vehicle type" options={vehicleTypeOptions} />
+      <Card title="Seats" options={seatOptions} handleFilter={handleFilter} />
+      <Card
+        title="Vehicle type"
+        options={vehicleTypeOptions}
+        handleFilter={handleFilter}
+      />
     </div>
   );
 };
 
-const Card = ({ title, options }: CardProps) => {
+const Card = ({ title, options, handleFilter }: CardProps) => {
+  const onChange = (value: number[]) => {
+    const nameObj = {
+      Seats: "seating_category",
+      ["Vehicle type"]: "vehicle_type_category",
+    };
+    const resultArray = value.map((value) => ({ value }));
+
+    handleFilter(nameObj[title], resultArray);
+    console.log(resultArray, "resultArray");
+  };
   return (
     <div>
       <div className="mobile-action__card__title">{title}</div>
-      {options.map(({ label }, index: number) => {
-        return (
-          <div key={index} className="mobile-action__card__item">
-            {" "}
-            <Checkbox>{label}</Checkbox>
-          </div>
-        );
-      })}
+
+      <div className="mobile-action__card__item">
+        {" "}
+        <Checkbox.Group onChange={onChange} options={options} />
+      </div>
     </div>
   );
 };
 
-const MobileActionBar = () => {
+const MobileActionBar = ({ handleSort, handleFilter }: any) => {
   const [visible, setVisible] = useState(false);
 
   return (
@@ -96,7 +109,7 @@ const MobileActionBar = () => {
         }}
         bodyStyle={{ height: "50vh" }}
       >
-        <PopupContent />
+        <PopupContent handleSort={handleSort} handleFilter={handleFilter} />
       </Popup>
     </>
   );
