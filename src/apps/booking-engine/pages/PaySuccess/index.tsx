@@ -6,7 +6,7 @@ import {DriverInfo} from './components/DriverInfo'
 import {PriceSummary} from './components/PriceSummary'
 import ImportantInfo from './components/ImportantInfo'
 import { Flex, notification } from 'antd'
-import { PopupAddons } from './PopupAddons'
+import { PopupAddons } from '../../../../bases/components/AddonsPopup/PopupAddons'
 import request from '@/bases/request'
 import { useNavigate } from 'react-router-dom';
 

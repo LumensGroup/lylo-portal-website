@@ -11,6 +11,7 @@
   .addons-image {
     width: 265px;
     height: 216px;
+    border-radius: 8px 0px 0px 8px;
   }
   .addons-right-content {
     border-radius: 0px 8px 8px 0px;
@@ -33,23 +34,6 @@
       font-weight: 600;
     }
 
-    .addons-button{
-      font-size: 16px;
-      font-weight: 700;
-    }
-
-    .addons-button-add {
-      
-      color: map-get($colors, white);
-      background-color: map-get($colors, blue-1);
-      border: none;
-    }
-    .addons-button-remove {
-      color: map-get($colors, blue-1);
-      background-color: map-get($colors, white);
-      border: 1px solid map-get($colors, blue-1);
-     
-    }
   }
 
   .add-ons-left-image {
@@ -76,4 +60,45 @@
       }
     }
   }
+}
+
+@media (max-width:640px) {
+  .add-ons-item-card{
+    flex-direction: column;
+    .addons-image {
+      width: 335px;
+      height: 203px;
+      border-radius: 8px 8px 0px 0px;
+      img{
+        max-width: 100%;
+      }
+      
+    }
+
+    .addons-right-content {
+      box-sizing: border-box;
+      width: 335px;
+      border-radius: 0px 0px 8px 8px;
+      border-top: none;
+      border-left: 1px solid #abb7ba;
+      padding: 16px;
+    }
+  }
+}
+
+.addons-popup-button-add {
+  color: map-get($colors, white);
+  background-color: map-get($colors, blue-1);
+  border: none;
+}
+.addons-popup-button-remove {
+  color: map-get($colors, blue-1);
+  background-color: map-get($colors, white);
+  border: 1px solid map-get($colors, blue-1);
+ 
+}
+
+.addons-popup-button{
+  font-size: 16px;
+  font-weight: 700;
 }
