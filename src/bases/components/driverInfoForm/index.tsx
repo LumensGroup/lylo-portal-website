@@ -1,5 +1,5 @@
 import "./styles.scss";
-import { Tabs, Form, Input, DatePicker, Select,Collapse, Modal } from "antd";
+import { Tabs, Form, Input, DatePicker, Select, Modal } from "antd";
 import { InfoCircleOutlined } from '@ant-design/icons';
 import UploadCustom from "@/bases/components/uploadCustom";
 import { useState } from "react";
