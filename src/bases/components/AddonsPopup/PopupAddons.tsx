@@ -55,8 +55,8 @@ export const PopupAddons = () => {
   const footer = ()=>{
     return (
       <Flex gap={16} justify="right">
-        <Button type="default" className="addons-popup-button addons-popup-button-remove" size="large" shape="round">Skip</Button>
-        <Button type="primary" className="addons-popup-button addons-popup-button-add" size="large" shape="round">Next</Button>
+        <Button onClick={handleCancel} type="default" className="addons-popup-button addons-popup-button-remove" size="large" shape="round">Skip</Button>
+        <Button onClick={handleOk} type="primary" className="addons-popup-button addons-popup-button-add" size="large" shape="round">Next</Button>
       </Flex>
     )
   }
@@ -72,8 +72,6 @@ export const PopupAddons = () => {
         footer={footer()}
         title="Frequently bought together"
         open={isModalOpen}
-        onOk={handleOk}
-        onCancel={handleCancel}
         width={window.innerWidth < 640 ? 390 : 654}
       >
         <Flex vertical gap={24} align="center">
