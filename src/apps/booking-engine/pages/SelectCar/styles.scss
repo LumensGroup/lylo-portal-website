@@ -6,6 +6,16 @@
         background: #F6FAFF;
         flex-direction: column;
         align-items: center;
+        height: calc(100vh - 65px);
+
+        @media (max-width: 767px) {
+            height: calc(100vh - 190px);
+        }
+
+
+        .select-cars__action__area {
+            flex: 0 0 auto
+        }
 
         .select-cars__content {
             max-width: 976px;
@@ -22,7 +32,7 @@
             }
 
             @media(min-width:767px) and (max-width:1024px) {
-                width: 640px;
+                // width: 640px;
                 align-items: center;
             }
 

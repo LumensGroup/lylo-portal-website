@@ -14,11 +14,11 @@
             border: 4px solid #6386FF;
         }
 
-        transition: transform 0.2s ease-out;
+        transition: transform 0.3s ease-out;
 
-        &:hover {
-            transform: scale(1.01);
-        }
+        // &:hover {
+        //     transform: scale(1.01);
+        // }
     }
 
     &__title {
@@ -72,6 +72,13 @@
 
             &.isActive {
                 color: #6386FF
+            }
+
+            .car-card__footer__base__price {
+                text-decoration: line-through;
+                font-size: 12px;
+                font-weight: 400;
+                color: #1D1B20
             }
         }
 

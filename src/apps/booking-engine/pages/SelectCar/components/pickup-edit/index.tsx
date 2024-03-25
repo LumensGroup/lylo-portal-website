@@ -2,18 +2,16 @@ import Icon from "@/bases/components/icon";
 import { Flex } from "antd";
 import BreakLine from "../breakline";
 import "./styles.scss";
-const PickUpEdit = () => {
+const PickUpEdit = ({ handleClick }: any) => {
   const LocationContent = ({
     title,
-    handleClick,
     without,
   }: {
     title: string;
-    handleClick: () => void;
     without?: boolean;
   }) => {
     return (
-      <Flex onClick={handleClick}>
+      <Flex>
         <Flex vertical className="flex-item">
           <div className="mobile-pickup__edit__title">{title}</div>
           <div className="mobile-pickup__edit__location">
@@ -26,21 +24,10 @@ const PickUpEdit = () => {
     );
   };
   return (
-    <Flex className="mobile-pickup__edit">
-      <LocationContent
-        title="Pickup"
-        handleClick={() => {
-          console.log(1);
-        }}
-        without={true}
-      />
+    <Flex className="mobile-pickup__edit" onClick={handleClick}>
+      <LocationContent title="Pickup" without={true} />
       <BreakLine height="37px" />
-      <LocationContent
-        title="Return"
-        handleClick={() => {
-          console.log(1);
-        }}
-      />
+      <LocationContent title="Return" />
     </Flex>
   );
 };

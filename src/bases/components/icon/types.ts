@@ -2,5 +2,6 @@
 export type IconProps =  {
   source: string;
   className?: string
-  handleClick?:()=>void
+  handleClick?: () => void
+  style?:React.CSSProperties
 };

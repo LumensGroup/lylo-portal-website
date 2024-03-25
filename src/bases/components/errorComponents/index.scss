@@ -6,12 +6,14 @@
 .error-component {
   color: #1d1b20;
   font-family: "Noto Sans";
+
   .error-msg {
     margin-top: 40px;
     font-size: 16px;
     font-weight: 600;
     max-width: 266px;
   }
+
   .error-detail-info {
     font-size: 14px;
     font-weight: 300;
@@ -32,10 +34,15 @@
   .empty-msg-container {
     //
     // text-align: start;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
     .empty-msg {
       font-size: 20px;
       font-weight: 600;
     }
+
     .empty-detail-info {
       font-size: 14px;
       font-weight: 300;
@@ -47,6 +54,7 @@
     text-align: start;
     align-items: start;
   }
+
   .empty-detail-link {
     color: #499dc7;
     font-size: 14px;
@@ -65,7 +73,7 @@
   margin-bottom: 16px;
 
   .also-view-item-title {
-    color:  #3762f6;
+    color: #3762f6;
     text-align: center;
     font-size: 14px;
     font-weight: 600;

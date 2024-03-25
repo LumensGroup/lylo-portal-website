@@ -9,6 +9,7 @@ import CarCard from "./components/car-card";
 
 import { EmptyDataComponents } from "@/bases/components/errorComponents/EmptyDataComponents";
 import request from "@/bases/request";
+import { Popup } from "antd-mobile";
 import { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import MobileActionBar from "./components/action-bar";
@@ -86,6 +87,7 @@ const AddonsPage = () => {
   const [sortCondition, setSortCondition] = useState();
   const [carList, setCarList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [editPopupVisible, setEditPopupVisible] = useState(false);
 
   const handleSort = (value: any) => setSortCondition(value);
   const handleFilter = (keyName: string, value: any) => {
@@ -129,6 +131,10 @@ const AddonsPage = () => {
     navigate("/add-ons");
   };
 
+  const handleEditClick = () => {
+    setEditPopupVisible(true);
+  };
+
   useEffect(() => {
     getCarList();
   }, [sortCondition, filterCondition]);
@@ -137,7 +143,7 @@ const AddonsPage = () => {
     <>
       {isMobile && (
         <>
-          <PickUpEdit />
+          <PickUpEdit handleClick={handleEditClick} />
           <MobileActionBar
             handleFilter={handleFilter}
             handleSort={handleSort}
@@ -145,34 +151,63 @@ const AddonsPage = () => {
         </>
       )}
       <div className="select-cars__layouts">
-        {!isMobile && (
-          <ActionBar handleFilter={handleFilter} handleSort={handleSort} />
-        )}
-        <Infomation content="The vehicle images shown are examples. Specific models within a car class may vary in availability." />
-        {isLoading && <Spin />}
-        {!isLoading && (
-          <Space className="select-cars__content" wrap size={16}>
-            {carList?.map((item, index) => {
-              return (
-                <CarCard
-                  item={item}
-                  active={false}
-                  key={index}
-                  onCardClick={handleCardClick}
-                />
-              );
-            })}
-          </Space>
-        )}
+        <div className="select-cars__action__area">
+          {!isMobile && (
+            <ActionBar handleFilter={handleFilter} handleSort={handleSort} />
+          )}
+          <Infomation content="The vehicle images shown are examples. Specific models within a car class may vary in availability." />
+        </div>
+        {isLoading && <Spin style={{ width: "100%" }} />}
+        <div
+          style={{
+            flex: 1,
+            overflowY: "scroll",
+            width: "100%",
+            justifyContent: "center",
+            display: "flex",
+            scrollbarWidth: "none",
+          }}
+        >
+          {!isLoading && (
+            <Space className="select-cars__content" wrap size={16}>
+              {carList?.map((item, index) => {
+                return (
+                  <CarCard
+                    item={item}
+                    active={false}
+                    key={index}
+                    onCardClick={handleCardClick}
+                  />
+                );
+              })}
+            </Space>
+          )}
 
-        {carList?.length === 0 && (
-          <EmptyDataComponents
-            errorMsg="Oops! That’s a miss..."
-            errorDetailInfo="Sorry, this search combination has no results, please search with different criteria"
-            alignStart={true}
-          />
-        )}
+          {!isLoading && carList?.length === 0 && (
+            <EmptyDataComponents
+              errorMsg="Oops! That’s a miss..."
+              errorDetailInfo="Sorry, this search combination has no results, please search with different criteria"
+              alignStart={true}
+            />
+          )}
+        </div>
       </div>
+      <Popup
+        visible={editPopupVisible}
+        onMaskClick={() => {
+          setEditPopupVisible(false);
+        }}
+        onClose={() => {
+          setEditPopupVisible(false);
+        }}
+        bodyStyle={{
+          borderTopLeftRadius: "16px",
+          borderTopRightRadius: "16px",
+          minHeight: "40vh",
+        }}
+      >
+        {3123123}
+      </Popup>
     </>
   );
 };

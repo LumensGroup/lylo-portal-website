@@ -121,7 +121,11 @@ const MobileActionBar = ({ handleSort, handleFilter }: any) => {
         onClose={() => {
           setVisible(false);
         }}
-        bodyStyle={{ height: "50vh" }}
+        bodyStyle={{
+          height: "60vh",
+          borderTopLeftRadius: "16px",
+          borderTopRightRadius: "16px",
+        }}
       >
         <PopupContent handleFilter={handleFilter} />
       </Popup>

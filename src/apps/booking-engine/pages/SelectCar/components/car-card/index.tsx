@@ -9,8 +9,41 @@ type CarCardProps = {
   onCardClick?: () => void;
 };
 const CarCard: React.FC<CarCardProps> = ({ active, onCardClick, item }) => {
-  const { name, item_images, sale_price } = item as any;
-  const { image_url } = item_images;
+  const {
+    name,
+    sale_price,
+    categories,
+    item_features,
+    item_images,
+    market_price,
+  } = item as any;
+
+  const currentItem = item_images?.find((item: { cover: boolean }) => {
+    return item.cover === true;
+  });
+  const currentCategories = categories?.find((item: { type: string }) => {
+    return item.type === "SEATING_TYPE";
+  });
+
+  const seatNumber = currentCategories?.name?.match(/\d+/)[0];
+  const currentItemFeatures = item_features?.find(
+    (item: { feature: { slug: string } }) => {
+      return item?.feature?.slug === "luggages";
+    }
+  );
+
+  const { image_url } = currentItem || {};
+  const { value } = currentItemFeatures || {};
+
+  const renderBasePrice = (marketPrice: string, salePrice: string) => {
+    if (parseInt(marketPrice, 10) - parseInt(salePrice, 10) > 5) {
+      return (
+        <div className="car-card__footer__base__price">S$ {marketPrice}</div>
+      );
+    }
+    return null;
+  };
+
   return (
     <div
       className={clsx("car-card__layout", { isActive: active })}
@@ -20,14 +53,21 @@ const CarCard: React.FC<CarCardProps> = ({ active, onCardClick, item }) => {
       <div className="car-card__subscription">
         <div className="car-card__item">
           <Icon source={"person"} className={"logo"} />
-          <span style={{ margin: "0 4px" }}>5</span>
+          <span style={{ margin: "0 4px" }}>{seatNumber}</span>
           <Tooltip title="prompt text" color={"#3762F6"} key={1}>
-            <Icon source={"info"} className={"logo"} />
+            <Icon
+              source={"info"}
+              className={"logo"}
+              style={{ margin: "0px 4px" }}
+            />
           </Tooltip>
         </div>
-        <div className="car-card__item" style={{ margin: "0 20px" }}>
-          <Icon source={"frame"} className={"logo"} />
-        </div>
+        {value && (
+          <div className="car-card__item" style={{ margin: "0 20px" }}>
+            <Icon source={"luggage"} className={"logo"} />
+            <span style={{ margin: "0 4px" }}>{value}</span>
+          </div>
+        )}
         <Icon source={"footprint"} className={"logo"} />
       </div>
       <div className="car-card__img">
@@ -35,6 +75,7 @@ const CarCard: React.FC<CarCardProps> = ({ active, onCardClick, item }) => {
       </div>
       <div className="car-card__footer">
         <div className={clsx("leftPrice", { isActive: true })}>
+          {renderBasePrice(market_price, sale_price)}
           <span style={{ fontSize: 20 }}>S${sale_price / 100}</span>
           <span style={{ fontSize: 14 }}>.00/day</span>
         </div>
