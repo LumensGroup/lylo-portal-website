@@ -8,6 +8,7 @@ import BreakLine from "./components/breakline";
 import CarCard from "./components/car-card";
 
 import { EmptyDataComponents } from "@/bases/components/errorComponents/EmptyDataComponents";
+import NewSearch from "@/bases/components/newSearch";
 import request from "@/bases/request";
 import { Popup } from "antd-mobile";
 import { useEffect, useState } from "react";
@@ -141,6 +142,7 @@ const AddonsPage = () => {
 
   return (
     <>
+      <NewSearch />
       {isMobile && (
         <>
           <PickUpEdit handleClick={handleEditClick} />
