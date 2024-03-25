@@ -513,7 +513,7 @@ const pickerMobileMaxForm = ()=>{
                   </div>
                 </div>
              </div>
-             <div className="mobile-submit">
+             <div className="mobile-submit" onClick={submitButton}>
                <img src={require("@/bases/assets/imgs/look_over.png")} alt="" />
                Explore
              </div>
