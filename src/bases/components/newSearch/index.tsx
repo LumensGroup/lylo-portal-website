@@ -15,12 +15,17 @@ import moment from 'moment';
 
 type NewSearchProps = {
   searchChange?: any;
+  radius? :any; //是否展示圆角
+  shadow? : any; //是否展示阴影
 };
 const NewSearch: React.FC<NewSearchProps> = ({
-  searchChange
+  searchChange,
+  radius,
+  shadow
 })  => {
   const [clickType, SetClickType] = useState<any>('false');
   const [pickUp, SetPickUp] = useState<any>('09:00');
+  const [dropOff, SetDropOff] = useState<any>('09:00');
   const [selectType, setSelectType] = useState<any>(true);
   const [selectTimeValue, setSelectTimeValue] = useState<any>('');
   const [locationFormType, setLocationFormType] = useState<any>(false);
@@ -158,12 +163,12 @@ const NewSearch: React.FC<NewSearchProps> = ({
             onClick={()=>{
               setSelectTimeValue(item.start)
               setSelectType(false)
-              clickType=='Pick-up'?SetPickUp(item.start):''
+              clickType=='Pick-up'?SetPickUp(item.start):SetDropOff(item.start)
               if(!item.disable){
                 searchForm['start_time']=item.start
                 searchForm['end_time']=item.end
               }
-              console.log(searchForm)
+              console.log(item)
             }}>
               {item.start} - {item.end}
             </div>
@@ -349,7 +354,7 @@ const NewSearch: React.FC<NewSearchProps> = ({
                       searchForm['start_time']=item.start
                       searchForm['end_time']=item.end
                     }
-                    console.log(searchForm)
+                    console.log(item)
                   }}>
                     {item.start} - {item.end}
                   </div>
@@ -431,10 +436,15 @@ const pickerMobileMaxForm = ()=>{
     )
   }
     return (
-      <div className='new-search-box'>
-        <div className="search-title">IntrinsicAttributes
-            Rent with us
-        </div>
+      <div className='new-search-box' style={
+        {
+          borderRadius: radius?'16px':'0px',
+          boxShadow: shadow?'0px 0px 10px 0px rgba(0, 0, 0, 0.3)':''
+        }
+      }>
+        {/* <div className="search-title">
+            {title}
+        </div> */}
         <div className="search-content">
              <div className="search-content-left">
                 <div>
@@ -466,7 +476,7 @@ const pickerMobileMaxForm = ()=>{
                       ></NewDatePicker>
                       <div className="line-div"></div>
                       <div className="time-picker" onClick={()=>timePickerClick('Drop-off')}>
-                        <span>{pickUp}</span>
+                        <span>{dropOff}</span>
                         <DownOutlined/>
                       </div>
                     </div>
