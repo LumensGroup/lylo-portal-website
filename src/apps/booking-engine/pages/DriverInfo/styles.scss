@@ -1,0 +1,20 @@
+@import "/src//bases/styles//variables.module.scss";
+
+.driverInfo-box{
+    padding: 24px;
+}
+.driverInfo-title{
+    font-family: Noto Sans;
+    font-size: 16px;
+    font-weight: 600;
+    display: flex;
+    margin-bottom: 16px;
+    cursor: pointer;
+}
+.driverInfo-title>div{
+    margin-left: 5px;
+}
+.singpass-img>img{
+    width: 100%;
+    cursor: pointer;
+}

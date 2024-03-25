@@ -7,7 +7,7 @@ import type { TabsProps } from 'antd';
 const EnterDriverInfo = () => {
 
   const {TabPane} = Tabs
-  const [userList, setUserList] = useState<any>([{}]);
+  const [userList, setUserList] = useState<any>([{singpassType:true}]);
   const [open, setOpen] = useState(false)
   const onChange = (key: string) => {
     console.log(key);
@@ -54,11 +54,15 @@ const EnterDriverInfo = () => {
       setOpen(true)
     }
   }
+  const singpassClick = (index:any)=>{
+    console.log("需要跳转的index"+index)
+  }
   const getUserList = (data:any) =>{
     return data.map((item:any,index:any)=>{
+      console.log(item)
       return (
         <Collapse.Panel header={<>Driver #{(index+1)} -</>}  key={index}>
-          <DriverInfoForm addDriver={addDriver} index={index} key={index} deletDriver={deletDriver}></DriverInfoForm>
+          <DriverInfoForm addDriver={addDriver} index={index} key={index} deletDriver={deletDriver} singpassType={item.singpassType} singpassClick={singpassClick}></DriverInfoForm>
         </Collapse.Panel>      
       )
     })
