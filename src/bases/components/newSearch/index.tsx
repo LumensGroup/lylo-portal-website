@@ -13,8 +13,8 @@ import "./styles.scss";
 
 type NewSearchProps = {
   searchChange?: any;
-  radiusType?: any; //是否展示圆角
-  shadowType?: any; //是否展示阴影
+  radiusType?: boolean; //是否展示圆角
+  shadowType?: boolean; //是否展示阴影
 };
 const NewSearch: React.FC<NewSearchProps> = ({
   searchChange,

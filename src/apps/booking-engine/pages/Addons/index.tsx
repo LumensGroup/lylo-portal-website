@@ -2,7 +2,11 @@ import AddonsLayout from "@/bases/components/addons-layout";
 import CustomizedCollapse from "@/bases/components/collapse";
 import Icon from "@/bases/components/icon";
 import StepInfoBar from "@/bases/components/steps";
+import request from "@/bases/request";
+import { RootState } from "@/bases/store/reducers";
 import { Button, Flex, Space } from "antd";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import { useMediaQuery } from "react-responsive";
 import Addons from "./components/addons";
 import CDW from "./components/cdw";
@@ -25,9 +29,20 @@ import "./styles.scss";
 
 const SelectCarPage = () => {
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
+  const { selectedCar } = useSelector((state: RootState) => state.selectedCar);
+  console.log(selectedCar, "selectedCar");
+
+  const getAddonsList = async () => {
+    await request.get("/addon/getlist");
+  };
+
+  useEffect(() => {
+    getAddonsList();
+  }, []);
+
   const LeftChildren = (
     <Space direction="vertical" size={16} className="left-area">
-      <SelectCarDetail />
+      <SelectCarDetail selectedCarDetail={selectedCar} />
       <CDW direction="horizontal" />
       <Addons />
       <ImportantInfo />
@@ -43,7 +58,7 @@ const SelectCarPage = () => {
 
   const MobileChildren = (
     <Space direction="vertical" size={16} style={{ width: "100%" }}>
-      <SelectCarDetail />
+      <SelectCarDetail selectedCarDetail={selectedCar} />
       <CDW direction="vertical" />
       <Addons />
       <ImportantInfo />

@@ -2,13 +2,36 @@ import Icon from "@/bases/components/icon";
 import { Image, Typography } from "antd";
 
 import CustomizedCollapse from "@/bases/components/collapse";
+import { SelectedCarDetailProps } from "@/bases/types";
 import "./styles.scss";
 
-const SelectCarDetail = () => {
+const SelectCarDetail = ({
+  selectedCarDetail,
+}: {
+  selectedCarDetail: SelectedCarDetailProps;
+}) => {
+  const { name, categories, item_features, item_images } = selectedCarDetail;
+  const currentItem = item_images?.find((item: { cover: boolean }) => {
+    return item.cover === true;
+  });
+  const currentCategories = categories?.find((item: { type: string }) => {
+    return item.type === "SEATING_TYPE";
+  });
+
+  const seatNumber = currentCategories?.name?.match(/\d+/)[0];
+  const currentItemFeatures = item_features?.find(
+    (item: { feature: { slug: string } }) => {
+      return item?.feature?.slug === "luggages";
+    }
+  );
+
+  const { image_url } = currentItem || {};
+  const { value } = currentItemFeatures || {};
+
   const descriptionsData = [
     {
       icon: "adult",
-      desc: "5 Adults",
+      desc: `${seatNumber} Adults`,
     },
     {
       icon: "auto_transmission",
@@ -16,7 +39,7 @@ const SelectCarDetail = () => {
     },
     {
       icon: "luggage",
-      desc: "2 Luggages",
+      desc: `${value} Luggages`,
     },
     {
       icon: "pets",
@@ -38,6 +61,8 @@ const SelectCarDetail = () => {
       include: "24/7 roadside assistance",
     },
   ];
+
+  console.log(selectedCarDetail, "selectedCarDetail");
 
   const renderDescription = () => {
     return descriptionsData?.map((item, index) => {
@@ -64,15 +89,11 @@ const SelectCarDetail = () => {
   const carDetail = (
     <div className="addons__cardetail">
       <Typography.Title level={2} style={{ marginTop: "3px" }}>
-        Honda Fit
+        {name}
       </Typography.Title>
       <div className="addons__content">
         {" "}
-        <Image
-          height={137}
-          width={206}
-          src={require("@/bases/assets/imgs/Car model.jpg")}
-        />
+        <Image height={137} width={206} src={image_url} />
         <div className="item-wrapper">{renderDescription()}</div>
       </div>
     </div>
