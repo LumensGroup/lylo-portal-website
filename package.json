@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@babel/core": "^7.16.0",
-    "@nutui/nutui-react": "^2.4.2",
+    "@nutui/nutui-react": "^2.5.0",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.3",
     "@reduxjs/toolkit": "^2.2.1",
     "@svgr/webpack": "^5.5.0",

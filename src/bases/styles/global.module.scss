@@ -2,6 +2,11 @@
 @import "../styles/variables.module.scss";
 
 .provider {
+  background: red;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+
   p {
     font-size: map-get($font-size, sx);
     font-family: $font-family;

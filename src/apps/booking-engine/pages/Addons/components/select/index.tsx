@@ -1,6 +1,6 @@
 import Icon from "@/bases/components/icon";
 import clsx from "clsx";
-import React, { useEffect, useRef, useState } from "react";
+import React, { ReactNode, useEffect, useRef, useState } from "react";
 import "./styles.scss";
 interface Option {
   value: string;
@@ -8,20 +8,26 @@ interface Option {
 }
 
 interface SelectProps {
-  options: Option[];
+  options?: Option[];
   multiple?: boolean;
   name: string;
-  handleClick?: () => void;
+  defaultValue?: Option;
+  handleClick?: (value: any) => void;
+  children?: ReactNode;
 }
 
 const Select: React.FC<SelectProps> = ({
   options,
   multiple,
   name,
+  defaultValue,
   handleClick,
+  children,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOptions, setSelectedOptions] = useState<Option[]>([]);
+  const [selectedOptions, setSelectedOptions] = useState<Option[]>(
+    defaultValue ? [defaultValue] : []
+  );
   const selectRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -55,11 +61,13 @@ const Select: React.FC<SelectProps> = ({
       } else {
         setSelectedOptions([...selectedOptions, option]);
       }
+
+      handleClick?.([...selectedOptions, option]);
     } else {
       setSelectedOptions([option]);
       setIsOpen(false);
+      handleClick?.(option);
     }
-    handleClick?.();
   };
 
   return (
@@ -67,8 +75,8 @@ const Select: React.FC<SelectProps> = ({
       <div className="select__control" onClick={toggleDropdown}>
         <div className="select__selected-options">
           <span className="select__placeholder">
-            {name}{" "}
-            {selectedOptions?.length > 0 && (
+            {multiple ? name : selectedOptions?.[0]?.label}
+            {multiple && selectedOptions?.length > 0 && (
               <span
                 style={{ fontWeight: 600, marginLeft: 8 }}
               >{`(${selectedOptions?.length})`}</span>
@@ -82,7 +90,7 @@ const Select: React.FC<SelectProps> = ({
       </div>
 
       <div className={clsx("select__dropdown", isOpen && "show")}>
-        {options.map((option) => (
+        {options?.map((option) => (
           <div
             key={option.value}
             className={`select__option ${
@@ -94,13 +102,6 @@ const Select: React.FC<SelectProps> = ({
             }`}
             onClick={() => handleOptionClick(option)}
           >
-            {/* <input
-                type="checkbox"
-                checked={selectedOptions.some(
-                  (selectedOption) => selectedOption.value === option.value
-                )}
-                readOnly
-              /> */}
             <Icon
               source={
                 selectedOptions.some(
@@ -114,6 +115,7 @@ const Select: React.FC<SelectProps> = ({
             <span className="select__option-label">{option.label}</span>
           </div>
         ))}
+        {children}
       </div>
     </div>
   );
