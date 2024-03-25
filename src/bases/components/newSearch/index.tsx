@@ -15,13 +15,13 @@ import moment from 'moment';
 
 type NewSearchProps = {
   searchChange?: any;
-  radius? :any; //是否展示圆角
-  shadow? : any; //是否展示阴影
+  radiusType? :any; //是否展示圆角
+  shadowType? : any; //是否展示阴影
 };
 const NewSearch: React.FC<NewSearchProps> = ({
   searchChange,
-  radius,
-  shadow
+  radiusType,
+  shadowType
 })  => {
   const [clickType, SetClickType] = useState<any>('false');
   const [pickUp, SetPickUp] = useState<any>('09:00');
@@ -460,8 +460,8 @@ const pickerMobileMaxForm = ()=>{
     return (
       <div className='new-search-box' style={
         {
-          borderRadius: radius?'16px':'0px',
-          boxShadow: shadow?'0px 0px 10px 0px rgba(0, 0, 0, 0.3)':''
+          borderRadius: radiusType?'16px':'0px',
+          boxShadow: shadowType?'0px 0px 10px 0px rgba(0, 0, 0, 0.3)':''
         }
       }>
         {/* <div className="search-title">

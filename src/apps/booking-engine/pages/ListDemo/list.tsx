@@ -12,7 +12,7 @@ const ListPage = () => {
     <>
       redux demo:
       <div style={{width:'100%'}}>
-        <NewSearch searchChange={searchChange} radius={false} shadow={true}/>
+        <NewSearch searchChange={searchChange} radiusType={false} shadowType={true}/>
         {/* <EnterDriverInfo></EnterDriverInfo> */}
       </div>
     </>
