@@ -14,8 +14,12 @@ import type { CheckboxChangeEvent } from 'antd/es/checkbox';
 import request from "../../../bases/request";
 import moment from 'moment';
 
-
-const NewSearch: React.FC = () => {
+type NewSearchProps = {
+  searchChange?: any;
+};
+const NewSearch: React.FC<NewSearchProps> = ({
+  searchChange
+})  => {
   const [clickType, SetClickType] = useState<any>('false');
   const [pickUp, SetPickUp] = useState<any>('09:00');
   const [selectType, setSelectType] = useState<any>(true);
@@ -246,7 +250,7 @@ const NewSearch: React.FC = () => {
     }
   };
   const submitButton =()=>{
-    console.log(searchForm)
+    searchChange(searchForm)
   }
   const timePickerClick = (value:any) => {
     if(document.body.clientWidth>950){
