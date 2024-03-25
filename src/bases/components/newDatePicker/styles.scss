@@ -28,6 +28,7 @@
   line-height: 22px;
   letter-spacing: 0em;  
   color:rgba(44, 53, 59, 1);
+  height:22px
 }
 .footer-picker>div:nth-child(1){
   width:30px;
@@ -144,6 +145,16 @@
   justify-content: center;
   height:54px;
   width:100%
+}
+.picker-mobile-max .nut-calendarcard-day.weekend{
+  color:#000000
+}
+.picker-mobile-max .nut-calendarcard-day.start, .picker-mobile-max .nut-calendarcard-day.end, .picker-mobile-max .nut-calendarcard-day.active{
+  background: rgb(55, 98, 246);
+}
+.picker-mobile-max .nut-calendarcard-day.mid{
+ background: rgb(230, 236, 255);
+ color: #000000;
 }
 @media (max-width: 950px) {
   .picker-box{

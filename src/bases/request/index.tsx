@@ -4,6 +4,7 @@ import type { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
 import axios from "axios";
 
 type Result<T> = {
+  data: any;
   code: number;
   message: string;
   result: T;
@@ -42,8 +43,8 @@ export class Request {
 
     this.instance.interceptors.response.use(
       (res: AxiosResponse) => {
-        console.log(res, "res");
-        return res;
+        const { data } = res?.data || {};
+        return data;
       },
       (err: any) => {
         let message = "";

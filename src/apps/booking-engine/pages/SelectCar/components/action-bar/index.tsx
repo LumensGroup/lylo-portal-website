@@ -13,6 +13,8 @@ interface CardProps {
   title: string;
   options: Option[];
   name?: string;
+  handleFilter: (name: string, value: any) => void;
+  handleSort?: () => void;
 }
 
 const seatOptions = [
@@ -25,10 +27,17 @@ const vehicleTypeOptions = [
   { label: "Plug-in Hybrid", value: 5 },
 ];
 
-const PopupContent = () => {
+const PopupContent = ({ handleFilter }: any) => {
   const [priceRange, setPriceRange] = useState<number[]>([0, 0]);
 
   const toastValue = (value: number | number[]) => {
+    const formatValue = (value as number[])?.map((item) => {
+      return {
+        value: item,
+      };
+    });
+
+    handleFilter("sale_price", formatValue);
     setPriceRange(value as number[]);
   };
   return (
@@ -46,35 +55,53 @@ const PopupContent = () => {
         icon={<Icon source="slide_handle" />}
         onAfterChange={toastValue}
       />
-      <Card title="Seats" options={seatOptions} />
-      <Card title="Vehicle type" options={vehicleTypeOptions} />
+      <Card title="Seats" options={seatOptions} handleFilter={handleFilter} />
+      <Card
+        title="Vehicle type"
+        options={vehicleTypeOptions}
+        handleFilter={handleFilter}
+      />
     </div>
   );
 };
 
-const Card = ({ title, options }: CardProps) => {
+const Card = ({ title, options, handleFilter }: CardProps) => {
+  const onChange = (value: number[]) => {
+    const resultArray = value.map((value) => ({ value }));
+    const mapping: { [key: string]: string } = {
+      Seats: "seating_category",
+      "Vehicle type": "vehicle_type_category",
+    };
+    handleFilter(mapping[title], resultArray);
+  };
   return (
     <div>
       <div className="mobile-action__card__title">{title}</div>
-      {options.map(({ label }, index: number) => {
-        return (
-          <div key={index} className="mobile-action__card__item">
-            {" "}
-            <Checkbox>{label}</Checkbox>
-          </div>
-        );
-      })}
+      <div className="mobile-action__card__item">
+        {" "}
+        <Checkbox.Group onChange={onChange} options={options} />
+      </div>
     </div>
   );
 };
 
-const MobileActionBar = () => {
+const MobileActionBar = ({ handleSort, handleFilter }: any) => {
   const [visible, setVisible] = useState(false);
+  const [sortParam, setSortParam] = useState("DESC");
+
+  const sort = () => {
+    if (sortParam === "DESC") {
+      setSortParam("ASC");
+    } else {
+      setSortParam("DESC");
+    }
+    handleSort(sortParam);
+  };
 
   return (
     <>
       <Flex className="mobile-action__bar">
-        <Flex className="flex-item">
+        <Flex className="flex-item" onClick={sort}>
           <Icon source="swap_vert" className="icon" />
           <div className="action__title">Sort</div>
           <div className="point" />
@@ -94,9 +121,13 @@ const MobileActionBar = () => {
         onClose={() => {
           setVisible(false);
         }}
-        bodyStyle={{ height: "50vh" }}
+        bodyStyle={{
+          height: "60vh",
+          borderTopLeftRadius: "16px",
+          borderTopRightRadius: "16px",
+        }}
       >
-        <PopupContent />
+        <PopupContent handleFilter={handleFilter} />
       </Popup>
     </>
   );
