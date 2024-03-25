@@ -1,16 +1,39 @@
 import "./styles.scss";
-import { Tabs, Form, Input, DatePicker, Select,Collapse } from "antd";
+import { Tabs, Form, Input, DatePicker, Select,Collapse, Modal } from "antd";
 import { InfoCircleOutlined } from '@ant-design/icons';
 import UploadCustom from "@/bases/components/uploadCustom";
+import { useState } from "react";
 import type { TabsProps } from 'antd';
 
-const DriverInfoForm = () => {
+type DriverInfoFormProps = {
+  addDriver?: any;
+  index?:any,
+  deletDriver?: any;
+};
+const DriverInfoForm :React.FC<DriverInfoFormProps> = ({
+  addDriver,
+  index,
+  deletDriver
+})  => {
 
   const {TabPane} = Tabs
+  const [open, setOpen] = useState(false);
   const onChange = (key: string) => {
     console.log(key);
   };
-
+  const handleCancel = () => {
+    setOpen(false);
+  };
+  const addClick = () =>{
+    addDriver(true)
+  }
+  const handleOk = () => {
+    deletDriver(true,index)
+    setOpen(false);
+  };
+  const deletClick = () =>{
+    setOpen(true);
+  }
   const items: TabsProps['items'] = [
     {
       key: '1',
@@ -31,14 +54,15 @@ const DriverInfoForm = () => {
 
   return (
     <div className="enterDriverInfo-box">
-      <Collapse
-        accordion
-        ghost
-        expandIconPosition="end"
-        defaultActiveKey="1"
+      <Modal
+        title="Prompt message"
+        open={open}
+        onOk={handleOk}
+        onCancel={handleCancel}
       >
-        <Collapse.Panel header={<>Driver #1 -</>}  key="1">
-          <div>
+        <p>Whether to delete the driver?</p>
+      </Modal>
+      <div>
             <Tabs defaultActiveKey="2"  onChange={onChange} >
               <TabPane tab='Singpass' key='1'>
               <Form
@@ -190,17 +214,18 @@ const DriverInfoForm = () => {
                     </div>       
                     <div className="form-row" style={{width:'100%'}}>
                       <div className="form-row-submitBox">
-                          <div className="submitBox-delete">
+                          <div className="submitBox-delete" onClick={deletClick}>
                              Delete Driver
                           </div>  
-                          <div className="submitBox-submit">
-                          <img
-                            height={24}
-                            width={24}
-                            style={{marginRight:'8px'}}
-                            src={require("@/bases/assets/imgs/add.png")}
-                          />
-                             Add additional driver
+                          <div className="submitBox-submit"                             
+                            onClick={addClick}>
+                            <img
+                              height={24}
+                              width={24}
+                              style={{marginRight:'8px'}}
+                              src={require("@/bases/assets/imgs/add.png")}
+                            />
+                              Add additional driver
                           </div>  
                       </div>
                     </div>
@@ -398,17 +423,17 @@ const DriverInfoForm = () => {
                     <UploadCustom titleName='NRIC / FIN (front & back) or Passport (data page)'></UploadCustom>
                     <div className="form-row" style={{width:'100%'}}>
                       <div className="form-row-submitBox">
-                          <div className="submitBox-delete">
+                          <div className="submitBox-delete" onClick={deletClick}>
                              Delete Driver
                           </div>  
-                          <div className="submitBox-submit">
-                          <img
-                            height={24}
-                            width={24}
-                            style={{marginRight:'8px'}}
-                            src={require("@/bases/assets/imgs/add.png")}
-                          />
-                             Add additional driver
+                          <div className="submitBox-submit" onClick={addClick}>
+                            <img
+                              height={24}
+                              width={24}
+                              style={{marginRight:'8px'}}
+                              src={require("@/bases/assets/imgs/add.png")}
+                            />
+                              Add additional driver
                           </div>  
                       </div>
                     </div>
@@ -416,8 +441,6 @@ const DriverInfoForm = () => {
               </TabPane>
             </Tabs>
           </div>
-        </Collapse.Panel>
-      </Collapse>
     </div>
   );
 };

@@ -41,7 +41,6 @@
   padding:0px
 }
 .phone-box .ant-select-selector{
-  border: none !important;
   box-shadow:none !important;
   border-color:#ffffff !important;
   padding-left: 0px !important;
@@ -133,11 +132,13 @@
   border-color:map-get($colors, grey-background);
 }
 .form-row .form-row-disable .ant-select-selector{
-  border: none !important;
   box-shadow:none !important;
   background: map-get($colors, grey-background) !important;
   border-color:map-get($colors, grey-background) !important;
   padding-left: 0px !important;
+}
+.enterDriverInfo-box .ant-select-selector{
+  border: none !important;
 }
 @media (max-width: 950px) {
   .phone-box{

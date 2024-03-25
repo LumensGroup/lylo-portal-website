@@ -8,7 +8,6 @@ import {
   Input,
   Checkbox,
   notification,
-  Image
 } from 'antd';
 import type { CheckboxChangeEvent } from 'antd/es/checkbox';
 import request from "../../../bases/request";
@@ -114,7 +113,10 @@ const NewSearch: React.FC<NewSearchProps> = ({
       if(item.weekday == pickupName){
         pickupOpengTime.push(parseFloat(item.open_from)+8)
         pickupOpengTime.push(parseFloat(item.open_until)+8)
-      }else if(item.weekday == dropOffName){
+      }
+    })
+    openData[openData.length-1].opening_hours.map((item:any)=>{
+       if(item.weekday == dropOffName){
         dropOffOpengTime.push(parseFloat(item.open_from)+8)
         dropOffOpengTime.push(parseFloat(item.open_until)+8)
       }
@@ -305,6 +307,8 @@ const NewSearch: React.FC<NewSearchProps> = ({
       .get("/opening_hour/getlist")
       .then ((res:any) => {
         if(res.data.code == 0){
+          console.log("开放时间")
+          console.log(res.data.data.lists)
           setOpenData(res.data.data.lists)
         }
       })

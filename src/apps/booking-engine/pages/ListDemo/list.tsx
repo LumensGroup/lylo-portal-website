@@ -12,8 +12,8 @@ const ListPage = () => {
     <>
       redux demo:
       <div style={{width:'100%'}}>
-        <NewSearch searchChange={searchChange}/>
-        {/* <EnterDriverInfo></EnterDriverInfo> */}
+        {/* <NewSearch searchChange={searchChange}/> */}
+        <EnterDriverInfo></EnterDriverInfo>
       </div>
     </>
   );
