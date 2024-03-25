@@ -8,10 +8,15 @@ import ImportantInfo from './components/ImportantInfo'
 import { Flex, notification } from 'antd'
 import { PopupAddons } from './PopupAddons'
 import request from '@/bases/request'
+import { useNavigate } from 'react-router-dom';
+
 
 export default function PaySuccess() {
 
   const [orderData, setOrderData] = useState<any>();
+
+  const navigate = useNavigate();
+  
   
   const getOrderInfo = ()=>{
     request
@@ -28,6 +33,7 @@ export default function PaySuccess() {
       });
   }
 
+
   useEffect(() => {
     getOrderInfo();
   }, [])
@@ -42,6 +48,7 @@ export default function PaySuccess() {
       <PriceSummary orderData={orderData}/>
       <ImportantInfo />
       <PopupAddons />
+      <div className='back-to-home-btn' onClick={()=>navigate('/')}>Back to Home</div>
     </Flex>
 
     : null

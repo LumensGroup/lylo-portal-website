@@ -5,6 +5,7 @@ export interface ImportantInfoData{
   title:string
   desc:string
   icon:string
+  details?:boolean
 }
 
 const ImportantInfoItem:React.FC<ImportantInfoData> = ({title,desc,icon}) => {

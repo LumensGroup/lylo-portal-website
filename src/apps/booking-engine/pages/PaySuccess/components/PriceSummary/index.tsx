@@ -15,26 +15,16 @@ export const PriceSummary:React.FC<BookingData> = ({orderData}) => {
     }
   });
 
+  const rentalData = orderData['pricing_breakdown'].filter((e: { type: string; })=>e.type == 'RENTAL')[0];
+  
+  const rentalAvg = (rentalData['value']/rentalData['quantity'])/100;
+
   const totalPrice:PriceSummaryItemData = {
     title:'Total',
     price:`${orderData.total_price}`,
-    // priceDesc:`Avg. rental rate per day - S$ ${orderData.sub_total_price/2}`
+    priceDesc:`Avg. rental rate per day - S$ ${rentalAvg.toFixed(2)}`
   };
   priceItemDatas.push(totalPrice);
-  /*
-  [
-    {title:'CDW Basic x 6 day(s)',price:'Included'},
-    {title:'Rental duration - 6 day(s)'},
-    {title:'CNY seasonal rate',subtitle:'S$ 100 x 5 day(s)',price:'S$ 500.00'},
-    {title:'Regular rate',subtitle:'S$ 80 x 1 day(s)',price:'S$ 80.00'},
-    {title:'Booking surcharge',price:'S$ 20.00'},
-    {title:'Child booster seat x 1',price:'S$ 25.00'},
-    {title:'Windscreen damage protection',price:'S$ 15.00'},
-    {discount:'PROMO10%',price:'- S$ 64.00'},
-    {title:'Total',price:'S$ 630.00',priceDesc:'Avg. rental rate per day - $96.67'}
-  ]
-  
-  */
   return (
     <Flex vertical className="booking-result-card price-summary" gap={16}>
       <h4>Price Summary</h4>

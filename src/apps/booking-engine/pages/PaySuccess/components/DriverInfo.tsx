@@ -26,7 +26,7 @@ export const DriverInfo:React.FC<BookingData> = ({orderData}) => {
       <div className='driver-title'>Additional Driver(s)</div>
       <Flex vertical gap={10}>
       {
-        additionalDrivers.map((e:DriverItemInfo)=>(<DriverItem {...e} key={e.email}/>))
+        additionalDrivers.map((e:DriverItemInfo,index)=>(<DriverItem {...e} key={index}/>))
       }
       </Flex>
       

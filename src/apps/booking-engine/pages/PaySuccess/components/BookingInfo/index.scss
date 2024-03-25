@@ -47,6 +47,19 @@
     height: 84px;
   }
 
+  @media (max-width:768px) {
+    .shorten-vehicle-collection-time{
+      flex-direction: column;
+      align-items: start;
+
+      .shorten-vehicle-collection-time-container{
+        flex-direction: column;
+       justify-content: center;
+      }
+
+    }
+  }
+
   .shorten-vehicle-collection-time {
     background: map-get($colors, blue-5);;
     margin: 0 -32px -24px;

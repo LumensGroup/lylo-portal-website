@@ -31,9 +31,10 @@
 
   .important-title {
     font-size: 16px;
-    font-weight: 600;
+    font-weight: 400;
     margin: 0;
     margin-top: 0px;
+    white-space: pre-wrap;
   }
   .important-desc {
     font-size: 16px;
@@ -47,6 +48,23 @@
   .important-contact {
     color: map-get($colors, blue-1);
     font-weight: 600;
+  }
+
+  .important-details {
+    padding: 0px;
+    margin: 0px;
+    font-size: 12px;
+    font-weight: 400;
+    .time-range {
+      font-weight: 600;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .pay-confirm-contact-container {
+      flex-direction: column;
+      gap: 24px;
+    }
   }
 }
 
@@ -77,4 +95,14 @@ div.booking-result {
     font-weight: 700;
     margin-top: 6px;
   }
+}
+
+.back-to-home-btn {
+  color: map-get($colors, blue-1);
+  text-align: center;
+  font-family: "Noto Sans";
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration-line: underline;
+  cursor: pointer;
 }

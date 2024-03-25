@@ -13,7 +13,7 @@ const ShortenCollectionTime = () => {
   return (
     <Flex className='shorten-vehicle-collection-time' justify='space-between' align='center'>
       <div className='shorten-vehicle-collection-time-desc'>Shorten your vehicle collection time by doing these!</div>
-      <Flex gap={24}>
+      <Flex gap={24} className='shorten-vehicle-collection-time-container'>
         <Flex gap={16} className='shorten-vehicle-collection-time-action' align='center' onClick={()=>openUrl('https://lylo.sg/user-manual')}>
           <Image className='video' preview={false} src={CheckSafetyVideo}/> 
           <div className='shorten-vehicle-collection-action-lbl'>Check out our safety video!</div>
