@@ -114,14 +114,16 @@ const NewSearch: React.FC<NewSearchProps> = ({
     const dropOffName = moment(value[1]).format('dddd').toUpperCase()
     console.log(pickupName)
     console.log(openData[0])
-    openData[0].opening_hours.map((item:any)=>{
+    openData[0]?.opening_hours.map((item:any)=>{
       if(item.weekday == pickupName){
+        console.log('1')
         pickupOpengTime.push(parseFloat(item.open_from)+8)
         pickupOpengTime.push(parseFloat(item.open_until)+8)
       }
     })
-    openData[openData.length-1].opening_hours.map((item:any)=>{
+    openData[openData.length-1]?.opening_hours.map((item:any)=>{
        if(item.weekday == dropOffName){
+        console.log('2')
         dropOffOpengTime.push(parseFloat(item.open_from)+8)
         dropOffOpengTime.push(parseFloat(item.open_until)+8)
       }
@@ -286,45 +288,65 @@ const NewSearch: React.FC<NewSearchProps> = ({
     const endDate = '2024-03-27T00:00:00Z';  
       
     const allDates = getAllDatesBetween(startDate, endDate);  
+    const dataValue : any[] = [] 
+    request
+    .get("/blackout_date/getlist")
+    .then ((res:any) => {
+      console.log('开放日期')
+      res.lists.map((item:any)=>{
+        const newDate= getAllDatesBetween(item.from_date, item.end_date)
+        dataValue.push(...newDate)
+      })
+      setBlackoutDateData(dataValue)
+    })
+    // 获取开放时间
+    request
+    .get("/opening_hour/getlist")
+    .then ((res:any) => {
+      console.log("开放时间")
+      console.log(res)
+      setOpenData(res.lists)
+    })
     // console.log(allDates); // 输出开始日期和结束日期之间的所有日期
-    (async () => {
-      const dataValue : any[] = [] 
-      await request
-      .get("/blackout_date/getlist")
-      .then ((res:any) => {
-        if(res.data.code == 0){
-          res.data.data.lists.map((item:any)=>{
-            const newDate= getAllDatesBetween(item.from_date, item.end_date)
-            dataValue.push(...newDate)
-          })
-          setBlackoutDateData(dataValue)
-        }
-      })
-      .catch((e) => {
-        notification.error({
-          message: `Notification`,
-          description: e?.statusText,
-          placement: "topRight",
-        });
-      })
-      // 获取开放时间
-      await request
-      .get("/opening_hour/getlist")
-      .then ((res:any) => {
-        if(res.data.code == 0){
-          console.log("开放时间")
-          console.log(res.data.data.lists)
-          setOpenData(res.data.data.lists)
-        }
-      })
-      .catch((e) => {
-        notification.error({
-          message: `Notification`,
-          description: e?.statusText,
-          placement: "topRight",
-        });
-      })
-    })();
+    // (async () => {
+    //   const dataValue : any[] = [] 
+    //   await request
+    //   .get("/blackout_date/getlist")
+    //   .then ((res:any) => {
+    //     console.log('开放日期')
+    //     if(res.data.code == 0){
+    //       res.data.data.lists.map((item:any)=>{
+    //         const newDate= getAllDatesBetween(item.from_date, item.end_date)
+    //         dataValue.push(...newDate)
+    //       })
+    //       setBlackoutDateData(dataValue)
+    //     }
+    //   })
+    //   .catch((e) => {
+    //     notification.error({
+    //       message: `Notification`,
+    //       description: e?.statusText,
+    //       placement: "topRight",
+    //     });
+    //   })
+    //   // 获取开放时间
+    //   await request
+    //   .get("/opening_hour/getlist")
+    //   .then ((res:any) => {
+    //     if(res.data.code == 0){
+    //       console.log("开放时间")
+    //       console.log(res)
+    //       setOpenData(res.data.data.lists)
+    //     }
+    //   })
+    //   .catch((e) => {
+    //     notification.error({
+    //       message: `Notification`,
+    //       description: e?.statusText,
+    //       placement: "topRight",
+    //     });
+    //   })
+    // })();
   }, []);
   const buttonClick= ()=>{
     setPickerMobileMaxTimeType(false)
@@ -504,7 +526,7 @@ const pickerMobileMaxForm = ()=>{
                            console.log('2')
                          }
                     }}>
-                      {addressLineOne}{!searchContentType&&','+addressLineTwo}
+                      {addressLineOne?addressLineOne:''}{!searchContentType&&addressLineTwo?','+addressLineTwo:''}
                     </div>
                     {locationFormType&&locationForm()}
                   </div>
