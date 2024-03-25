@@ -39,7 +39,11 @@
     }
 
     &__item {
-        @include alignment
+        @include alignment;
+
+        &:nth-of-type(2) {
+            margin: 0 20px;
+        }
     }
 
     .logo {
@@ -93,6 +97,26 @@
         }
     }
 
+
+}
+
+.tootip {
+    .ant-tooltip-content {
+        .ant-tooltip-inner {
+            padding: 14px;
+            background-color: map-get($colors, blue-1);
+
+            .tootip__content__title {
+                font-size: 12px;
+            }
+
+            .tootip__content__ul {
+                font-weight: 600;
+                padding-left: 10px;
+                margin: 0px;
+            }
+        }
+    }
 }
 
 @media(max-width:767px) {

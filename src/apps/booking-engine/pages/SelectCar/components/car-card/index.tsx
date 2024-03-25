@@ -43,6 +43,43 @@ const CarCard: React.FC<CarCardProps> = ({ active, onCardClick, item }) => {
     }
     return null;
   };
+  const NumberWidgt = ({ number }: { number: number }) => {
+    return <span style={{ margin: "0 4px" }}>{number}</span>;
+  };
+
+  const ToolTipContent = (isFiveSeater: boolean) => {
+    return (
+      <div className="tootip__content">
+        <div className="tootip__content__title">
+          {isFiveSeater ? 5 : 7} adults including driver or any of the
+          combination:
+        </div>
+        <ul className="tootip__content__ul">
+          <li> {isFiveSeater ? 2 : 4} adults + 3 kids without baby seats</li>
+          <li>2 adults with {isFiveSeater ? 2 : 4} kids with baby seats</li>
+        </ul>
+      </div>
+    );
+  };
+
+  const TooltioComponent = ({ seatNumber }: { seatNumber: string }) => {
+    const isFiveSeater = seatNumber === "5" ? true : false;
+    return (
+      <Tooltip
+        title={() => ToolTipContent(isFiveSeater)}
+        placement="bottom"
+        overlayClassName="tootip"
+      >
+        <span style={{ display: "flex" }}>
+          <Icon
+            source={"info"}
+            className={"logo"}
+            style={{ margin: "0px 4px" }}
+          />
+        </span>
+      </Tooltip>
+    );
+  };
 
   return (
     <div
@@ -53,22 +90,18 @@ const CarCard: React.FC<CarCardProps> = ({ active, onCardClick, item }) => {
       <div className="car-card__subscription">
         <div className="car-card__item">
           <Icon source={"person"} className={"logo"} />
-          <span style={{ margin: "0 4px" }}>{seatNumber}</span>
-          <Tooltip title="prompt text" color={"#3762F6"} key={1}>
-            <Icon
-              source={"info"}
-              className={"logo"}
-              style={{ margin: "0px 4px" }}
-            />
-          </Tooltip>
+          <NumberWidgt number={seatNumber} />
+          <TooltioComponent seatNumber={seatNumber} />
         </div>
         {value && (
-          <div className="car-card__item" style={{ margin: "0 20px" }}>
+          <div className="car-card__item">
             <Icon source={"luggage"} className={"logo"} />
-            <span style={{ margin: "0 4px" }}>{value}</span>
+            <NumberWidgt number={value} />
           </div>
         )}
-        <Icon source={"footprint"} className={"logo"} />
+        <div className="car-card__item">
+          <Icon source={"footprint"} className={"logo"} />
+        </div>
       </div>
       <div className="car-card__img">
         <img src={image_url} alt="" />
