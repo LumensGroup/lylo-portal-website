@@ -3,6 +3,7 @@ import EnterDriverInfo from "@/bases/components/enterDriverInfo"
 import "./styles.scss";
 
 const DriverInfo = () => {
+  const singpassSessionId = "abcde" // todo receive form outside
   return (
     <>
       <StepInfoBar currentIndex={2} />
@@ -14,7 +15,7 @@ const DriverInfo = () => {
             </div>
         </div>
         <div className="driverInfo-left">
-          <EnterDriverInfo></EnterDriverInfo>
+          <EnterDriverInfo singpassSessionId={singpassSessionId} ></EnterDriverInfo>
         </div>
       </div>
     </>

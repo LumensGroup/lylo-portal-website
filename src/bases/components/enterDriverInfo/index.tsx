@@ -1,14 +1,59 @@
 import "./styles.scss";
 import { Tabs, Modal, Collapse } from "antd";
 import DriverInfoForm from "@/bases/components/driverInfoForm";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { TabsProps } from 'antd';
+import withQuery from "@/bases/utils/with-query";
+import { useSearchParams } from "react-router-dom";
+import request from "@/bases/request";
+import { ROUTESMAP } from "@/apps/booking-engine/routes";
+import { getAuthUrl, getFullBoolingEngineUrl, getSingpassCallbackErrorUrl, getSingpassCallbackUrl } from "@/bases/utils/url";
 
-const EnterDriverInfo = () => {
+interface EnterDriverInfoProps {
+  singpassSessionId: string;
+}
+
+const EnterDriverInfo:React.FC<EnterDriverInfoProps> = ({ singpassSessionId }) => {
 
   const {TabPane} = Tabs
   const [userList, setUserList] = useState<any>([{singpassType:true}]);
   const [open, setOpen] = useState(false)
+  const [searchParams] = useSearchParams()
+  const [querySingpass, setQuerySingpass] = useState(false)
+
+  const singpassUrl = useMemo(
+    () =>
+      withQuery(getAuthUrl(), {
+        extraInfo: {
+          callbackUrl: getSingpassCallbackUrl(singpassSessionId),
+          callbackErrorUrl: getSingpassCallbackErrorUrl(singpassSessionId),
+          redirectUrl: getFullBoolingEngineUrl(ROUTESMAP.DriverInfo),
+          redirectErrorUrl: getFullBoolingEngineUrl(ROUTESMAP.DriverInfo),
+        },
+      }),
+    [singpassSessionId]
+  );
+
+  console.log(singpassUrl)
+
+  useEffect(() => {
+    if (querySingpass) {
+    request
+    .get(`/driver/singpass/get-info?session_id=${singpassSessionId}`)
+    .then ((res:any) => {
+      console.log("result:" + res)
+    })
+    }
+  }, [querySingpass]);
+
+  useEffect(() => {
+    const sid = searchParams.get("sid")
+    const personId = searchParams.get("personId")
+    if (sid && personId) {
+      setQuerySingpass(true)
+    }
+  }, [searchParams]);
+  
   const onChange = (key: string) => {
     console.log(key);
   };
@@ -55,7 +100,7 @@ const EnterDriverInfo = () => {
     }
   }
   const singpassClick = (index:any)=>{
-    console.log("需要跳转的index"+index)
+    window.location.href = singpassUrl
   }
   const getUserList = (data:any) =>{
     return data.map((item:any,index:any)=>{
