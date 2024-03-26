@@ -47,7 +47,7 @@ const NewSearch: React.FC<NewSearchProps> = ({
   const [addressLineOne, setAddressLineOne] = useState<any>('Lylohaus - 300 Sin Ming Rd');
   const [addressLineTwo, setAddressLineTwo] = useState<any>('Singapore 575626');
   const [locationFormData] = Form.useForm();
-  const [durationData, setDurationData] = useState<any>(''); 
+  const [durationData, setDurationData] = useState<any>('0'); 
   
   
   const [timeSelectData, setTimeSelectData] = useState<any>([    
@@ -103,24 +103,25 @@ const NewSearch: React.FC<NewSearchProps> = ({
     if(equipment=='pc'){
       setPickupDate(`${value[0].$d.getMonth() + 1}-${value[0].$d.getDate()}`)
       setDropOffData(`${value[1].$d.getMonth() + 1}-${value[1].$d.getDate()}`)
-      console.log(value[1].$d.getDate()-value[0].$d.getDate()+'day')
-      // console.log(value[1].$d.getMonth()-value[0].$d.getMonth()+'month')
-      const day = value[1].$d.getDate()-value[0].$d.getDate();
-      setDurationData(day)
+      const startDate = moment(value[0].$d);
+      const endDate = moment(value[1].$d);
+      const days = endDate.diff(startDate, 'days');
+      console.log('相差日期'+days); // 输出31
+      setDurationData(days)
     }else{
       const valueOne = value[0]?new Date(value[0]):''
       const valueTwo = value[1]?new Date(value[1]):''
-      const oneDay = valueOne?valueOne.getDate():0
-      const twoDay = valueTwo?valueTwo.getDate():0
       setPickupDate(valueOne?`${valueOne.getMonth() + 1}-${valueOne.getDate()}`:'')
       setDropOffData(valueTwo?`${valueTwo.getMonth() + 1}-${valueTwo.getDate()}`:'')
-      setDurationData(twoDay-oneDay)
+      const startDate = moment(value[0]);
+      const endDate = moment(value[1]);
+      const days = endDate.diff(startDate, 'days');
+      console.log('相差日期'+days); // 输出31
+      setDurationData(days)
     }
     setPickupName(moment(value[0]).format('dddd'))
     const pickupName =  moment(value[0]).format('dddd').toUpperCase()
     const dropOffName = moment(value[1]).format('dddd').toUpperCase()
-    console.log(pickupName)
-    console.log(openData[0])
     openData[0]?.opening_hours.map((item:any)=>{
       if(item.weekday == pickupName){
         console.log('1')
