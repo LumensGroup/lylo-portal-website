@@ -3,6 +3,8 @@ import { Divider, Flex } from "antd";
 import React, { useState } from "react";
 import { BookingData } from "../../PaySuccess/components/BookingStatus";
 import { LeftPriceSummary } from "./LeftPriceSummary";
+import { LeftPickupRetrunInfo } from "./LeftPickupRetrunInfo";
+import { formatPrice } from "../../PaySuccess/components/PriceSummary/PriceSummaryItem";
 
 export const LeftPriceDetails: React.FC<BookingData> = ({ orderData }) => {
   const [showPriceSummary, setShowPriceSummary] = useState(true);
@@ -12,7 +14,7 @@ export const LeftPriceDetails: React.FC<BookingData> = ({ orderData }) => {
     <Flex className="checkout-left" vertical align="flex-end">
       <Flex vertical align="center" className="checkout-left-container">
         <div className="you-are-paying">You are paying</div>
-        <div className="checkout-big-price">245.00</div>
+        <div className="checkout-big-price">{formatPrice(orderData.total_price,undefined)}</div>
         <div className="checkout-unit">SGD</div>
         <div className="checkout-collapse-container">
         <Divider className="checkout-price-summary-divider"/>
@@ -39,12 +41,7 @@ export const LeftPriceDetails: React.FC<BookingData> = ({ orderData }) => {
             />
           </Flex>
           {showDetails && (
-            <Flex vertical>
-              <div>123</div>
-              <div>123</div>
-              <div>123</div>
-              <div>123</div>
-            </Flex>
+            <LeftPickupRetrunInfo orderData={orderData}/>
           )}
         </div>
       </Flex>
