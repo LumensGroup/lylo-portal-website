@@ -185,20 +185,55 @@ const NewSearch: React.FC<NewSearchProps> = ({
       </div>
     )
   }
+  const getnowDate = ()=>{
+    const now = new Date();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const date = String(now.getDate()).padStart(2, '0');
+
+    return  `${month}-${date}`;
+  }
   const locationFormOnFinish = (values:any) => {
-    console.log('Success:', values);
     Object.assign(searchForm,values)
     setAddressLineOne(values.address_line_one)
     setAddressLineTwo(values.address_line_two_optional)
     setLocationFormType(false)
+    if(containsIgnoreCase(values.address_line_one,'Lylohaus')){
+      console.log("匹配到了")
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = String(now.getMonth() + 1).padStart(2, '0');
+      const date = String(now.getDate()).padStart(2, '0');
+      const dateTwo = String(now.getDate()+1).padStart(2, '0');
+      setPickupDate(`${month}-${date}`)
+      setDropOffData(`${month}-${dateTwo}`)
+      searchForm['pick_up_date'] =new Date(`${year}-${month}-${date}`)
+      searchForm['pick_off_date'] =new Date( `${year}-${month}-${dateTwo}`)
+    }
+    console.log(searchForm)
   };
+  const containsIgnoreCase=(str:any, substring:any) =>{
+    return str.toLowerCase().includes(substring.toLowerCase());
+  }
+
   const locationFormMobileOnFinish = (values:any) => {
     setPickerMobileMaxFormType(false)
-    console.log('Success:', values);
     Object.assign(searchForm,values)
     setLocationFormType(false)
     setAddressLineOne(values.address_line_one)
     setAddressLineTwo(values.address_line_two_optional)
+    if(containsIgnoreCase(values.address_line_one,'Lylohaus')){
+      console.log("匹配到了")
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = String(now.getMonth() + 1).padStart(2, '0');
+      const date = String(now.getDate()).padStart(2, '0');
+      const dateTwo = String(now.getDate()+1).padStart(2, '0');
+      setPickupDate(`${month}-${date}`)
+      setDropOffData(`${month}-${dateTwo}`)
+      searchForm['pick_up_date'] =new Date(`${year}-${month}-${date}`)
+      searchForm['pick_off_date'] =new Date( `${year}-${month}-${dateTwo}`)
+    }
+    console.log(searchForm)
   };
   const locationClick =() =>{
     setLocationFormType(false)
@@ -252,8 +287,7 @@ const NewSearch: React.FC<NewSearchProps> = ({
   }
   const popconfirm = () => {
     return (
-      <div className="popconfirm" 
-      >
+      <div className="popconfirm" >
           Rental of less than 24 hours will be charged as a full day.
         <div className="triangle"></div>
       </div>
