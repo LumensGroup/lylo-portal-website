@@ -6,6 +6,7 @@ import PaySuccess from "./pages/PaySuccess";
 import SelectCarPage from "./pages/SelectCar";
 import { ROUTESMAP } from "./routes";
 import { CheckOutPage } from "./pages/CheckOutPage";
+import DriverInfo from "./pages/DriverInfo";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Route path={ROUTESMAP.SelectCarPage} Component={SelectCarPage} />
       <Route path={ROUTESMAP.Addons} Component={AddonsPage} />
       <Route path={ROUTESMAP.CheckOut} Component={CheckOutPage} />
+      <Route path={ROUTESMAP.DriverInfo} Component={DriverInfo} />
     </Routes>
   );
 }
