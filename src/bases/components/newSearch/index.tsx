@@ -47,7 +47,7 @@ const NewSearch: React.FC<NewSearchProps> = ({
   const [addressLineOne, setAddressLineOne] = useState<any>('Lylohaus - 300 Sin Ming Rd');
   const [addressLineTwo, setAddressLineTwo] = useState<any>('Singapore 575626');
   const [locationFormData] = Form.useForm();
-  const [durationData, setDurationData] = useState<any>(''); 
+  const [durationData, setDurationData] = useState<any>('0'); 
   
   
   const [timeSelectData, setTimeSelectData] = useState<any>([    
