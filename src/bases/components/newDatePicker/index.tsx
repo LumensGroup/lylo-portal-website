@@ -33,7 +33,10 @@ const NewDatePicker = ({
   // const [dropOffData, setDropOffData] = useState<any>('3-22');
   const disabledDate = (current: any) => {
     // 如果当前日期是数组中的一个元素，则禁用
-    return blackoutDateValue.some((day: any) => current.isSame(day, "day"));
+    const isDisabledDay = blackoutDateValue.some((day: any) => current.isSame(day, "day"));
+    const isBeforeToday = current.isBefore(moment(), 'day');
+    const Afterdays = current > moment().add(90, 'days')
+    return isBeforeToday || isDisabledDay || Afterdays;
   };
   const getNutuiDisableDay = (value: any) => {
     let newmonth = "",
