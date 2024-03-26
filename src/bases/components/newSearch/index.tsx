@@ -46,6 +46,8 @@ const NewSearch: React.FC<NewSearchProps> = ({
   const [dropOffName, setDropOffName] = useState<any>('');  //结束日期对应的周几
   const [addressLineOne, setAddressLineOne] = useState<any>('Lylohaus - 300 Sin Ming Rd');
   const [addressLineTwo, setAddressLineTwo] = useState<any>('Singapore 575626');
+  const [locationFormData] = Form.useForm();
+  const [durationData, setDurationData] = useState<any>(''); 
   
   
   const [timeSelectData, setTimeSelectData] = useState<any>([    
@@ -101,13 +103,18 @@ const NewSearch: React.FC<NewSearchProps> = ({
     if(equipment=='pc'){
       setPickupDate(`${value[0].$d.getMonth() + 1}-${value[0].$d.getDate()}`)
       setDropOffData(`${value[1].$d.getMonth() + 1}-${value[1].$d.getDate()}`)
+      console.log(value[1].$d.getDate()-value[0].$d.getDate()+'day')
+      // console.log(value[1].$d.getMonth()-value[0].$d.getMonth()+'month')
+      const day = value[1].$d.getDate()-value[0].$d.getDate();
+      setDurationData(day)
     }else{
       const valueOne = value[0]?new Date(value[0]):''
       const valueTwo = value[1]?new Date(value[1]):''
-      console.log('valueOne')
-      console.log(valueTwo)
+      const oneDay = valueOne?valueOne.getDate():0
+      const twoDay = valueTwo?valueTwo.getDate():0
       setPickupDate(valueOne?`${valueOne.getMonth() + 1}-${valueOne.getDate()}`:'')
       setDropOffData(valueTwo?`${valueTwo.getMonth() + 1}-${valueTwo.getDate()}`:'')
+      setDurationData(twoDay-oneDay)
     }
     setPickupName(moment(value[0]).format('dddd'))
     const pickupName =  moment(value[0]).format('dddd').toUpperCase()
@@ -145,8 +152,6 @@ const NewSearch: React.FC<NewSearchProps> = ({
       }
     })
     setTimeSelectDataTwo(timeSelectValueTwo)
-    console.log('searchForm')
-    console.log(searchForm)
     // console.log(parseFloat(pickupOpengTime[1]))
   }
 
@@ -194,47 +199,54 @@ const NewSearch: React.FC<NewSearchProps> = ({
     setAddressLineOne(values.address_line_one)
     setAddressLineTwo(values.address_line_two_optional)
   };
+  const locationClick =() =>{
+    setLocationFormType(false)
+  }
   const locationForm = () => {
     return (
-      <div className="location-form">
-        <div>Lylohaus - 300 Sin Ming Rd, Singapore 575626</div>
-        <div className="location-form-content">
-          <div>
-              Deliver vehicle to my location*   
-          </div>
-          <div>
-          <Form
-              labelCol={{ span: 0 }}
-              wrapperCol={{ span: 24 }}
-              layout="horizontal"
-              onFinish={locationFormOnFinish}
-            >
-              <Form.Item name='postalcode'>
-                <Input style={{height:'54px'}}  placeholder='Postal code'/>
-              </Form.Item>
-              <Form.Item name='address_line_one'>
-                <Input style={{height:'54px'}} placeholder='Address line 1'/>
-              </Form.Item>
-              <Form.Item name='address_line_two_optional' >
-                <Input style={{height:'54px'}} placeholder='Address line 2 - optional'/>
-              </Form.Item>
-              <Form.Item name='remarks'>
-                <Input style={{height:'54px'}} placeholder='Remarks'/>
-              </Form.Item>
-              <Form.Item>
-                <div>
-                *One way trip S$40.00, round trip S$65.00
-                </div>
-              </Form.Item>                       
-              <Form.Item label="">
-                <div  style={{position:'relative',height:'40px'}}>
-                  <Button className="submit-button" htmlType="submit">Apply</Button>
-                </div>
-              </Form.Item>
-            </Form>
+      <>
+        <div className="location-form">
+          <div>Lylohaus - 300 Sin Ming Rd, Singapore 575626</div>
+          <div className="location-form-content">
+            <div>
+                Deliver vehicle to my location*   
+            </div>
+            <div>
+            <Form
+                labelCol={{ span: 0 }}
+                wrapperCol={{ span: 24 }}
+                layout="horizontal"
+                onFinish={locationFormOnFinish}
+                form={locationFormData}
+              >
+                <Form.Item name='postalcode'>
+                  <Input style={{height:'54px'}}  placeholder='Postal code'/>
+                </Form.Item>
+                <Form.Item name='address_line_one'>
+                  <Input style={{height:'54px'}} placeholder='Address line 1'/>
+                </Form.Item>
+                <Form.Item name='address_line_two_optional' >
+                  <Input style={{height:'54px'}} placeholder='Address line 2 - optional'/>
+                </Form.Item>
+                <Form.Item name='remarks'>
+                  <Input style={{height:'54px'}} placeholder='Remarks'/>
+                </Form.Item>
+                <Form.Item>
+                  <div>
+                  *One way trip S$40.00, round trip S$65.00
+                  </div>
+                </Form.Item>                       
+                <Form.Item label="">
+                  <div  style={{position:'relative',height:'40px'}}>
+                    <Button className="submit-button" htmlType="submit">Apply</Button>
+                  </div>
+                </Form.Item>
+              </Form>
+            </div>
           </div>
         </div>
-      </div>
+        <div className="location-box" onClick={locationClick}></div>
+      </>
     )
   }
   const popconfirm = () => {
@@ -293,7 +305,7 @@ const NewSearch: React.FC<NewSearchProps> = ({
     .get("/blackout_date/getlist")
     .then ((res:any) => {
       console.log('开放日期')
-      res.lists.map((item:any)=>{
+      res?.lists.map((item:any)=>{
         const newDate= getAllDatesBetween(item.from_date, item.end_date)
         dataValue.push(...newDate)
       })
@@ -305,48 +317,8 @@ const NewSearch: React.FC<NewSearchProps> = ({
     .then ((res:any) => {
       console.log("开放时间")
       console.log(res)
-      setOpenData(res.lists)
+      setOpenData(res?.lists)
     })
-    // console.log(allDates); // 输出开始日期和结束日期之间的所有日期
-    // (async () => {
-    //   const dataValue : any[] = [] 
-    //   await request
-    //   .get("/blackout_date/getlist")
-    //   .then ((res:any) => {
-    //     console.log('开放日期')
-    //     if(res.data.code == 0){
-    //       res.data.data.lists.map((item:any)=>{
-    //         const newDate= getAllDatesBetween(item.from_date, item.end_date)
-    //         dataValue.push(...newDate)
-    //       })
-    //       setBlackoutDateData(dataValue)
-    //     }
-    //   })
-    //   .catch((e) => {
-    //     notification.error({
-    //       message: `Notification`,
-    //       description: e?.statusText,
-    //       placement: "topRight",
-    //     });
-    //   })
-    //   // 获取开放时间
-    //   await request
-    //   .get("/opening_hour/getlist")
-    //   .then ((res:any) => {
-    //     if(res.data.code == 0){
-    //       console.log("开放时间")
-    //       console.log(res)
-    //       setOpenData(res.data.data.lists)
-    //     }
-    //   })
-    //   .catch((e) => {
-    //     notification.error({
-    //       message: `Notification`,
-    //       description: e?.statusText,
-    //       placement: "topRight",
-    //     });
-    //   })
-    // })();
   }, []);
   const buttonClick= ()=>{
     setPickerMobileMaxTimeType(false)
@@ -505,11 +477,11 @@ const pickerMobileMaxForm = ()=>{
                     {clickType=='Drop-off'&&renderExtraFooterValue(timeSelectDataTwo)}
                   </div>
                 </div>
-                <div className="search-content-left-footer">
-                  <InfoCircleOutlined onClick={()=>{
+                <div className="search-content-left-footer" onClick={()=>{
                     setPopconfirmTyoe(popconfirmTyoe ? false:true)
-                  }}/>
-                  <div>Duration: 1 day</div>
+                  }}>
+                  <InfoCircleOutlined/>
+                  <div>Duration: {durationData} day</div>
                   {popconfirmTyoe&&popconfirm()}
                 </div>
              </div>
