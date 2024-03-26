@@ -197,22 +197,29 @@ const NewSearch: React.FC<NewSearchProps> = ({
     setAddressLineOne(values.address_line_one)
     setAddressLineTwo(values.address_line_two_optional)
     setLocationFormType(false)
-    if(containsIgnoreCase(values.address_line_one,'Lylohaus')){
+    if(containsIgnoreCase(values?.address_line_one,'Lylohaus')||containsIgnoreCase(values?.address_line_two_optional,'Lylohaus')){
       console.log("匹配到了")
       const now = new Date();
       const year = now.getFullYear();
       const month = String(now.getMonth() + 1).padStart(2, '0');
-      const date = String(now.getDate()).padStart(2, '0');
-      const dateTwo = String(now.getDate()+1).padStart(2, '0');
+      const date = String(now.getDate()+1).padStart(2, '0');
       setPickupDate(`${month}-${date}`)
-      setDropOffData(`${month}-${dateTwo}`)
       searchForm['pick_up_date'] =new Date(`${year}-${month}-${date}`)
-      searchForm['pick_off_date'] =new Date( `${year}-${month}-${dateTwo}`)
+    }else if(containsIgnoreCase(values?.address_line_one,'Delivery')||containsIgnoreCase(values?.address_line_two_optional,'Delivery')){
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = String(now.getMonth() + 1).padStart(2, '0');
+      const date = String(now.getDate()+2).padStart(2, '0');
+      setDropOffData(`${month}-${date}`)
+      searchForm['pick_off_date'] =new Date( `${year}-${month}-${date}`)
     }
     console.log(searchForm)
   };
   const containsIgnoreCase=(str:any, substring:any) =>{
-    return str.toLowerCase().includes(substring.toLowerCase());
+    if(str){
+      return str.toLowerCase().includes(substring.toLowerCase());
+    }
+    return ''
   }
 
   const locationFormMobileOnFinish = (values:any) => {
@@ -221,17 +228,21 @@ const NewSearch: React.FC<NewSearchProps> = ({
     setLocationFormType(false)
     setAddressLineOne(values.address_line_one)
     setAddressLineTwo(values.address_line_two_optional)
-    if(containsIgnoreCase(values.address_line_one,'Lylohaus')){
+    if(containsIgnoreCase(values?.address_line_one,'Lylohaus')||containsIgnoreCase(values?.address_line_two_optional,'Lylohaus')){
       console.log("匹配到了")
       const now = new Date();
       const year = now.getFullYear();
       const month = String(now.getMonth() + 1).padStart(2, '0');
-      const date = String(now.getDate()).padStart(2, '0');
-      const dateTwo = String(now.getDate()+1).padStart(2, '0');
+      const date = String(now.getDate()+1).padStart(2, '0');
       setPickupDate(`${month}-${date}`)
-      setDropOffData(`${month}-${dateTwo}`)
       searchForm['pick_up_date'] =new Date(`${year}-${month}-${date}`)
-      searchForm['pick_off_date'] =new Date( `${year}-${month}-${dateTwo}`)
+    }else if(containsIgnoreCase(values?.address_line_one,'Delivery')||containsIgnoreCase(values?.address_line_two_optional,'Delivery')){
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = String(now.getMonth() + 1).padStart(2, '0');
+      const date = String(now.getDate()+2).padStart(2, '0');
+      setDropOffData(`${month}-${date}`)
+      searchForm['pick_off_date'] =new Date( `${year}-${month}-${date}`)
     }
     console.log(searchForm)
   };
@@ -269,7 +280,7 @@ const NewSearch: React.FC<NewSearchProps> = ({
                 </Form.Item>
                 <Form.Item>
                   <div>
-                  *One way trip S$40.00, round trip S$65.00
+                  *One way trip S$50.00, round trip S$75.00
                   </div>
                 </Form.Item>                       
                 <Form.Item label="">
@@ -433,7 +444,7 @@ const pickerMobileMaxForm = ()=>{
                     </Form.Item>
                     <Form.Item>
                       <div>
-                      *One way trip S$40.00, round trip S$65.00
+                      *One way trip S$50.00, round trip S$75.00
                       </div>
                     </Form.Item>                       
                     <Form.Item label="">
