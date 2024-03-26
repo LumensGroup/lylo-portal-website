@@ -72,6 +72,7 @@
   border-radius: 0px 8px 8px 0px;
   border: 1px solid rgba(171, 183, 186, 1);
   border-left: none;
+  background: map-get($colors, white)
 }
 .form-border-boxMax{
   width: 100%;
@@ -131,10 +132,15 @@
   box-shadow:none;
   border-color:map-get($colors, grey-background);
 }
-.form-row .form-row-disable .ant-select-selector{
+.form-row-disable .form-border-boxPhone .ant-input-outlined,.form-row-disable .form-border-boxPhone .ant-input-outlined:focus{
+  background: map-get($colors, white);
+  box-shadow:none;
+  border-color:map-get($colors, white);
+}
+.form-row .phone-box .ant-select-selector{
   box-shadow:none !important;
-  background: map-get($colors, grey-background) !important;
-  border-color:map-get($colors, grey-background) !important;
+  background: map-get($colors, white) !important;
+  border-color:map-get($colors, white) !important;
   padding-left: 0px !important;
 }
 .enterDriverInfo-box .ant-select-selector{
