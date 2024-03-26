@@ -10,8 +10,10 @@ const SelectCarDetail = ({
 }: {
   selectedCarDetail: SelectedCarDetailProps;
 }) => {
-  const { name, categories, item_features, item_images } = selectedCarDetail;
-  const currentItem = item_images?.find((item: { cover: boolean }) => {
+  const { name, categories, images, features, metadata } =
+    selectedCarDetail as any;
+
+  const currentItem = images?.find((item: { cover: boolean }) => {
     return item.cover === true;
   });
   const currentCategories = categories?.find((item: { type: string }) => {
@@ -19,14 +21,13 @@ const SelectCarDetail = ({
   });
 
   const seatNumber = currentCategories?.name?.match(/\d+/)[0];
-  const currentItemFeatures = item_features?.find(
-    (item: { feature: { slug: string } }) => {
-      return item?.feature?.slug === "luggages";
-    }
-  );
+  const currentItemFeatures = features?.find((item: { slug: string }) => {
+    return item?.slug === "luggages";
+  });
 
   const { image_url } = currentItem || {};
   const { value } = currentItemFeatures || {};
+  const { packages } = metadata;
 
   const descriptionsData = [
     {
@@ -47,22 +48,9 @@ const SelectCarDetail = ({
     },
   ];
 
-  const includesData = [
-    {
-      include: "Comprehensive car insurance",
-    },
-    {
-      include: "Unlimited mileage",
-    },
-    {
-      include: "Entry to West Malaysia",
-    },
-    {
-      include: "24/7 roadside assistance",
-    },
-  ];
-
-  console.log(selectedCarDetail, "selectedCarDetail");
+  const includesData = packages?.map((item: string) => {
+    return { include: item };
+  });
 
   const renderDescription = () => {
     return descriptionsData?.map((item, index) => {
@@ -76,7 +64,7 @@ const SelectCarDetail = ({
   };
 
   const renderIncluedes = () => {
-    return includesData.map((item, index) => {
+    return includesData.map((item: { include: string }, index: number) => {
       return (
         <div key={index} className="addons_includes_items">
           <Icon source="green_check" className="checkIcon" />
