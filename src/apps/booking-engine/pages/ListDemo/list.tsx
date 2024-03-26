@@ -14,6 +14,8 @@ const ListPage = () => {
       <div style={{width:'100%'}}>
         <NewSearch searchChange={searchChange} radiusType={false} shadowType={false}/>
         {/* <EnterDriverInfo></EnterDriverInfo> */}
+        {/* <NewSearch searchChange={searchChange} radiusType={false} shadowType={true}/> */}
+        {/* <EnterDriverInfo></EnterDriverInfo> */}
       </div>
     </>
   );
