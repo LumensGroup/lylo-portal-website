@@ -1,21 +1,30 @@
 import { Divider, Flex } from "antd";
 import React from "react";
 import "./index.scss";
-import PriceSummaryItem from "./PriceSummaryItem";
+import PriceSummaryItem, { PriceSummaryItemData, formatPrice } from "./PriceSummaryItem";
+import { BookingData } from "../BookingStatus";
 
-export default function PriceSummary() {
+export const PriceSummary:React.FC<BookingData> = ({orderData}) => {
 
-  const priceItemDatas = [
-    {title:'CDW Basic x 6 day(s)',price:'Included'},
-    {title:'Rental duration - 6 day(s)'},
-    {title:'CNY seasonal rate',subtitle:'S$ 100 x 5 day(s)',price:'S$ 500.00'},
-    {title:'Regular rate',subtitle:'S$ 80 x 1 day(s)',price:'S$ 80.00'},
-    {title:'Booking surcharge',price:'S$ 20.00'},
-    {title:'Child booster seat x 1',price:'S$ 25.00'},
-    {title:'Windscreen damage protection',price:'S$ 15.00'},
-    {discount:'PROMO10%',price:'- S$ 64.00'},
-    {title:'Total',price:'S$ 630.00',priceDesc:'Avg. rental rate per day - $96.67'}
-  ]
+  const priceItemDatas:PriceSummaryItemData[] = orderData['pricing_breakdown'].map((e: { [x: string]: any; })=>{
+    return{
+      title:e.name,
+      price:`${e.value}`,
+      subtitle:e.title == e.name ? undefined : e.title,
+      discount:e.type == "DISCOUNT" ? e.name : undefined
+    }
+  });
+
+  const rentalData = orderData['pricing_breakdown'].filter((e: { type: string; })=>e.type == 'RENTAL')[0];
+  
+  const rentalAvg = (rentalData['value']/rentalData['quantity'])/100;
+
+  const totalPrice:PriceSummaryItemData = {
+    title:'Total',
+    price:`${orderData.total_price}`,
+    priceDesc:`Avg. rental rate per day - S$ ${rentalAvg.toFixed(2)}`
+  };
+  priceItemDatas.push(totalPrice);
   return (
     <Flex vertical className="booking-result-card price-summary" gap={16}>
       <h4>Price Summary</h4>
@@ -30,7 +39,7 @@ export default function PriceSummary() {
         <Flex justify="space-between">
           <div className="total-title">Payment made online</div>
           <Flex align="end" vertical>
-            <div className="total-price">S$ 315.00</div>
+            <div className="total-price">{formatPrice(orderData.total_price,undefined)}</div>
             <div className="total-price-desc">incl. of GST</div>
           </Flex>
         </Flex>
@@ -40,7 +49,7 @@ export default function PriceSummary() {
             <div className="total-title-desc">(during vehicle collection)</div>
           </div>
           <Flex align="end" vertical>
-            <div className="total-price orange">S$ 315.00</div>
+            <div className="total-price orange">{formatPrice(orderData.total_price,undefined)}</div>
             <div className="total-price-desc orange">incl. of GST</div>
           </Flex>
         </Flex>

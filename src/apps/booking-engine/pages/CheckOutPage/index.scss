@@ -1,0 +1,21 @@
+@import "/src/bases/styles/variables.module.scss";
+
+.checkout-page{
+  justify-content: center;
+  height: 100%;
+  .checkout-left{
+    background-color: #0062FF;
+    color: map-get($colors, white);
+    width: 585px;
+  }
+
+  .checkout-right{
+    background-color: map-get($colors, white);
+  }
+}
+
+@media (max-width=377px) {
+  .checkout-left{
+    width: 377px;
+  }
+}

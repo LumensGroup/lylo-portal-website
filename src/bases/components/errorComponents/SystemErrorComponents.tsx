@@ -1,6 +1,6 @@
 import { Empty, Flex } from 'antd'
 import React, { ReactNode } from 'react'
-import SysErrImg from '../../../../bases/assets/imgs/sys_err_img.svg'
+import SysErrImg from '@/bases/assets/imgs/sys_err_img.svg'
 import './index.scss'
 
 export interface ErrorInfoData{

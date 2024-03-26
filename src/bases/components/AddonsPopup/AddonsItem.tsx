@@ -1,8 +1,8 @@
 import React from "react";
 import { Image, Flex, Button } from "antd";
 import "./AddonsItem.scss";
-import PlaceHolder from "../../../../bases/assets/imgs/windscreen_damage_protection.png";
-import PopularStarIcon from "../../../../bases/assets/imgs/popular_star_icon.svg";
+import PlaceHolder from "@/bases/assets/imgs/windscreen_damage_protection.png";
+import PopularStarIcon from "@/bases/assets/imgs/popular_star_icon.svg";
 
 export interface AddonsItemData {
   imgUrl?: string;
@@ -38,7 +38,7 @@ export const AddonsItem: React.FC<AddonsItemData> = (props) => {
         <Flex justify="space-between" align="center">
           <div className="addons-price">{props.price}</div>
           <Button shape="round" 
-          className={[props.added ? 'addons-button-remove' : 'addons-button-add','addons-button'].join(' ')} 
+          className={[props.added ? 'addons-popup-button-remove' : 'addons-popup-button-add','addons-popup-button'].join(' ')} 
           size="large"
           type={props.added ? 'default':'primary'}
           >{props.added ? "Remove" : "Add"}</Button>

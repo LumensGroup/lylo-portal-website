@@ -1,3 +1,5 @@
+@import "/src/bases/styles/variables.module.scss";
+
 .booking-result-card {
   padding: 24px 32px;
   border-radius: 8px;
@@ -19,19 +21,20 @@
   line-height: 22px;
 
   .driver-title {
-    color: #3762f6;
+    color: map-get($colors, blue-1);
     margin: 16px 0;
   }
 }
 
 .booking-result-card.important-info {
-  background-color: #e3e9ff;
+  background-color: map-get($colors, blue-5);
 
   .important-title {
     font-size: 16px;
-    font-weight: 600;
+    font-weight: 400;
     margin: 0;
     margin-top: 0px;
+    white-space: pre-wrap;
   }
   .important-desc {
     font-size: 16px;
@@ -43,21 +46,38 @@
   }
 
   .important-contact {
-    color: #3762f6;
+    color: map-get($colors, blue-1);
     font-weight: 600;
+  }
+
+  .important-details {
+    padding: 0px;
+    margin: 0px;
+    font-size: 12px;
+    font-weight: 400;
+    .time-range {
+      font-weight: 600;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .pay-confirm-contact-container {
+      flex-direction: column;
+      gap: 24px;
+    }
   }
 }
 
 .booking-result-index {
-  background-color: #f2f5ff;
+  background-color: map-get($colors, blue-6);
   padding: 16px 24px;
 }
 
 div.booking-result {
-  background-color: #6386ff;
+  background-color: map-get($colors, blue-2);
   padding: 16px;
   border-radius: 8px;
-  color: white;
+  color: map-get($colors, white);
   font-family: Noto Sans;
 
   .booking-result-status {
@@ -68,11 +88,21 @@ div.booking-result {
   }
 
   .booking-result-print-btn {
-    border: 1px solid white;
-    color: white;
-    background-color: rgba($color: #000000, $alpha: 0);
+    border: 1px solid map-get($colors, white);
+    color: map-get($colors, white);
+    background-color: rgba($color: map-get($colors, black), $alpha: 0);
     font-size: 14px;
     font-weight: 700;
     margin-top: 6px;
   }
+}
+
+.back-to-home-btn {
+  color: map-get($colors, blue-1);
+  text-align: center;
+  font-family: "Noto Sans";
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration-line: underline;
+  cursor: pointer;
 }

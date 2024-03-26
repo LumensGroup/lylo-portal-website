@@ -11,8 +11,12 @@ export default function ImportantInfo() {
   ]
 
   const contactInfos = [
-    {icon:'hotline_icon.svg',title:'Lylo hotline',desc:'+65 9880 5924'},
-    {icon:'phone24h_call.svg',title:'24 hour Roadside Assistance',desc:'+65 9880 5924'}
+    // {icon:'',title:'Vehicle Breakdown24/7 Support',desc:''},
+    // {icon:'hotline_icon.svg',title:'Customer Services',desc:''},
+    {icon:'car_vehicle_breakdown.svg',title:'Vehicle Breakdown\n24/7 Support',desc:'+65 8828 9159'},
+    {icon:'phone24h_call.svg',title:'Accident 24/7 Support',desc:'+65 8778 1765'},
+    {icon:'hotline_icon.svg',title:'Customer Services',desc:'+65 9880 5924',
+    details:true}
   ]
 
   return (
@@ -25,12 +29,12 @@ export default function ImportantInfo() {
           ))
         }
       </Flex>
-      <div>Please refer to <a>Terms & Condition</a> for more details</div>
+      <div>Please refer to <a href=' https://lylo.sg/terms-and-conditions'>Terms & Condition</a> for more details</div>
       <h4>Need help?</h4>
-      <Flex vertical gap={24}>
+      <Flex justify='space-between' className='pay-confirm-contact-container'>
         {
-          contactInfos.map(e=>(
-            <ImportantInfoContactItem {...e} key={e.title}/>
+          contactInfos.map((e,index)=>(
+            <ImportantInfoContactItem {...e} key={index}/>
           ))
         }
       </Flex>

@@ -1,10 +1,16 @@
 import React from 'react'
 import { Flex, Image, Button } from "antd";
-import PaySuccessTop from "../../../../../bases/assets/imgs/pay_success_top.svg"
-import ChencCircle from "../../../../../bases/assets/imgs/check_circle.svg"
+import PaySuccessTop from "@/bases/assets/imgs/pay_success_top.svg"
+import ChencCircle from "@/bases/assets/imgs/check_circle.svg"
 
+export interface BookingData{
+  orderData:any,
+  onPrintPdf?:any
+  loading?:boolean
+}
 
-export default function BookingStatus() {
+export const BookingStatus:React.FC<BookingData> =({onPrintPdf,loading}) => {
+  
   return (
     <Flex 
       align='center'
@@ -23,7 +29,7 @@ export default function BookingStatus() {
         />
         <div>
           <p className='booking-result-status'>Booking Confirmed!</p>
-          <Button shape='round' className='booking-result-print-btn'>Print booking</Button>
+          <Button loading={loading} onClick={onPrintPdf} shape='round' className='booking-result-print-btn'>Print booking</Button>
         </div>
 
     </Flex>

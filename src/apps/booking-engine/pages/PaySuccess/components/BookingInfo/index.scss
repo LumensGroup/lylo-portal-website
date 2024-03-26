@@ -1,3 +1,5 @@
+@import "/src//bases/styles/variables.module.scss";
+
 .booking-result-card.booking-info {
   color: #1d1b20;
   font-size: 20px;
@@ -45,8 +47,21 @@
     height: 84px;
   }
 
+  @media (max-width:768px) {
+    .shorten-vehicle-collection-time{
+      flex-direction: column;
+      align-items: start;
+
+      .shorten-vehicle-collection-time-container{
+        flex-direction: column;
+       justify-content: center;
+      }
+
+    }
+  }
+
   .shorten-vehicle-collection-time {
-    background: #e3e9ff;
+    background: map-get($colors, blue-5);;
     margin: 0 -32px -24px;
     padding: 16px 32px;
     .shorten-vehicle-collection-time-desc {
@@ -56,12 +71,14 @@
     }
     .shorten-vehicle-collection-time-action {
       border-radius: 16px;
-      background: #fff;
+      background: map-get($colors, white);
       width: 294.5px;
       padding: 20px;
+      cursor: pointer;
       img.video{
         width: 120px;
       }
+
     }
 
     .shorten-vehicle-collection-action-lbl {
