@@ -67,12 +67,13 @@ export const PopupAddons = () => {
         Open Modal
       </Button>
       <Modal
+        maskClosable={true}
         closeIcon={null}
         centered={true}
         footer={footer()}
         title="Frequently bought together"
         open={isModalOpen}
-        width={window.innerWidth < 640 ? 390 : 654}
+        width={window.innerWidth < 640 ? 390 : 560}
       >
         <Flex vertical gap={24} align="center">
           {addonsData.map((e) => (

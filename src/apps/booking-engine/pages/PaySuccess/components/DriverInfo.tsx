@@ -5,8 +5,6 @@ import { BookingData } from './BookingStatus';
 import { JSX } from 'react/jsx-runtime';
 
 export const DriverInfo:React.FC<BookingData> = ({orderData}) => {
-
-  console.log(orderData);
   
 
   const additionalDrivers:[DriverItemInfo] = orderData['additional_drivers'].map((e: { [x: string]: any; })=>{
