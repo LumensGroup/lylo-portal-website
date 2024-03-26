@@ -7,10 +7,12 @@ const CustomizedCollapse = ({
   children,
   header,
   style,
+  onChange,
 }: {
   children: ReactNode;
   header: ReactNode;
   style?: React.CSSProperties;
+  onChange?: () => void;
 }) => {
   return (
     <Collapse
@@ -27,6 +29,7 @@ const CustomizedCollapse = ({
         )
       }
       className="customized-collapse"
+      onChange={onChange}
     >
       <Collapse.Panel header={header} key="1">
         {children}

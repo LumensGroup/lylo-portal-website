@@ -1,25 +1,19 @@
 import Icon from "@/bases/components/icon";
 import { Select } from "antd";
 import "./styles.scss";
-const InnerSelect = () => {
-  const dropdownComponent = () => {
-    return (
-      <div className="addons-dropdown__menu">
-        <div className="addons-dropdown__menu__item">1</div>
-      </div>
-    );
-  };
-
+const InnerSelect = ({ onSelect }: any) => {
   return (
     <Select
-      defaultOpen={true}
       className="inner-select"
+      placeholder="please select your location"
       options={[
-        { value: 1, label: "hsdhsad " },
-        { value: 2, label: "hsdhsad " },
+        { value: 1, label: "Pickup ONLY" },
+        { value: 2, label: "Drop-off ONLY" },
+        { value: 3, label: "Pickup & Drop-off(round trip)" },
       ]}
       suffixIcon={<Icon source="select-arrow" className={"select-arrow"} />}
       popupClassName="addons-dropdown"
+      onSelect={onSelect}
     />
   );
 };

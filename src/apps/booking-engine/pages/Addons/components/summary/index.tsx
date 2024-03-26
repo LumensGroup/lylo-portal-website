@@ -199,6 +199,7 @@ const Payment = () => {
       />
 
       <Button className="payment-checkout__button">Checkout</Button>
+      {/* <TCTip /> */}
     </>
   );
 };

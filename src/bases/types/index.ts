@@ -4,3 +4,7 @@ export type CommonProps = {
   onClick?: (e: React.MouseEvent) => void;
   data?: any;
 };
+
+export interface SelectedCarDetailProps {
+  [key: string]: any;
+}

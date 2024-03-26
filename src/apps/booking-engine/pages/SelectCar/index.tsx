@@ -1,5 +1,6 @@
 import Icon from "@/bases/components/icon";
 import { Slider, Space, Spin } from "antd";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import Infomation from "../Addons/components/info";
@@ -10,6 +11,7 @@ import CarCard from "./components/car-card";
 import { EmptyDataComponents } from "@/bases/components/errorComponents/EmptyDataComponents";
 import NewSearch from "@/bases/components/newSearch";
 import request from "@/bases/request";
+import { selectCar } from "@/bases/store/reducers/selectedCar";
 import { Popup } from "antd-mobile";
 import { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
@@ -76,8 +78,9 @@ const ActionBar = ({ handleSort, handleFilter }: any) => {
   );
 };
 
-const AddonsPage = () => {
+const CarSelectPage = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
 
   const [filterCondition, setFilterCondition] = useState<FilterConditionState>({
@@ -128,7 +131,8 @@ const AddonsPage = () => {
     setIsLoading(false);
   };
 
-  const handleCardClick = () => {
+  const handleCardClick = (item: any) => {
+    dispatch(selectCar(item));
     navigate("/add-ons");
   };
 
@@ -142,7 +146,7 @@ const AddonsPage = () => {
 
   return (
     <>
-      <NewSearch />
+      <NewSearch radiusType={false} shadowType={true} />
       {isMobile && (
         <>
           <PickUpEdit handleClick={handleEditClick} />
@@ -178,7 +182,7 @@ const AddonsPage = () => {
                     item={item}
                     active={false}
                     key={index}
-                    onCardClick={handleCardClick}
+                    onCardClick={() => handleCardClick(item)}
                   />
                 );
               })}
@@ -213,4 +217,4 @@ const AddonsPage = () => {
     </>
   );
 };
-export default AddonsPage;
+export default CarSelectPage;
