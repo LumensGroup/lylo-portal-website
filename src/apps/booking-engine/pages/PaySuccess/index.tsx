@@ -54,7 +54,6 @@ export default function PaySuccess() {
       .then((res) => {
         setOrderData(res);
         setIsLoading(false);
-        console.log(res);
         
       })
       .catch((e) => {

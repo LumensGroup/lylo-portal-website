@@ -11,7 +11,6 @@ export const PopupAddons = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [messageApi, contextHolder] = message.useMessage();
   const key = 'updatable';
-  const [orderId, setOrderId] = useState();
 
   const creatOrder = ()=>{
     const data = {};
@@ -30,7 +29,6 @@ export const PopupAddons = () => {
           key,
           type: 'success',
           content: 'Created!',
-          // duration: 2,
         });
         const orderId = 4;
         checkOut(orderId);
