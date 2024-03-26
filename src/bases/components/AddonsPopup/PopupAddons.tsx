@@ -1,12 +1,87 @@
 import React, { useState } from "react";
-import { Button, Flex, Modal } from "antd";
+import { Button, Flex, Modal, message, notification } from "antd";
 import { AddonsItem } from "./AddonsItem";
 import "./AddonsItem.scss"
+import { getFullUrl } from "@/bases/utils/common";
+import { ROUTESMAP } from "@/apps/booking-engine/routes";
+import request from "@/bases/request";
+import { get } from "lodash";
 
 export const PopupAddons = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [messageApi, contextHolder] = message.useMessage();
+  const key = 'updatable';
+  const [orderId, setOrderId] = useState();
 
-  window.innerWidth;
+  const creatOrder = ()=>{
+    const data = {};
+    messageApi.open({
+      key,
+      type: 'loading',
+      content: 'Creating Order...',
+    });
+
+    request
+      .post("/order/create",data)
+      .then((res) => {
+        console.log(res);
+        
+        messageApi.open({
+          key,
+          type: 'success',
+          content: 'Created!',
+          // duration: 2,
+        });
+        const orderId = 4;
+        checkOut(orderId);
+      })
+      .catch((e) => {
+        notification.error({
+          message: `Notification`,
+          description: e?.statusText,
+          placement: "topRight",
+        });
+      });
+
+  }
+
+  const checkOut = (orderId:any)=>{
+    const data = {
+      order_id: orderId,
+      redirect_url: `${getFullUrl(ROUTESMAP.PaySuccess)}?orderId=${orderId}`,
+      redirect_error_url: getFullUrl(ROUTESMAP.OrderErrorPage),
+      channel: 'HITPAY'
+    }
+    messageApi.open({
+      key,
+      type: 'loading',
+      content: 'Loading...',
+    });
+
+    request
+      .post("/payment/checkout",data)
+      .then((res) => {
+        console.log(res);
+        
+        messageApi.open({
+          key,
+          type: 'success',
+          content: 'Loaded!',
+          // duration: 2,
+        });
+        const checkoutUrl = get(res, "redirect_url");
+        if (!checkoutUrl) return;
+        window.location.href = checkoutUrl;
+      })
+      .catch((e) => {
+        notification.error({
+          message: `Notification`,
+          description: e?.statusText,
+          placement: "topRight",
+        });
+      });
+    
+  }
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -14,10 +89,12 @@ export const PopupAddons = () => {
 
   const handleOk = () => {
     setIsModalOpen(false);
+    creatOrder();
   };
 
   const handleCancel = () => {
     setIsModalOpen(false);
+    creatOrder();
   };
 
   const addonsData = [
@@ -63,10 +140,12 @@ export const PopupAddons = () => {
 
   return (
     <>
+    {contextHolder}
       <Button type="primary" onClick={showModal}>
         Open Modal
       </Button>
       <Modal
+        onCancel={()=>setIsModalOpen(false)}
         maskClosable={true}
         closeIcon={null}
         centered={true}
