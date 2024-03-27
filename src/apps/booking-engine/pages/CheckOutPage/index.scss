@@ -1,21 +1,139 @@
 @import "/src/bases/styles/variables.module.scss";
 
-.checkout-page{
-  justify-content: center;
+.checkout-page {
   height: 100%;
-  .checkout-left{
-    background-color: #0062FF;
-    color: map-get($colors, white);
-    width: 585px;
-  }
+  .checkout-container {
+    max-width: 1440px;
+    flex-grow: 1;
+    height: 100%;
+    .checkout-left {
+      background-color: #0062ff;
+      color: map-get($colors, white);
+      width: 585px;
+      height: 100%;
+      flex-shrink: 0;
 
-  .checkout-right{
-    background-color: map-get($colors, white);
-  }
-}
+      .checkout-left-container {
+        padding: 100px 0;
+        margin: 16px;
+        width: 345px;
+        height: 100%;
+        .you-are-paying {
+          font-size: 24px;
+          font-weight: 400;
+        }
+        .checkout-big-price {
+          font-size: 40px;
+          font-weight: 600;
+        }
+        .checkout-unit {
+          font-size: 24px;
+          font-weight: 600;
+        }
+        .checkout-collapse-container {
+          width: 100%;
+          height: 100%;
+          overflow: auto;
+        }
 
-@media (max-width=377px) {
-  .checkout-left{
-    width: 377px;
+        .checkout-cllapse {
+          width: 100%;
+          justify-content: space-between;
+          align-items: center;
+          cursor: pointer;
+          padding: 0 24px;
+        }
+
+        .checkout-cllapse-title {
+          font-size: 20px;
+          font-weight: 600;
+        }
+        .price-arrow {
+          width: 16px;
+          height: 16px;
+        }
+
+        .checkout-price-summary-divider {
+          background-color: #cac4d0;
+          padding: 0;
+          margin: 16px 0;
+        }
+
+        .checkout-price-summary-divider.inner {
+          margin: 0;
+        }
+
+        .checkout-price-summary {
+          width: 100%;
+          font-size: 16px;
+          font-weight: 400;
+          margin-top: 16px;
+          padding: 0 24px;
+          .total-price,
+          .price-summary-item-price {
+            text-align: right;
+            font-size: 16px;
+            font-weight: 600;
+          }
+          .total-price-desc,
+          .price-summary-item-price-desc {
+            color: #d9d9d9;
+            font-size: 16px;
+            font-weight: 400;
+            text-align: right;
+          }
+          .price-summary-item-discount {
+            border-radius: 8px;
+            background: map-get($colors, blue-5);
+            padding: 4px 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #1d1b20;
+            line-height: 20px; /* 142.857% */
+          }
+        }
+
+        .checkout-address-info {
+          padding: 0 24px;
+          .booking-info-time-lbl {
+            font-size: 14px;
+            font-weight: 400;
+          }
+          .booking-info-address-lbl {
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration-line: underline;
+          }
+          .booking-info-name {
+            font-size: 20px;
+            font-weight: 600;
+            margin: 16px 0;
+          }
+          .booking-info-day-count {
+            font-size: 12px;
+            font-weight: 600;
+            border-radius: 49px;
+            border: 1px solid #FFF;
+            padding: 4px 12px;
+
+          }
+          .address-indecator{
+            margin-top: 6px;
+          }
+        }
+      }
+    }
+
+    @media (max-width: 1024px) {
+      .checkout-left {
+        width: 377px;
+      }
+    }
+
+    .checkout-right {
+      background-color: map-get($colors, white);
+      height: 100%;
+      flex-grow: 1;
+    }
   }
 }

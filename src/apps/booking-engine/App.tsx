@@ -7,6 +7,7 @@ import SelectCarPage from "./pages/SelectCar";
 import { ROUTESMAP } from "./routes";
 import { CheckOutPage } from "./pages/CheckOutPage";
 import DriverInfo from "./pages/DriverInfo";
+import OrderErrorPage from "./pages/order-error-page";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <Route path={ROUTESMAP.Addons} Component={AddonsPage} />
       <Route path={ROUTESMAP.CheckOut} Component={CheckOutPage} />
       <Route path={ROUTESMAP.DriverInfo} Component={DriverInfo} />
+      <Route path={ROUTESMAP.OrderErrorPage} Component={OrderErrorPage} />
     </Routes>
   );
 }

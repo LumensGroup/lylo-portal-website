@@ -13,6 +13,7 @@ const ImportantInfoContactItem: React.FC<ImportantInfoData> = ({
       <Flex gap={16}>
         <Image
           className="important-icon"
+          preview={false}
           src={require(`@/bases/assets/imgs/${icon}`)}
         />
         <Flex vertical gap={4}>

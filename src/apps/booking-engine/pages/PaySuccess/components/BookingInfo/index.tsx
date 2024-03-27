@@ -9,7 +9,7 @@ import { BookingData } from '../BookingStatus'
 
 export const BookingInfo:React.FC<BookingData> = ({orderData})=> {
   const carModel = orderData['details'][0]['item_detail']['name'];
-  const orderId = orderData['id'];  
+  const orderId = orderData['order_no'];  
   return (
     <Flex vertical className='booking-result-card booking-info' gap={16}>
       <h4 className=''>Booking info</h4>

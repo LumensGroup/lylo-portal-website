@@ -44,12 +44,17 @@ export default function PaySuccess() {
   };
 
   const getOrderInfo = () => {
+    const urlStr = window.location.href.replace('#','');
+    const url = new URL(urlStr);
+    const orderId = url.searchParams.get('orderId');
+    
     setIsLoading(true);
     request
-      .get("/order/get?id=4")
+      .get(`/order/get?id=${orderId}`)
       .then((res) => {
         setOrderData(res);
         setIsLoading(false);
+        
       })
       .catch((e) => {
         notification.error({

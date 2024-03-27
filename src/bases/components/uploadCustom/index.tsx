@@ -8,18 +8,29 @@ import request from "../../../bases/request";
 
 type UploadPropsCustom = {
   titleName?: string;
+  valueChange?: any;
 };
 
 const UploadCustom = ({
   titleName,
+  valueChange
 }: UploadPropsCustom) => {
-  const reader = new FileReader();
+  // const reader = new FileReader();
   const [uploadListData, setUploadListData] = useState<any>([]);
+  const [baseValue, setbaseValue] = useState<any>('');
   const isFileAllowed=(file:any) =>{
     const allowedTypes = ['image/jpeg', 'image/png', 'application/pdf'];
     return allowedTypes.includes(file.type);
   }
-  const fileChange =async (file:any)=>{
+  const readFileAsDataURL=(file:any)=> {  
+    return new Promise((resolve, reject) => {  
+        const reader = new FileReader();  
+        reader.onload = () => resolve(reader.result);  
+        reader.onerror = error => reject(error);  
+        reader.readAsDataURL(file);  
+    });  
+}  
+  const fileChange = async(file:any)=>{
     if (!isFileAllowed(file.target.files[0])) {
       console.log(file.target.files[0])
       notification.error({
@@ -28,36 +39,19 @@ const UploadCustom = ({
         placement: "topRight",
       });
     } else {
-      // 文件类型正确，可以继续处理
-      const imgurl: any[] = [];
-      console.log(file.target.files[0])
       const newData =  JSON.parse(JSON.stringify(uploadListData));
       newData.push(
         {
           name:file.target.files[0].name,
           id:file.target.files[0].lastModified,
-          percent:100
+          percent:100,
+          image_url:"",
+          object_name:'',
         }
       )
-      await setUploadListData(newData)
-      // 当文件读取完毕后会触发load事件
-      reader.onload =  (event:any) =>{
-        const base64Image = event.target.result;
-        request
-        .post("/blob/upload-image",{
-          'image_base64':base64Image
-        })
-        .then((res:any) => {
-          console.log(res, "---");
-          const data =  JSON.parse(JSON.stringify(uploadListData));
-          data[data.length-1].image_url = res?.image_url
-          data[data.length-1].object_name = res?.object_name
-          setUploadListData(data)
-        })
-      };
-    
-      // 以Base64格式读取文件
-      await reader.readAsDataURL(file.target.files[0]);
+      setUploadListData(newData)
+      const dataURL = await readFileAsDataURL(file.target.files[0]); 
+      setbaseValue(dataURL)
     }
   }
   const deleteClick = (index:any)=>{
@@ -86,6 +80,26 @@ const UploadCustom = ({
           ))
       )
   }
+  useEffect(() => {
+    (async () => {
+        if(baseValue){
+          const requestData= await request
+          .post("/blob/upload-image",{
+            'image_base64':baseValue
+          })
+          .then((res:any) => {
+            return res
+          }) 
+          console.log('uploadListData')
+          console.log(uploadListData)
+          const data =  JSON.parse(JSON.stringify(uploadListData));
+          data[data.length-1].image_url = requestData?.image_url
+          data[data.length-1].object_name = requestData?.object_name
+          valueChange(data)
+          setUploadListData(data)
+        }
+    })()
+  }, [baseValue]);
     return (
       <div className="upload-box">
         <div className="upload-box">

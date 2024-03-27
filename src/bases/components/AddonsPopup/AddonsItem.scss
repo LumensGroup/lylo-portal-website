@@ -2,15 +2,15 @@
 
 .add-ons-item-card {
   padding: 0px;
-
+  width: 100%;
   overflow: hidden;
   // background: map-get($colors, blue-1);
   color: #1d1b20;
   font-family: "Noto Sans";
 
   .addons-image {
-    width: 265px;
-    height: 216px;
+    width: 221px;
+    height: 142px;
     border-radius: 8px 0px 0px 8px;
   }
   .addons-right-content {
@@ -19,6 +19,7 @@
     border-bottom: 1px solid #abb7ba;
     border-top: 1px solid #abb7ba;
     padding: 16px;
+    flex-grow: 1;
 
     .addons-title {
       font-size: 16px;
@@ -82,6 +83,10 @@
       border-top: none;
       border-left: 1px solid #abb7ba;
       padding: 16px;
+    }
+
+    .addons-footer{
+      margin-top: 12px;
     }
   }
 }

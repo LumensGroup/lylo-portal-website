@@ -9,7 +9,7 @@
   min-height:100px;
   padding: 30px 16px 30px 16px;
   border-radius: 8px;
-  background: rgba(231, 235, 251, 1);
+  background: rgba(229, 239, 255, 1);
   margin-top: 8px;
   position: relative;
 }
@@ -68,7 +68,7 @@
   display: flex;
   flex-wrap: wrap;
 }
-@media (max-width: 980px) {
+@media (max-width: 850px) {
   .form-row{
     display:block;
   }
