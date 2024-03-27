@@ -6,14 +6,47 @@ import { getFullUrl } from "@/bases/utils/common";
 import { ROUTESMAP } from "@/apps/booking-engine/routes";
 import request from "@/bases/request";
 import { get } from "lodash";
+import demoData from './creatorderData'
 
 export const PopupAddons = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [messageApi, contextHolder] = message.useMessage();
   const key = 'updatable';
 
+  const getPaymentIntent = (orderId:any)=>{
+    messageApi.open({
+      key,
+      type: 'loading',
+      content: 'Creating Order...',
+    });
+
+    request
+      .post(`/payment/intent?order_id=${orderId}`)
+      .then((res) => {
+        console.log(res);
+        
+        messageApi.open({
+          key,
+          type: 'success',
+          content: 'Created!',
+        });
+        const orderId = get(res,"id");
+        // checkOut(orderId);
+                
+      })
+      .catch((e) => {
+        console.log(e.data.message);
+        
+        notification.error({
+          message: `Notification`,
+          description: e?.statusText,
+          placement: "topRight",
+        });
+      });
+  }
+
   const creatOrder = ()=>{
-    const data = {};
+    const data = demoData;
     messageApi.open({
       key,
       type: 'loading',
@@ -24,16 +57,28 @@ export const PopupAddons = () => {
       .post("/order/create",data)
       .then((res) => {
         console.log(res);
+
+        for (let i = 0; i < 10; i++) {
+          setTimeout(() => {
+            messageApi.open({
+              key,
+              type: 'success',
+              content: `Created! After ${10 - i} seconds will jump to make payment page`,
+              duration: 1,
+            });
+          }, i * 1000);
+          
+        }
+        setTimeout(() => {
+          const orderId = get(res,"id");
+          checkOut(orderId);
+        }, 10 * 1000);
         
-        messageApi.open({
-          key,
-          type: 'success',
-          content: 'Created!',
-        });
-        const orderId = 4;
-        checkOut(orderId);
+        // getPaymentIntent(orderId);   
       })
       .catch((e) => {
+        console.log(get(e,'e.data.message'));
+        
         notification.error({
           message: `Notification`,
           description: e?.statusText,
@@ -61,12 +106,12 @@ export const PopupAddons = () => {
       .then((res) => {
         console.log(res);
         
-        messageApi.open({
-          key,
-          type: 'success',
-          content: 'Loaded!',
-          // duration: 2,
-        });
+        // messageApi.open({
+        //   key,
+        //   type: 'success',
+        //   content: 'Loaded!',
+        //   // duration: 2,
+        // });
         const checkoutUrl = get(res, "redirect_url");
         if (!checkoutUrl) return;
         window.location.href = checkoutUrl;
