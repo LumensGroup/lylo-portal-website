@@ -7,11 +7,15 @@ import { ROUTESMAP } from "@/apps/booking-engine/routes";
 import request from "@/bases/request";
 import { get } from "lodash";
 import demoData from './creatorderData'
+import { useSelector } from "react-redux";
+import { RootState } from "@/bases/store/reducers";
 
 export const PopupAddons = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [messageApi, contextHolder] = message.useMessage();
   const key = 'updatable';
+
+  const { selectedCar } = useSelector((state: RootState) => state.selectedCar);
 
   const getPaymentIntent = (orderId:any)=>{
     messageApi.open({
@@ -46,7 +50,7 @@ export const PopupAddons = () => {
   }
 
   const creatOrder = ()=>{
-    const data = demoData;
+    const data = {...demoData,details:[{item_id:selectedCar.id}]};
     messageApi.open({
       key,
       type: 'loading',
