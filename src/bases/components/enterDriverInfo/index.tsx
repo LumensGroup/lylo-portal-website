@@ -1,14 +1,63 @@
 import "./styles.scss";
 import { Tabs, Modal, Collapse } from "antd";
 import DriverInfoForm from "@/bases/components/driverInfoForm";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { TabsProps } from 'antd';
+import withQuery from "@/bases/utils/with-query";
+import { useSearchParams } from "react-router-dom";
+import request from "@/bases/request";
+import { ROUTESMAP } from "@/apps/booking-engine/routes";
+import { getAuthUrl, getFullBoolingEngineUrl, getSingpassCallbackErrorUrl, getSingpassCallbackUrl } from "@/bases/utils/url";
 
-const EnterDriverInfo = () => {
+interface EnterDriverInfoProps {
+  singpassSessionId: string;
+}
+
+const EnterDriverInfo:React.FC<EnterDriverInfoProps> = ({ singpassSessionId }) => {
 
   const {TabPane} = Tabs
   const [userList, setUserList] = useState<any>([{singpassType:true}]);
   const [open, setOpen] = useState(false)
+  const [searchParams] = useSearchParams()
+  const [querySingpass, setQuerySingpass] = useState(false)
+  const [singpassData, setSingpassData] = useState<any>({});
+  const [selectIndex, setSelectIndex] = useState<any>(0);
+
+  const singpassUrl = useMemo(
+    () =>
+      withQuery(getAuthUrl(), {
+        extraInfo: {
+          callbackUrl: getSingpassCallbackUrl(singpassSessionId),
+          callbackErrorUrl: getSingpassCallbackErrorUrl(singpassSessionId),
+          redirectUrl: getFullBoolingEngineUrl(ROUTESMAP.DriverInfo),
+          redirectErrorUrl: getFullBoolingEngineUrl(ROUTESMAP.DriverInfo),
+        },
+      }),
+    [singpassSessionId]
+  );
+
+  console.log(singpassUrl)
+
+  useEffect(() => {
+    const sid = searchParams.get("sid")
+    const personId = searchParams.get("personId")
+    if (sid && personId) {
+      setQuerySingpass(true)
+    }
+    if (querySingpass) {
+      request
+      .get(`/driver/singpass/get-info?session_id=${singpassSessionId}`)
+      .then ((res:any) => {
+        // console.log("result:")
+        // console.log(res)
+        console.log(userList)
+        const listData = [...userList]
+        listData[selectIndex].singpassType= false
+        setSingpassData(res)
+      })
+    }
+  }, [searchParams,querySingpass]);
+  
   const onChange = (key: string) => {
     console.log(key);
   };
@@ -55,14 +104,15 @@ const EnterDriverInfo = () => {
     }
   }
   const singpassClick = (index:any)=>{
-    console.log("需要跳转的index"+index)
+    setSelectIndex(index)
+    window.location.href = singpassUrl
   }
   const getUserList = (data:any) =>{
     return data.map((item:any,index:any)=>{
       console.log(item)
       return (
         <Collapse.Panel header={<>Driver #{(index+1)} -</>}  key={index}>
-          <DriverInfoForm addDriver={addDriver} index={index} key={index} deletDriver={deletDriver} singpassType={item.singpassType} singpassClick={singpassClick}></DriverInfoForm>
+          <DriverInfoForm singpassData={singpassData} addDriver={addDriver} index={index} key={index} deletDriver={deletDriver} singpassType={item.singpassType} singpassClick={singpassClick}></DriverInfoForm>
         </Collapse.Panel>      
       )
     })
@@ -85,7 +135,7 @@ const EnterDriverInfo = () => {
         accordion
         ghost
         expandIconPosition="end"
-        defaultActiveKey="1"
+        defaultActiveKey="0"
         >
           {getUserList(userList)}
         </Collapse>    

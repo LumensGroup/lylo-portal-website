@@ -2,13 +2,37 @@ import Icon from "@/bases/components/icon";
 import { Image, Typography } from "antd";
 
 import CustomizedCollapse from "@/bases/components/collapse";
+import { SelectedCarDetailProps } from "@/bases/types";
 import "./styles.scss";
 
-const SelectCarDetail = () => {
+const SelectCarDetail = ({
+  selectedCarDetail,
+}: {
+  selectedCarDetail: SelectedCarDetailProps;
+}) => {
+  const { name, categories, images, features, metadata } =
+    selectedCarDetail as any;
+
+  const currentItem = images?.find((item: { cover: boolean }) => {
+    return item.cover === true;
+  });
+  const currentCategories = categories?.find((item: { type: string }) => {
+    return item.type === "SEATING_TYPE";
+  });
+
+  const seatNumber = currentCategories?.name?.match(/\d+/)[0];
+  const currentItemFeatures = features?.find((item: { slug: string }) => {
+    return item?.slug === "luggages";
+  });
+
+  const { image_url } = currentItem || {};
+  const { value } = currentItemFeatures || {};
+  const { packages } = metadata;
+
   const descriptionsData = [
     {
       icon: "adult",
-      desc: "5 Adults",
+      desc: `${seatNumber} Adults`,
     },
     {
       icon: "auto_transmission",
@@ -16,7 +40,7 @@ const SelectCarDetail = () => {
     },
     {
       icon: "luggage",
-      desc: "2 Luggages",
+      desc: `${value} Luggages`,
     },
     {
       icon: "pets",
@@ -24,20 +48,9 @@ const SelectCarDetail = () => {
     },
   ];
 
-  const includesData = [
-    {
-      include: "Comprehensive car insurance",
-    },
-    {
-      include: "Unlimited mileage",
-    },
-    {
-      include: "Entry to West Malaysia",
-    },
-    {
-      include: "24/7 roadside assistance",
-    },
-  ];
+  const includesData = packages?.map((item: string) => {
+    return { include: item };
+  });
 
   const renderDescription = () => {
     return descriptionsData?.map((item, index) => {
@@ -51,7 +64,7 @@ const SelectCarDetail = () => {
   };
 
   const renderIncluedes = () => {
-    return includesData.map((item, index) => {
+    return includesData.map((item: { include: string }, index: number) => {
       return (
         <div key={index} className="addons_includes_items">
           <Icon source="green_check" className="checkIcon" />
@@ -64,15 +77,11 @@ const SelectCarDetail = () => {
   const carDetail = (
     <div className="addons__cardetail">
       <Typography.Title level={2} style={{ marginTop: "3px" }}>
-        Honda Fit
+        {name}
       </Typography.Title>
       <div className="addons__content">
         {" "}
-        <Image
-          height={137}
-          width={206}
-          src={require("@/bases/assets/imgs/Car model.jpg")}
-        />
+        <Image height={137} width={206} src={image_url} />
         <div className="item-wrapper">{renderDescription()}</div>
       </div>
     </div>

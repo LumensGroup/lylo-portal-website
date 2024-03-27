@@ -3,7 +3,7 @@ import "./styles.scss";
 
 import CustomizedCollapse from "@/bases/components/collapse";
 import clsx from "clsx";
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 
 const HideButton = ({ title }: { title: string }) => {
   return (
@@ -75,8 +75,23 @@ const FooterComponent = ({
   }
 };
 
-const CDWCardsArea = ({ direction }: any) => {
+const CDWCardsArea = ({ direction, cdwList }: any) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
+
+  const lists = cdwList?.map(
+    (item: { name: string; options: { price: number }[] }) => {
+      return {
+        title: item?.name,
+
+        footer: (
+          <FooterComponent
+            price={item?.options[0].price / 100}
+            desc="included"
+          />
+        ),
+      };
+    }
+  );
   return (
     <Space
       className="cdw-card-wrapper"
@@ -84,35 +99,42 @@ const CDWCardsArea = ({ direction }: any) => {
       direction={direction}
       style={{ display: "flex" }}
     >
-      {[
-        { title: "CDW Basic", footer: <FooterComponent desc="Include" /> },
-        { title: "CDW", footer: <FooterComponent price={18} /> },
-        { title: "CDW Max", footer: <FooterComponent price={25} /> },
-      ].map(({ title, footer }, index) => {
-        return (
-          <div
-            className={clsx("card", selectedIndex === index && "active")}
-            key={index}
-            onClick={() => setSelectedIndex(index)}
-          >
-            <div className="title">
-              <SelectedRadio active />
-              <div style={{ marginLeft: "12px" }}>{title}</div>
+      {lists.map(
+        (
+          { title, footer }: { title: string; footer: ReactNode },
+          index: number
+        ) => {
+          return (
+            <div
+              className={clsx("card", selectedIndex === index && "active")}
+              key={index}
+              onClick={() => setSelectedIndex(index)}
+            >
+              <div className="title">
+                <SelectedRadio active />
+                <div style={{ marginLeft: "12px" }}>{title}</div>
+              </div>
+              {footer}
             </div>
-            {footer}
-          </div>
-        );
-      })}
+          );
+        }
+      )}
     </Space>
   );
 };
-const CDW = ({ direction }: { direction: string }) => {
+const CDW = ({
+  direction,
+  cdwList,
+}: {
+  direction: string;
+  cdwList: { [key: string]: any };
+}) => {
   return (
     <CustomizedCollapse
       header={<h1>Add-ons 1/2 : Collision Damage Waiver (CDW) </h1>}
     >
       <TextArea />
-      <CDWCardsArea direction={direction} />
+      <CDWCardsArea direction={direction} cdwList={cdwList} />
     </CustomizedCollapse>
   );
 };

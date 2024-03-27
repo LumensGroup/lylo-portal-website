@@ -1,0 +1,22 @@
+.location__input {
+    height: 54px;
+    padding: 8px 12px;
+    border-radius: 8px;
+
+
+    .ant-input-prefix {
+        color: '#8B8B8B';
+        font-size: 12px;
+        height: 0px;
+        position: absolute;
+        width: fit-content;
+        transform: translateY(10px);
+    }
+
+    .ant-input {
+        transform: translate(0px, 10px);
+        font-weight: 600;
+        font-size: 14px;
+        color: #2C353B;
+    }
+}
