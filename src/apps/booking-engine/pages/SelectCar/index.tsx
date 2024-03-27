@@ -81,6 +81,7 @@ const ActionBar = ({ handleSort, handleFilter }: any) => {
 const CarSelectPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [seatType, setSeatType] = useState("");
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
 
   const [filterCondition, setFilterCondition] = useState<FilterConditionState>({
@@ -94,16 +95,19 @@ const CarSelectPage = () => {
   const [editPopupVisible, setEditPopupVisible] = useState(false);
 
   const handleSort = (value: any) => setSortCondition(value);
+
   const handleFilter = (keyName: string, value: any) => {
-    setFilterCondition((prevState) => ({
-      ...prevState,
-      [keyName]: value,
-    }));
+    setFilterCondition((prevState) => {
+      return {
+        ...prevState,
+        [keyName]: value,
+      };
+    });
   };
 
   const getCarList = async () => {
     setIsLoading(true);
-    const params: any = {};
+    const params: any = { pageSize: 1000 };
     if (sortCondition) {
       params["sorter[sale_price]"] = sortCondition;
     }
@@ -111,7 +115,7 @@ const CarSelectPage = () => {
     if (filterCondition.sale_price.length > 0) {
       params["filter[sale_price]"] = filterCondition.sale_price
         .map((item) => item.value)
-        .join("|");
+        .join("~");
     }
     if (filterCondition.seating_category.length > 0) {
       params["filter[seating_category]"] = filterCondition.seating_category
@@ -146,7 +150,9 @@ const CarSelectPage = () => {
 
   return (
     <>
-      <NewSearch radiusType={false} shadowType={true} />
+      <div className="select-cars__search__area">
+        <NewSearch radiusType={false} shadowType={false} />
+      </div>
       {isMobile && (
         <>
           <PickUpEdit handleClick={handleEditClick} />
@@ -161,8 +167,12 @@ const CarSelectPage = () => {
           {!isMobile && (
             <ActionBar handleFilter={handleFilter} handleSort={handleSort} />
           )}
-          <Infomation content="The vehicle images shown are examples. Specific models within a car class may vary in availability." />
+          <Infomation
+            content="The vehicle images shown are examples. Specific models within a car class may vary in availability."
+            seatType={filterCondition}
+          />
         </div>
+
         {isLoading && <Spin style={{ width: "100%" }} />}
         <div
           style={{

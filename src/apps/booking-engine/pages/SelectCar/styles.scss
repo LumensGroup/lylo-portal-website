@@ -1,3 +1,9 @@
+.select-cars__search__area {
+    background: #ffffff;
+    border-top: 1px solid #CACACA;
+    border-bottom: 1px solid #CACACA;
+}
+
 .select-cars {
     &__layouts {
         padding: 0px 24px;
@@ -15,6 +21,13 @@
 
         .select-cars__action__area {
             flex: 0 0 auto
+        }
+
+        .select-cars__action__title {
+            font-size: 16px;
+            color: #1D1B20;
+            font-weight: 600;
+            margin: 16px 0px;
         }
 
         .select-cars__content {

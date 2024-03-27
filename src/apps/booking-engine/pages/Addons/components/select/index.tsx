@@ -49,20 +49,29 @@ const Select: React.FC<SelectProps> = ({
 
   const handleOptionClick = (option: Option) => {
     if (multiple) {
+      // 判断该选项是否已被选中
       const isSelected = selectedOptions.some(
         (selectedOption) => selectedOption.value === option.value
       );
+
+      // 更新选中的选项
       if (isSelected) {
-        setSelectedOptions(
-          selectedOptions.filter(
+        setSelectedOptions((prevOptions) =>
+          prevOptions.filter(
             (selectedOption) => selectedOption.value !== option.value
           )
         );
       } else {
-        setSelectedOptions([...selectedOptions, option]);
+        setSelectedOptions((prevOptions) => [...prevOptions, option]);
       }
 
-      handleClick?.([...selectedOptions, option]);
+      // 触发 handleClick 函数时只包含新选中的选项
+      const newlySelectedOptions = isSelected
+        ? selectedOptions.filter(
+            (selectedOption) => selectedOption.value !== option.value
+          )
+        : [...selectedOptions, option];
+      handleClick?.(newlySelectedOptions);
     } else {
       setSelectedOptions([option]);
       setIsOpen(false);
