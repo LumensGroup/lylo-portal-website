@@ -150,9 +150,11 @@ const CarSelectPage = () => {
 
   return (
     <>
-      <div className="select-cars__search__area">
-        <NewSearch radiusType={false} shadowType={false} />
-      </div>
+      {!isMobile && (
+        <div className="select-cars__search__area">
+          <NewSearch radiusType={false} shadowType={false} />
+        </div>
+      )}
       {isMobile && (
         <>
           <PickUpEdit handleClick={handleEditClick} />
@@ -169,7 +171,7 @@ const CarSelectPage = () => {
           )}
           <Infomation
             content="The vehicle images shown are examples. Specific models within a car class may vary in availability."
-            seatType={filterCondition}
+            carNumber={carList?.length}
           />
         </div>
 
@@ -222,7 +224,7 @@ const CarSelectPage = () => {
           minHeight: "40vh",
         }}
       >
-        {3123123}
+        <NewSearch />
       </Popup>
     </>
   );

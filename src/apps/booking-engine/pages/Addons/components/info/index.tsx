@@ -3,20 +3,14 @@ import "./styles.scss";
 const Infomation = ({
   content,
   style,
-  seatType,
+  carNumber,
 }: {
   content: string;
-  seatType: any;
+  carNumber: number;
   style?: React.CSSProperties;
 }) => {
-  const category = seatType["seating_category"];
-  console.log(category);
-
   const SeatNumber = () => {
-    if (category?.length === 2 || category?.length === 0) {
-      return "all car models available";
-    }
-    return `${category[0]?.label?.match(/\d+/)} car models available`;
+    return `${carNumber} car models available`;
   };
   return (
     <>
@@ -24,9 +18,8 @@ const Infomation = ({
         <Icon source={"infomation"} className="infomation" />
         <span>{content}</span>
       </div>
-      {seatType && (
-        <div className="select-cars__action__title">{SeatNumber()}</div>
-      )}
+
+      <div className="select-cars__action__title">{SeatNumber()}</div>
     </>
   );
 };
