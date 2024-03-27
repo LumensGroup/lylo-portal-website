@@ -262,7 +262,6 @@ const DriverInfoForm :React.FC<DriverInfoFormProps> = ({
                     name="basic"
                     labelCol={{ span: 0 }}
                     wrapperCol={{ span: 24 }}
-                    form={singpassForm}
                   >
                     <div className="form-row">
                       <div className="form-border-box">

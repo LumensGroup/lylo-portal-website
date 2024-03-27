@@ -79,6 +79,44 @@ const NewSearch: React.FC<NewSearchProps> = ({
     password?: string;
     remember?: string;
   };
+  const setpickuUp = (value:any) =>{
+      const pickupOpengTime : any[] = [];
+      const pickupName =  moment(value).format('dddd').toUpperCase()
+      openData[0]?.opening_hours.map((item:any)=>{
+        if(item.weekday == pickupName){
+          console.log('1')
+          pickupOpengTime.push(parseFloat(item.open_from)+8)
+          pickupOpengTime.push(parseFloat(item.open_until)+8)
+        }
+      })   
+    // pick-up不可选日期
+    const timeSelectValue = [...timeSelectData]
+    timeSelectValue.map((item:any)=>{
+      if(item.fromTime>=pickupOpengTime[0]&&item.endTime<=pickupOpengTime[1]){
+        item.disable = false
+      }
+    })
+    setTimeSelectData(timeSelectValue)
+  }
+  const setdropOff = (value:any) =>{
+    //drop-off不可选日期
+    const dropOffOpengTime : any[] = [];
+    const dropOffName = moment(value).format('dddd').toUpperCase()
+    openData[openData.length-1]?.opening_hours.map((item:any)=>{
+      if(item.weekday == dropOffName){
+       console.log('2')
+       dropOffOpengTime.push(parseFloat(item.open_from)+8)
+       dropOffOpengTime.push(parseFloat(item.open_until)+8)
+     }
+   })
+   const timeSelectValueTwo = [...timeSelectDataTwo]
+   timeSelectValueTwo.map((item:any)=>{
+     if(item.fromTime>=dropOffOpengTime[0]&&item.endTime<=dropOffOpengTime[1]){
+       item.disable = false
+     }
+   })
+   setTimeSelectDataTwo(timeSelectValueTwo)
+  }
   const childDataFc = (value:any,equipment:any,type:any) =>{
     console.log("接收到子组件的数据")
     console.log(value)
@@ -98,8 +136,6 @@ const NewSearch: React.FC<NewSearchProps> = ({
       searchForm['pick_up_date'] =value[0]
       searchForm['pick_off_date'] =value[1]
     }
-    const pickupOpengTime : any[] = [];
-    const dropOffOpengTime : any[] = [];
     if(equipment=='pc'){
       setPickupDate(`${value[0].$d.getMonth() + 1}-${value[0].$d.getDate()}`)
       setDropOffData(`${value[1].$d.getMonth() + 1}-${value[1].$d.getDate()}`)
@@ -120,40 +156,8 @@ const NewSearch: React.FC<NewSearchProps> = ({
       setDurationData(days)
     }
     setPickupName(moment(value[0]).format('dddd'))
-    const pickupName =  moment(value[0]).format('dddd').toUpperCase()
-    const dropOffName = moment(value[1]).format('dddd').toUpperCase()
-    openData[0]?.opening_hours.map((item:any)=>{
-      if(item.weekday == pickupName){
-        console.log('1')
-        pickupOpengTime.push(parseFloat(item.open_from)+8)
-        pickupOpengTime.push(parseFloat(item.open_until)+8)
-      }
-    })
-    openData[openData.length-1]?.opening_hours.map((item:any)=>{
-       if(item.weekday == dropOffName){
-        console.log('2')
-        dropOffOpengTime.push(parseFloat(item.open_from)+8)
-        dropOffOpengTime.push(parseFloat(item.open_until)+8)
-      }
-    })
-    console.log(pickupOpengTime)
-    // pick-up不可选日期
-    const timeSelectValue = [...timeSelectData]
-    timeSelectValue.map((item:any)=>{
-      if(item.fromTime>=pickupOpengTime[0]&&item.endTime<=pickupOpengTime[1]){
-        item.disable = false
-      }
-    })
-    setTimeSelectData(timeSelectValue)
-    //drop-off不可选日期
-    const timeSelectValueTwo = [...timeSelectDataTwo]
-    timeSelectValueTwo.map((item:any)=>{
-      if(item.fromTime>=pickupOpengTime[0]&&item.endTime<=pickupOpengTime[1]){
-        item.disable = false
-      }
-    })
-    setTimeSelectDataTwo(timeSelectValueTwo)
-    // console.log(parseFloat(pickupOpengTime[1]))
+    setpickuUp(value[0])
+    setdropOff(value[1])
   }
 
   const timeSelectMouerLeave = () => {
@@ -205,6 +209,7 @@ const NewSearch: React.FC<NewSearchProps> = ({
       const date = String(now.getDate()+1).padStart(2, '0');
       setPickupDate(`${month}-${date}`)
       searchForm['pick_up_date'] =new Date(`${year}-${month}-${date}`)
+      setpickuUp(now)
     }else if(containsIgnoreCase(values?.address_line_one,'Delivery')||containsIgnoreCase(values?.address_line_two_optional,'Delivery')){
       const now = new Date();
       const year = now.getFullYear();
@@ -212,6 +217,7 @@ const NewSearch: React.FC<NewSearchProps> = ({
       const date = String(now.getDate()+2).padStart(2, '0');
       setDropOffData(`${month}-${date}`)
       searchForm['pick_off_date'] =new Date( `${year}-${month}-${date}`)
+      setdropOff(now)
     }
     console.log(searchForm)
   };
