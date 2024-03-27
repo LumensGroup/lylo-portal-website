@@ -1,15 +1,15 @@
 export default {
   "collection_location": {
-      "id": 1,
+      "id": 0,
       "address_full": "KINTO One Centre (Midview City)",
       "postal_code": "573969",
-      "built_in": true
+      "built_in": false
   },
   "return_location": {
-      "id": 1,
+      "id": 0,
       "address_full": "KINTO One Centre (Midview City)",
       "postal_code": "573969",
-      "built_in": true
+      "built_in": false
   },
   "add_on_options": [
       {

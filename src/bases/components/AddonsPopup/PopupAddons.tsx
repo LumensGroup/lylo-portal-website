@@ -1,64 +1,64 @@
 import React, { useState } from "react";
 import { Button, Flex, Modal, message, notification } from "antd";
 import { AddonsItem } from "./AddonsItem";
-import "./AddonsItem.scss"
+import "./AddonsItem.scss";
 import { getFullUrl } from "@/bases/utils/common";
 import { ROUTESMAP } from "@/apps/booking-engine/routes";
 import request from "@/bases/request";
 import { get } from "lodash";
-import demoData from './creatorderData'
+import demoData from "./creatorderData";
 import { useSelector } from "react-redux";
 import { RootState } from "@/bases/store/reducers";
 
 export const PopupAddons = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [messageApi, contextHolder] = message.useMessage();
-  const key = 'updatable';
+  const key = "updatable";
+  
 
   const { selectedCar } = useSelector((state: RootState) => state.selectedCar);
 
-  const getPaymentIntent = (orderId:any)=>{
+  const getPaymentIntent = (orderId: any) => {
     messageApi.open({
       key,
-      type: 'loading',
-      content: 'Creating Order...',
+      type: "loading",
+      content: "Creating Order...",
     });
 
     request
       .post(`/payment/intent?order_id=${orderId}`)
       .then((res) => {
         console.log(res);
-        
+
         messageApi.open({
           key,
-          type: 'success',
-          content: 'Created!',
+          type: "success",
+          content: "Created!",
         });
-        const orderId = get(res,"id");
+        const orderId = get(res, "id");
         // checkOut(orderId);
-                
       })
       .catch((e) => {
         console.log(e.data.message);
-        
+
         notification.error({
           message: `Notification`,
           description: e?.statusText,
           placement: "topRight",
         });
       });
-  }
+  };
 
-  const creatOrder = ()=>{
-    const data = {...demoData,details:[{item_id:selectedCar.id}]};
+  const creatOrder = () => {
+    const data = { ...demoData, details: [{ item_id: selectedCar.id }] };
     messageApi.open({
       key,
-      type: 'loading',
-      content: 'Creating Order...',
+      type: "loading",
+      content: "Creating Order...",
     });
 
     request
-      .post("/order/create",data)
+      .post("/order/create", data)
       .then((res) => {
         console.log(res);
 
@@ -66,50 +66,50 @@ export const PopupAddons = () => {
           setTimeout(() => {
             messageApi.open({
               key,
-              type: 'success',
-              content: `Created! After ${10 - i} seconds will jump to make payment page`,
+              type: "success",
+              content: `Created! After ${
+                10 - i
+              } seconds will jump to make payment page`,
               duration: 1,
             });
           }, i * 1000);
-          
         }
         setTimeout(() => {
-          const orderId = get(res,"id");
+          const orderId = get(res, "id");
           checkOut(orderId);
         }, 10 * 1000);
-        
-        // getPaymentIntent(orderId);   
+
+        // getPaymentIntent(orderId);
       })
       .catch((e) => {
-        console.log(get(e,'e.data.message'));
-        
+        console.log(get(e, "e.data.message"));
+
         notification.error({
           message: `Notification`,
           description: e?.statusText,
           placement: "topRight",
         });
       });
+  };
 
-  }
-
-  const checkOut = (orderId:any)=>{
+  const checkOut = (orderId: any) => {
     const data = {
       order_id: orderId,
       redirect_url: `${getFullUrl(ROUTESMAP.PaySuccess)}?orderId=${orderId}`,
       redirect_error_url: getFullUrl(ROUTESMAP.OrderErrorPage),
-      channel: 'HITPAY'
-    }
+      channel: "HITPAY",
+    };
     messageApi.open({
       key,
-      type: 'loading',
-      content: 'Loading...',
+      type: "loading",
+      content: "Loading...",
     });
 
     request
-      .post("/payment/checkout",data)
+      .post("/payment/checkout", data)
       .then((res) => {
         console.log(res);
-        
+
         // messageApi.open({
         //   key,
         //   type: 'success',
@@ -127,8 +127,7 @@ export const PopupAddons = () => {
           placement: "topRight",
         });
       });
-    
-  }
+  };
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -176,23 +175,39 @@ export const PopupAddons = () => {
     },
   ];
 
-  const footer = ()=>{
+  const footer = () => {
     return (
       <Flex gap={16} justify="right">
-        <Button onClick={handleCancel} type="default" className="addons-popup-button addons-popup-button-remove" size="large" shape="round">Skip</Button>
-        <Button onClick={handleOk} type="primary" className="addons-popup-button addons-popup-button-add" size="large" shape="round">Next</Button>
+        <Button
+          onClick={handleCancel}
+          type="default"
+          className="addons-popup-button addons-popup-button-remove"
+          size="large"
+          shape="round"
+        >
+          Skip
+        </Button>
+        <Button
+          onClick={handleOk}
+          type="primary"
+          className="addons-popup-button addons-popup-button-add"
+          size="large"
+          shape="round"
+        >
+          Next
+        </Button>
       </Flex>
-    )
-  }
+    );
+  };
 
   return (
     <>
-    {contextHolder}
+      {contextHolder}
       <Button type="primary" onClick={showModal}>
         Open Modal
       </Button>
       <Modal
-        onCancel={()=>setIsModalOpen(false)}
+        onCancel={() => setIsModalOpen(false)}
         maskClosable={true}
         closeIcon={null}
         centered={true}
