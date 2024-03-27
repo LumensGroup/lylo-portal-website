@@ -2,7 +2,7 @@ import "./styles.scss";
 import { Tabs, Form, Input, DatePicker, Select, Modal } from "antd";
 import { InfoCircleOutlined } from '@ant-design/icons';
 import UploadCustom from "@/bases/components/uploadCustom";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import type { TabsProps } from 'antd';
 
 type DriverInfoFormProps = {
@@ -11,16 +11,19 @@ type DriverInfoFormProps = {
   deletDriver?: any,
   singpassType?: any,
   singpassClick?: any,
+  singpassData?: any,
 };
 const DriverInfoForm :React.FC<DriverInfoFormProps> = ({
   addDriver,
   index,
   deletDriver,
   singpassType,
-  singpassClick
+  singpassClick,
+  singpassData,
 })  => {
   const {TabPane} = Tabs
   const [open, setOpen] = useState(false);
+  const [singpassForm] = Form.useForm();
   const onChange = (key: string) => {
     console.log(key);
   };
@@ -43,6 +46,8 @@ const DriverInfoForm :React.FC<DriverInfoFormProps> = ({
             name="basic"
             labelCol={{ span: 0 }}
             wrapperCol={{ span: 24 }}
+            form={singpassForm}
+            style={{display:singpassType?'none':'block'}}
           >
             <div className="form-row">
               <div className="form-border-box form-row-disable">
@@ -50,8 +55,8 @@ const DriverInfoForm :React.FC<DriverInfoFormProps> = ({
                     Full Name
                   </div>
                   <div>
-                  <Form.Item name="note" label="" >
-                      <Input style={{height:'22px'}} defaultValue='5656565' disabled={true}/>
+                  <Form.Item name="full_name" label="" >
+                      <Input style={{height:'22px'}}  disabled={true}/>
                   </Form.Item>
                   </div>
               </div>
@@ -60,8 +65,8 @@ const DriverInfoForm :React.FC<DriverInfoFormProps> = ({
                     NRIC / FIN
                   </div>
                   <div>
-                  <Form.Item name="note" label="" >
-                    <Input style={{height:'22px'}} defaultValue='5656565' disabled={true}/>
+                  <Form.Item name="address" label="" >
+                    <Input style={{height:'22px'}}  disabled={true}/>
                   </Form.Item>
                   </div>
               </div>
@@ -95,7 +100,7 @@ const DriverInfoForm :React.FC<DriverInfoFormProps> = ({
                   </div>
                   <div>
                   <Form.Item name="note" label="" >
-                      <Input style={{height:'22px'}} defaultValue='5656565' disabled={true}/>
+                      <Input style={{height:'22px'}}  disabled={true}/>
                   </Form.Item>
                   </div>
               </div>
@@ -105,7 +110,7 @@ const DriverInfoForm :React.FC<DriverInfoFormProps> = ({
                   </div>
                   <div>
                   <Form.Item name="note" label="" >
-                    <Input style={{height:'22px'}} defaultValue='5656565' disabled={true}/>
+                    <Input style={{height:'22px'}} disabled={true}/>
                   </Form.Item>
                   </div>
               </div>
@@ -114,15 +119,13 @@ const DriverInfoForm :React.FC<DriverInfoFormProps> = ({
               Contact
             </div>
             <div className="form-row">
-                <div   className="phone-box form-row-disable">
+                <div   className="phone-box">
                     <div className="form-border-boxMini" style={{marginRight:'0px'}}>
                       <div>
                         Country Code
                       </div>
                       <Form.Item name="adadxsdsd" label="" >
                         <Select
-                          defaultValue="1"
-                          disabled={true}
                           style={{height:'22px',width:'100%'}}
                           options={[
                             { value: '1', label: '+86' },
@@ -132,7 +135,9 @@ const DriverInfoForm :React.FC<DriverInfoFormProps> = ({
                       </Form.Item> 
                     </div>
                     <div className="form-border-boxPhone">
-
+                          <Form.Item name="phone_number" label="" >
+                              <Input/>
+                          </Form.Item>  
                     </div>
                 </div>
                 <div className="form-border-box ">
@@ -140,7 +145,7 @@ const DriverInfoForm :React.FC<DriverInfoFormProps> = ({
                     Email Address 
                   </div>
                   <div>
-                    <Form.Item name="dda21dwe" label="" >
+                    <Form.Item name="email" label="" >
                         <Input style={{height:'22px'}}/>
                     </Form.Item>
                   </div>
@@ -155,7 +160,7 @@ const DriverInfoForm :React.FC<DriverInfoFormProps> = ({
                     Registered Address
                   </div>
                   <div>
-                  <Form.Item name="note" label="" >
+                  <Form.Item name="address" label="" >
                       <Input style={{height:'22px'}} disabled={true}/>
                   </Form.Item>
                   </div>
@@ -171,7 +176,7 @@ const DriverInfoForm :React.FC<DriverInfoFormProps> = ({
                   </div>
                   <div>
                   <Form.Item name="note" label="" >
-                      <Input style={{height:'22px'}} defaultValue='5656565' disabled={true}/>
+                      <Input style={{height:'22px'}}  disabled={true}/>
                   </Form.Item>
                   </div>
               </div>
@@ -181,7 +186,7 @@ const DriverInfoForm :React.FC<DriverInfoFormProps> = ({
                   </div>
                   <div>
                   <Form.Item name="note" label="" >
-                    <Input style={{height:'22px'}} defaultValue='5656565' disabled={true}/>
+                    <Input style={{height:'22px'}}  disabled={true}/>
                   </Form.Item>
                   </div>
               </div>
@@ -223,7 +228,13 @@ const DriverInfoForm :React.FC<DriverInfoFormProps> = ({
       children: 'Content of Tab Pane 3',
     },
   ];
-
+  useEffect(() => {
+    console.log('singpassData变化')
+    console.log(singpassData)
+    if(singpassData){
+      singpassForm.setFieldsValue(singpassData)
+    }
+  }, [singpassData]);
   return (
     <div className="enterDriverInfo-box">
       <Modal
@@ -235,15 +246,16 @@ const DriverInfoForm :React.FC<DriverInfoFormProps> = ({
         <p>Whether to delete the driver?</p>
       </Modal>
       <div>
-            <Tabs defaultActiveKey="2"  onChange={onChange} >
+            <Tabs defaultActiveKey="1"  onChange={onChange} >
               <TabPane tab='Singpass' key='1'>
-                {singpassType?                                
-                <div className="singpass-img" onClick={()=>{
+              <div className="singpass-img" 
+                style={{display:singpassType?'block':'none'}}
+                onClick={()=>{
                   singpassClick(index)
                 }}>
                     <img src={require("@/bases/assets/imgs/singpass.png")}/>
-                </div>:getForm()
-                }
+                </div>
+                {getForm()}
               </TabPane>
               <TabPane tab='Manual Form' key='2'>
                   <Form
@@ -257,7 +269,7 @@ const DriverInfoForm :React.FC<DriverInfoFormProps> = ({
                             First Name
                           </div>
                           <div>
-                          <Form.Item name="note" label="" >
+                          <Form.Item name="dadad" label="" >
                               <Input style={{height:'22px'}}/>
                           </Form.Item>
                           </div>
@@ -279,7 +291,7 @@ const DriverInfoForm :React.FC<DriverInfoFormProps> = ({
                             NRIC / FIN / Passport
                           </div>
                           <div>
-                          <Form.Item name="note" label="" >
+                          <Form.Item name="address" label="" >
                               <Input style={{height:'22px'}}/>
                           </Form.Item>
                           </div>
@@ -305,7 +317,6 @@ const DriverInfoForm :React.FC<DriverInfoFormProps> = ({
                           <div>
                           <Form.Item name="add" label="" >
                           <Select
-                            defaultValue="lucy"
                             style={{height:'22px',width:'100%'}}
                             options={[
                               { value: 'jack', label: 'Jack' },
@@ -329,7 +340,6 @@ const DriverInfoForm :React.FC<DriverInfoFormProps> = ({
                               </div>
                               <Form.Item name="adadxsdsd" label="" >
                                 <Select
-                                  defaultValue="1"
                                   style={{height:'22px',width:'100%'}}
                                   options={[
                                     { value: '1', label: '+86' },
@@ -339,7 +349,9 @@ const DriverInfoForm :React.FC<DriverInfoFormProps> = ({
                               </Form.Item> 
                             </div>
                             <div className="form-border-boxPhone">
-
+                              <Form.Item name="phone_number" label="" >
+                                  <Input/>
+                              </Form.Item>                                  
                             </div>
                         </div>
                         <div className="form-border-box">
@@ -347,7 +359,7 @@ const DriverInfoForm :React.FC<DriverInfoFormProps> = ({
                             Email Address 
                           </div>
                           <div>
-                            <Form.Item name="dda21dwe" label="" >
+                            <Form.Item name="email" label="" >
                                 <Input style={{height:'22px'}}/>
                             </Form.Item>
                           </div>
@@ -362,7 +374,7 @@ const DriverInfoForm :React.FC<DriverInfoFormProps> = ({
                             Address Line 1
                           </div>
                           <div>
-                            <Form.Item name="dda12321dwe" label="" >
+                            <Form.Item name="address">
                               <Input style={{height:'22px'}}/>
                             </Form.Item>
                           </div>

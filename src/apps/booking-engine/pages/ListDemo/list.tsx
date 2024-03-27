@@ -1,5 +1,6 @@
 import NewSearch from "@/bases/components/newSearch";
 
+
 const ListPage = () => {
   const searchChange = (value: any) => {
     console.log("搜索栏返回的数据");
@@ -15,7 +16,6 @@ const ListPage = () => {
           shadowType={false}
         />
         {/* <EnterDriverInfo></EnterDriverInfo> */}
-        {/* <NewSearch searchChange={searchChange} radiusType={false} shadowType={true}/> */}
         {/* <EnterDriverInfo></EnterDriverInfo> */}
       </div>
     </>
