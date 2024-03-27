@@ -211,6 +211,10 @@ const DriverInfoForm :React.FC<DriverInfoFormProps> = ({
       </Form>
     )
   }
+  const uploadValueChange = (value:any) =>{
+    console.log(value)
+    console.log("上传组件数据")
+  }
   const items: TabsProps['items'] = [
     {
       key: '1',
@@ -446,7 +450,7 @@ const DriverInfoForm :React.FC<DriverInfoFormProps> = ({
                     <div className="form-title">
                       Upload your Documents
                     </div>
-                    <UploadCustom titleName='NRIC / FIN (front & back) or Passport (data page)'></UploadCustom>
+                    <UploadCustom titleName='NRIC / FIN (front & back) or Passport (data page)' valueChange={uploadValueChange}></UploadCustom>
                     <div className="form-row" style={{width:'100%'}}>
                       <div className="form-row-submitBox">
                           <div className="submitBox-delete" onClick={deletClick}>
