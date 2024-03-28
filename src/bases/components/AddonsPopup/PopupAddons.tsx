@@ -1,45 +1,67 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Flex, Modal, message, notification } from "antd";
-import { AddonsItem } from "./AddonsItem";
+import { AddonsItem, AddonsItemData } from "./AddonsItem";
 import "./AddonsItem.scss";
 import { getFullUrl } from "@/bases/utils/common";
 import { ROUTESMAP } from "@/apps/booking-engine/routes";
 import request from "@/bases/request";
 import { get } from "lodash";
 import demoData from "./creatorderData";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/bases/store/reducers";
+import { setOrAddAddon } from "@/bases/store/reducers/selectAddons";
+import l_ from "lodash";
 
 export const PopupAddons = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [addonsData, setAddonsData] = useState<[AddonsItemData]>();
   const [messageApi, contextHolder] = message.useMessage();
   const key = "updatable";
-  
 
   const { selectedCar } = useSelector((state: RootState) => state.selectedCar);
+  const { selectedAddons } = useSelector(
+    (state: RootState) => state.selectedAddons
+  );
+  const dispatch = useDispatch();
 
-  const getPaymentIntent = (orderId: any) => {
-    messageApi.open({
-      key,
-      type: "loading",
-      content: "Creating Order...",
-    });
+  useEffect(() => {
+    getAddons();
+  }, []);
 
+  const getAddons = () => {
     request
-      .post(`/payment/intent?order_id=${orderId}`)
+      .get("/addon/getlist")
       .then((res) => {
-        console.log(res);
+        console.log(l_.get(res, "lists"));
 
-        messageApi.open({
-          key,
-          type: "success",
-          content: "Created!",
+        const selectedList = [
+          selectedAddons.selectedCdw,
+          ...selectedAddons.selectedAddonsItemList,
+        ];
+        console.log(selectedList);
+        const notShowed = l_.differenceBy(
+          l_.get(res, "lists"),
+          selectedList,
+          "id"
+        );
+
+        const notShowedAddons = notShowed.map((e,index) => {
+          return {
+            id: l_.get(e, "id"),
+            imgUrl: l_.get(e, "image_url"),
+            title: l_.get(e, "name"),
+            desc: l_.get(e, "description"),
+            price: l_.get(e, "options[0].price"),
+            added: false,
+            isPopular: index == 0,
+            srcData:e
+          };
         });
-        const orderId = get(res, "id");
-        // checkOut(orderId);
+        console.log(notShowedAddons);
+        setAddonsData(notShowedAddons as [AddonsItemData]);
       })
       .catch((e) => {
-        console.log(e.data.message);
+        console.log(get(e, "data.message"));
 
         notification.error({
           message: `Notification`,
@@ -50,7 +72,18 @@ export const PopupAddons = () => {
   };
 
   const creatOrder = () => {
-    const data = { ...demoData, details: [{ item_id: selectedCar.id }] };
+    //TODO fill data
+    const selectedAddonsList = [
+      selectedAddons.selectedCdw,
+      ...selectedAddons.selectedAddonsItemList,
+    ];
+    const add_on_options = selectedAddonsList.map(e=>{
+      return {
+        add_on_option_id:e.id,
+        quantity: 1,
+      }
+    });
+    const data = { ...demoData, details: [{ item_id: selectedCar.id }],add_on_options };
     messageApi.open({
       key,
       type: "loading",
@@ -78,8 +111,6 @@ export const PopupAddons = () => {
           const orderId = get(res, "id");
           checkOut(orderId);
         }, 10 * 1000);
-
-        // getPaymentIntent(orderId);
       })
       .catch((e) => {
         console.log(get(e, "data.message"));
@@ -108,14 +139,6 @@ export const PopupAddons = () => {
     request
       .post("/payment/checkout", data)
       .then((res) => {
-        console.log(res);
-
-        // messageApi.open({
-        //   key,
-        //   type: 'success',
-        //   content: 'Loaded!',
-        //   // duration: 2,
-        // });
         const checkoutUrl = get(res, "redirect_url");
         if (!checkoutUrl) return;
         window.location.href = checkoutUrl;
@@ -130,11 +153,22 @@ export const PopupAddons = () => {
   };
 
   const showModal = () => {
-    setIsModalOpen(true);
+    if (l_.isEmpty(addonsData)) {
+      creatOrder();
+    } else {
+      setIsModalOpen(true);
+    }
   };
 
   const handleOk = () => {
     setIsModalOpen(false);
+    //TODO update addons
+    const popSelected = addonsData?.filter(e=>e.added).map(e=>e.srcData);
+    if (popSelected) {
+      const data = [...selectedAddons.selectedAddonsItemList,...popSelected];
+      dispatch(setOrAddAddon({ selectedAddonsItemList: data }));
+    }
+    
     creatOrder();
   };
 
@@ -143,37 +177,15 @@ export const PopupAddons = () => {
     creatOrder();
   };
 
-  const addonsData = [
-    {
-      imgUrl: "",
-      title: "Windscreen damage protection",
-      desc: "Windscreen damage is chargeable at $200 per windscreen (subject to GST), add on the protection $15 to waive the charge.",
-      price: "S$ 15.00",
-      isPopular: true,
-      added: true,
-    },
-    {
-      imgUrl: "",
-      title: "Touch n Go card",
-      desc: "Lorem ipsum dolor sit amet consectetur. Elementum urna lectus blandit ultrices sed mi leo nisl.",
-      price: "S$ 3.00",
-      isPopular: false,
-    },
-    {
-      imgUrl: "",
-      title: "LYLO Convenience Pack (Phone holder & charger)",
-      desc: "Lorem ipsum dolor sit amet consectetur. Elementum urna lectus blandit ultrices sed mi leo nisl.",
-      price: "S$ 3.00",
-      isPopular: false,
-    },
-    {
-      imgUrl: "",
-      title: "CDW+",
-      desc: "Lorem ipsum dolor sit amet consectetur. Elementum urna lectus blandit ultrices sed mi leo nisl.",
-      price: "S$ 18.00",
-      isPopular: false,
-    },
-  ];
+  const handleItemAddOrremove = (id: any) => {
+    console.log(id);
+    const item = addonsData?.find((e) => e.id == id);
+    if (item) {
+      item.added = !item?.added;
+      const updated = addonsData?.map((e) => (e.id == item.id ? item : e));
+      setAddonsData(updated as [AddonsItemData]);
+    }
+  };
 
   const footer = () => {
     return (
@@ -187,7 +199,8 @@ export const PopupAddons = () => {
         >
           Skip
         </Button>
-        <Button
+        <Button 
+          disabled
           onClick={handleOk}
           type="primary"
           className="addons-popup-button addons-popup-button-add"
@@ -217,9 +230,14 @@ export const PopupAddons = () => {
         width={window.innerWidth < 640 ? 390 : 560}
       >
         <Flex vertical gap={24} align="center">
-          {addonsData.map((e) => (
-            <AddonsItem {...e} key={e.title} />
-          ))}
+          {addonsData &&
+            addonsData.map((e) => (
+              <AddonsItem
+                {...e}
+                key={e.id}
+                onAddOrRemove={handleItemAddOrremove}
+              />
+            ))}
         </Flex>
       </Modal>
     </>

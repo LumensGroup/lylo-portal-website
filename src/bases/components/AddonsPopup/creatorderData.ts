@@ -12,34 +12,34 @@ export default {
       "built_in": false
   },
   "add_on_options": [
-      {
-          "add_on_option_id": "2",
-          "quantity": 1
-      },
-      {
-          "add_on_option_id": "3",
-          "quantity": 1
-      },
-      {
-          "add_on_option_id": "4",
-          "quantity": 1
-      },
-      {
-          "add_on_option_id": "7",
-          "quantity": 1
-      },
-      {
-          "add_on_option_id": "8",
-          "quantity": 1
-      },
-      {
-          "add_on_option_id": "9",
-          "quantity": 1
-      },
-      {
-          "add_on_option_id": "10",
-          "quantity": 1
-      }
+    //   {
+    //       "add_on_option_id": "2",
+    //       "quantity": 1
+    //   },
+    //   {
+    //       "add_on_option_id": "3",
+    //       "quantity": 1
+    //   },
+    //   {
+    //       "add_on_option_id": "4",
+    //       "quantity": 1
+    //   },
+    //   {
+    //       "add_on_option_id": "7",
+    //       "quantity": 1
+    //   },
+    //   {
+    //       "add_on_option_id": "8",
+    //       "quantity": 1
+    //   },
+    //   {
+    //       "add_on_option_id": "9",
+    //       "quantity": 1
+    //   },
+    //   {
+    //       "add_on_option_id": "10",
+    //       "quantity": 1
+    //   }
   ],
   "collection_time": "2024-04-05T09:00:00+07:00",
   "return_time": "2024-04-10T09:00:00+07:00",
@@ -93,3 +93,37 @@ export default {
   "is_singpass": true,
   "source": "WEB"
 }
+
+/*
+const getPaymentIntent = (orderId: any) => {
+    messageApi.open({
+      key,
+      type: "loading",
+      content: "Creating Order...",
+    });
+
+    request
+      .post(`/payment/intent?order_id=${orderId}`)
+      .then((res) => {
+        console.log(res);
+
+        messageApi.open({
+          key,
+          type: "success",
+          content: "Created!",
+        });
+        const orderId = get(res, "id");
+        // checkOut(orderId);
+      })
+      .catch((e) => {
+        console.log(e.data.message);
+
+        notification.error({
+          message: `Notification`,
+          description: e?.statusText,
+          placement: "topRight",
+        });
+      });
+  };
+
+*/

@@ -96,6 +96,12 @@
   background-color: map-get($colors, blue-1);
   border: none;
 }
+
+.addons-popup-button-add:disabled{
+  color: map-get($colors, white);
+  background-color: #99C0FF;
+}
+
 .addons-popup-button-remove {
   color: map-get($colors, blue-1);
   background-color: map-get($colors, white);
