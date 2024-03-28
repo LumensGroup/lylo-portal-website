@@ -9,7 +9,7 @@ const DriverInfo = () => {
   const RightChildren = (
     <Space direction="vertical" size={16} className="right-area">
       <PickUp />
-      <OthersCollapseSummary />
+      <OthersCollapseSummary checkoutButtonText={"Checkout"} />
     </Space>
   );
   const singpassSessionId = "abcde"; // todo receive form outside

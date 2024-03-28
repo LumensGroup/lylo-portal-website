@@ -102,6 +102,7 @@ const CollapseSummary = ({
   setPromoCodeInputError,
 }: any) => {
   const { total_price } = previewDetail;
+  const navigate = useNavigate();
   return (
     <CustomizedCollapse header={<h1>Price summary</h1>}>
       <Summary
@@ -115,7 +116,10 @@ const CollapseSummary = ({
         setPromoCode={(value: string) => handlePromoCodeInput(value)}
       />
       <BreakLine />
-      <Payment totalPrice={total_price} />
+      <Payment
+        totalPrice={total_price}
+        handleClick={() => navigate("/driver-info")}
+      />
       <BreakLine />
       <TCTip />
     </CustomizedCollapse>
@@ -131,6 +135,8 @@ const PriceOverLayInMobile = ({
   setPromoCodeInputError,
 }: any) => {
   const { total_price } = previewDetail || {};
+  const navigate = useNavigate();
+
   return (
     <div className={clsx("drawer", { open: isVisible, close: !isVisible })}>
       <div className="price__overlay__header" onClick={onChange}>
@@ -149,7 +155,10 @@ const PriceOverLayInMobile = ({
         setPromoCode={(value: string) => handlePromoCodeInput(value)}
       />
       <BreakLine />
-      <Payment totalPrice={total_price} />
+      <Payment
+        totalPrice={total_price}
+        handleClick={() => navigate("/driver-info")}
+      />
     </div>
   );
 };
@@ -232,15 +241,22 @@ const TCTip = ({
   );
 };
 
-const Payment = ({ totalPrice }: { totalPrice: string }) => {
+const Payment = ({
+  totalPrice,
+  checkoutButtonText,
+  handleClick,
+}: {
+  totalPrice: string;
+  checkoutButtonText?: string;
+  handleClick: () => void;
+}) => {
   const [selectedIndex, setSelectedIndex] = useState(1);
 
   const price = (parseInt(totalPrice) / 100).toString();
   const halfPrice = (parseInt(totalPrice) / 200).toString();
 
-  const navigate = useNavigate();
   const handleContinue = () => {
-    navigate("/driver-info");
+    handleClick();
   };
 
   return (
@@ -276,7 +292,7 @@ const Payment = ({ totalPrice }: { totalPrice: string }) => {
       />
 
       <Button className="payment-checkout__button" onClick={handleContinue}>
-        Continue
+        {checkoutButtonText || "Continue"}
       </Button>
       {/* <TCTip /> */}
     </>
