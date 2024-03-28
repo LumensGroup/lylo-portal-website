@@ -37,9 +37,9 @@ const CustomizedCollapse = ({
       defaultActiveKey={isCollasped ? [] : "1"}
       expandIcon={({ isActive }) =>
         isActive ? (
-          <Icon source="collaps_down_arrow" className="collaps_arrow" style={{ marginTop: '15px' }}/>
-        ) : (
           <Icon source="collaps_up_arrow" className="collaps_arrow" style={{ marginTop: '15px' }}/>
+        ) : (
+          <Icon source="collaps_down_arrow" className="collaps_arrow" style={{ marginTop: '15px' }}/>
         )
       }
       className="customized-collapse"
