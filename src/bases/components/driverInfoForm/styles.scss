@@ -16,7 +16,7 @@
   border: 1px solid rgba(171, 183, 186, 1);
   border-radius: 8px;
   width:45%;
-  height:57px
+  height:60px
 }
 .form-border-box>div:nth-child(1),.form-border-boxMini>div:nth-child(1),.form-border-boxMax>div:nth-child(1){
   color: rgba(139, 139, 139, 1);
@@ -137,7 +137,7 @@
   box-shadow:none;
   border-color:map-get($colors, white);
 }
-.form-row .phone-box .ant-select-selector{
+.form-row .ant-select-selector{
   box-shadow:none !important;
   background: map-get($colors, white) !important;
   border-color:map-get($colors, white) !important;

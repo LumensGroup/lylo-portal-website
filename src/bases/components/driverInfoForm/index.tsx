@@ -65,7 +65,7 @@ const DriverInfoForm :React.FC<DriverInfoFormProps> = ({
                     NRIC / FIN
                   </div>
                   <div>
-                  <Form.Item name="address" label="" >
+                  <Form.Item name="nric" label="" >
                     <Input style={{height:'22px'}}  disabled={true}/>
                   </Form.Item>
                   </div>
@@ -77,7 +77,7 @@ const DriverInfoForm :React.FC<DriverInfoFormProps> = ({
                     Date of Birth
                   </div>
                   <div>
-                  <Form.Item name="note" label="" >
+                  <Form.Item name="dob" label="" >
                       <Input style={{height:'22px'}} disabled={true}/>
                   </Form.Item>
                   </div>
@@ -87,7 +87,7 @@ const DriverInfoForm :React.FC<DriverInfoFormProps> = ({
                     Nationality / Citizenship
                   </div>
                   <div>
-                  <Form.Item name="note" label="" >
+                  <Form.Item name="nationality" label="" >
                     <Input style={{height:'22px'}} disabled={true}/>
                   </Form.Item>
                   </div>
@@ -99,7 +99,7 @@ const DriverInfoForm :React.FC<DriverInfoFormProps> = ({
                     Pass Type
                   </div>
                   <div>
-                  <Form.Item name="note" label="" >
+                  <Form.Item name="passType" label="" >
                       <Input style={{height:'22px'}}  disabled={true}/>
                   </Form.Item>
                   </div>
@@ -109,7 +109,7 @@ const DriverInfoForm :React.FC<DriverInfoFormProps> = ({
                     Pass Expiry Date
                   </div>
                   <div>
-                  <Form.Item name="note" label="" >
+                  <Form.Item name="passExpiryDate" label="" >
                     <Input style={{height:'22px'}} disabled={true}/>
                   </Form.Item>
                   </div>
@@ -124,7 +124,7 @@ const DriverInfoForm :React.FC<DriverInfoFormProps> = ({
                       <div>
                         Country Code
                       </div>
-                      <Form.Item name="adadxsdsd" label="" >
+                      <Form.Item name="phone_number" label="" >
                         <Select
                           style={{height:'22px',width:'100%'}}
                           options={[
@@ -175,7 +175,7 @@ const DriverInfoForm :React.FC<DriverInfoFormProps> = ({
                     License Validity
                   </div>
                   <div>
-                  <Form.Item name="note" label="" >
+                  <Form.Item name="licenceValidity" label="" >
                       <Input style={{height:'22px'}}  disabled={true}/>
                   </Form.Item>
                   </div>
@@ -185,7 +185,7 @@ const DriverInfoForm :React.FC<DriverInfoFormProps> = ({
                     License Expiry Date
                   </div>
                   <div>
-                  <Form.Item name="note" label="" >
+                  <Form.Item name="licenseExpiryDate" label="" >
                     <Input style={{height:'22px'}}  disabled={true}/>
                   </Form.Item>
                   </div>
@@ -273,7 +273,7 @@ const DriverInfoForm :React.FC<DriverInfoFormProps> = ({
                             First Name
                           </div>
                           <div>
-                          <Form.Item name="dadad" label="" >
+                          <Form.Item name="first_name" label="" rules={[{ required: true, message: 'Please input your firstname!' }]}>
                               <Input style={{height:'22px'}}/>
                           </Form.Item>
                           </div>
@@ -283,7 +283,9 @@ const DriverInfoForm :React.FC<DriverInfoFormProps> = ({
                             Last Name 
                           </div>
                           <div>
-                          <Form.Item name="note" label="" >
+                          <Form.Item name="last_name" label="" 
+                           rules={[{ required: true, message: 'Please input your lastname!' }]}
+                          >
                             <Input style={{height:'22px'}}/>
                           </Form.Item>
                           </div>
@@ -295,7 +297,7 @@ const DriverInfoForm :React.FC<DriverInfoFormProps> = ({
                             NRIC / FIN / Passport
                           </div>
                           <div>
-                          <Form.Item name="address" label="" >
+                          <Form.Item name="license_number" rules={[{ required: true, message: 'Please input your NRIC!' }]} >
                               <Input style={{height:'22px'}}/>
                           </Form.Item>
                           </div>
@@ -305,7 +307,7 @@ const DriverInfoForm :React.FC<DriverInfoFormProps> = ({
                             Date of Birth 
                           </div>
                           <div>
-                          <Form.Item name="note" label="">
+                          <Form.Item name="dob" rules={[{ required: true, message: 'Please input your Date!' }]}>
                             <div>
                               <DatePicker/>
                             </div>
@@ -316,10 +318,10 @@ const DriverInfoForm :React.FC<DriverInfoFormProps> = ({
                     <div className="form-row">
                       <div className="form-border-box">
                           <div>
-                            NRIC / FIN / Passport
+                            Nationality / Citizenship
                           </div>
                           <div>
-                          <Form.Item name="add" label="" >
+                          <Form.Item name="nationality" label="" rules={[{ required: true, message: 'Please input your nationality!' }]}>
                           <Select
                             style={{height:'22px',width:'100%'}}
                             options={[
@@ -353,7 +355,7 @@ const DriverInfoForm :React.FC<DriverInfoFormProps> = ({
                               </Form.Item> 
                             </div>
                             <div className="form-border-boxPhone">
-                              <Form.Item name="phone_number" label="" >
+                              <Form.Item name="phone_number" label="" rules={[{ required: true, message: 'Please input your phonenumber!' }]}>
                                   <Input/>
                               </Form.Item>                                  
                             </div>
@@ -363,7 +365,7 @@ const DriverInfoForm :React.FC<DriverInfoFormProps> = ({
                             Email Address 
                           </div>
                           <div>
-                            <Form.Item name="email" label="" >
+                            <Form.Item name="email" label=""   rules={[{ required: true, message: 'Please input your email!' }]}>
                                 <Input style={{height:'22px'}}/>
                             </Form.Item>
                           </div>
@@ -378,7 +380,7 @@ const DriverInfoForm :React.FC<DriverInfoFormProps> = ({
                             Address Line 1
                           </div>
                           <div>
-                            <Form.Item name="address">
+                            <Form.Item name="address_one" rules={[{ required: true, message: 'Please input your address!' }]}>
                               <Input style={{height:'22px'}}/>
                             </Form.Item>
                           </div>
@@ -390,7 +392,7 @@ const DriverInfoForm :React.FC<DriverInfoFormProps> = ({
                             Address Line 2
                           </div>
                           <div>
-                            <Form.Item name="dda1255321dwe" label="" >
+                            <Form.Item name="address_two" rules={[{ required: true, message: 'Please input your address!' }]}>
                               <Input style={{height:'22px'}}/>
                             </Form.Item>
                           </div>
