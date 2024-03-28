@@ -8,10 +8,12 @@ import { ROUTESMAP } from "./routes";
 import { CheckOutPage } from "./pages/CheckOutPage";
 import DriverInfo from "./pages/DriverInfo";
 import OrderErrorPage from "./pages/order-error-page";
+import HomePage from "./pages/Home";
 
 function App() {
   return (
     <Routes>
+      <Route path={ROUTESMAP.Home} Component={HomePage} />
       <Route path={ROUTESMAP.ListDemo} Component={List} />
       <Route path={ROUTESMAP.PaySuccess} Component={PaySuccess} />
       <Route path={ROUTESMAP.SelectCarPage} Component={SelectCarPage} />

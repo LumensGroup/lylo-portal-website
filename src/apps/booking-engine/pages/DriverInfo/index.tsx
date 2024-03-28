@@ -1,20 +1,18 @@
 import StepInfoBar from "@/bases/components/steps";
 import EnterDriverInfo from "@/bases/components/enterDriverInfo"
 import { Space } from "antd";
-import {
-  CollapseSummary,
-} from "../Addons/components/summary";
 import PickUp from "../Addons/components/pickup";
 import "./styles.scss";
+import { CollapseSummary } from "../Addons/components/summary";
 
 const DriverInfo = () => {
   const RightChildren = (
     <Space direction="vertical" size={16} className="right-area">
-      <PickUp />
       <CollapseSummary />
+      <PickUp />
     </Space>
   );
-  const singpassSessionId = "abcde" // todo receive form outside
+  const singpassSessionId = "test565" // todo receive form outside
   return (
     <>
       <StepInfoBar currentIndex={2} />
