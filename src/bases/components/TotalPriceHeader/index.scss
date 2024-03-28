@@ -30,7 +30,7 @@
 
      .payment-checkout-button {
          height: 40px;
-         background: #3762F6;
+         background: map-get($colors, blue-1);
          border-radius: 20px;
          font-size: 16px;
          font-weight: 800;

@@ -1,4 +1,5 @@
 export const ROUTESMAP = {
+  Home: "/home",
   ListDemo: "/list",
   PaySuccess: "/pay_success",
   SelectCarPage: "/car-select",

@@ -20,11 +20,13 @@ type NewSearchProps = {
   searchChange?: any;
   radiusType? :any; //是否展示圆角
   shadowType? : any; //是否展示阴影
+  onSearchClick?: () => void;
 };
 const NewSearch: React.FC<NewSearchProps> = ({
   searchChange,
   radiusType,
-  shadowType
+  shadowType,
+  onSearchClick
 })  => {
   const dispatch = useDispatch();
   const [clickType, SetClickType] = useState<any>('false');
@@ -356,9 +358,7 @@ const NewSearch: React.FC<NewSearchProps> = ({
     }
   };
   const submitButton =()=>{
-    console.log('searchData')
-    console.log(searchData)
-    searchChange?searchChange(searchForm):console.log("没有传方法")
+    onSearchClick?.()
   }
   const timePickerClick = (value:any) => {
     SetClickType(value)
