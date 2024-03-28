@@ -1,3 +1,5 @@
+@import "/src/bases/styles/variables.module.scss";
+
 .addons__summary {
     .summary__item {
         display: flex;
@@ -94,21 +96,21 @@
 
 
             .payment-card__desc {
-                color: #3762F6;
+                color: map-get($colors, blue-1);
                 font-size: 13px;
                 line-height: 17px;
             }
 
             .payment-card__title,
             .payment-card__price {
-                color: #000000;
+                color: map-get($colors, gray-4);
             }
 
         }
 
         button {
             width: 100%;
-            border-radius: 49px;
+            border-radius: 20px;
             border: 1px solid #ffffff;
             background: #3762F6;
             color: #ffffff;
@@ -121,24 +123,24 @@
 
     &__title,
     &__price {
-        font-size: 16px;
+        font-size: 14px;
         font-weight: 600;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        color: #7D9AFC;
+        color: map-get($colors, gray-4);
 
         .lylo-money {
-            color: #7D9AFC;
+            color: map-get($colors, gray-4);
         }
 
     }
 
     &__desc {
-        font-size: 14px;
+        font-size: 13px;
         display: flex;
         align-items: center;
-        color: #7D9AFC
+        color: map-get($colors, gray-4);
     }
 
     &__tip {
@@ -154,9 +156,10 @@
 
 .payment-checkout__button {
     height: 40px;
-    background: #3762F6;
-    border-radius: 8px;
+    background: map-get($colors, blue-1);
+    border-radius: 19px;
     width: 100%;
     color: #ffffff;
     margin-top: 8px;
+    margin-bottom: 8px;
 }

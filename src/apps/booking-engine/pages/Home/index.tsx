@@ -1,43 +1,61 @@
-import { Button, notification } from "antd";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import Icon from "../../../../bases/components/icon";
-import request from "../../../../bases/request";
 import { RootState } from "../../../../bases/store/reducers";
+import { useMediaQuery } from "react-responsive";
+import NewSearch from "@/bases/components/newSearch";
+import PickUpEdit from "../SelectCar/components/pickup-edit";
+import MobileActionBar from "../SelectCar/components/action-bar";
+import { useState } from "react";
+import { FilterConditionState } from "../SelectCar/types";
+import { ROUTESMAP } from "../../routes";
 
 const HomePage = () => {
-  const { count } = useSelector((state: RootState) => state.count);
   const navigate = useNavigate();
+  const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
+  const [filterCondition, setFilterCondition] = useState<FilterConditionState>({
+    sale_price: [],
+    seating_category: [],
+    vehicle_type_category: [],
+  });
+  const [sortCondition, setSortCondition] = useState();
+  const [editPopupVisible, setEditPopupVisible] = useState(false);
 
-  const handleClick = () => {
-    navigate("/list");
+  const handleSort = (value: any) => setSortCondition(value);
+
+  const handleFilter = (keyName: string, value: any) => {
+    setFilterCondition((prevState) => {
+      return {
+        ...prevState,
+        [keyName]: value,
+      };
+    });
   };
 
-  const handleRequest = () => {
-    request
-      .get("/api/data")
-      .then((res) => {
-        console.log(res, "---");
-      })
-      .catch((e) => {
-        notification.error({
-          message: `Notification`,
-          description: e?.statusText,
-          placement: "topRight",
-        });
-      });
+
+  const handleEditClick = () => {
+    setEditPopupVisible(true);
   };
+
+  const handleOnSearchClick = () => {
+    navigate(ROUTESMAP.SelectCarPage);
+  }
+
   return (
     <div>
-      路由跳转DEMO:
-      <Button onClick={handleClick}>click to reduxDemo 计数：{count}</Button>
-      <div>
-        发请求DEMO:
-        <Button onClick={handleRequest}>click to request</Button>
-      </div>
-      <div>
-        ICON demo <Icon source="ic_automatic" className="icon" />
-      </div>
+      {!isMobile && (
+        <div className="select-cars__search__area">
+          <NewSearch radiusType={false} shadowType={false} onSearchClick={handleOnSearchClick}/>
+        </div>
+      )}
+      {isMobile && (
+        <>
+          <PickUpEdit handleClick={handleEditClick} />
+          <MobileActionBar
+            handleFilter={handleFilter}
+            handleSort={handleSort}
+          />
+        </>
+      )}
     </div>
   );
 };

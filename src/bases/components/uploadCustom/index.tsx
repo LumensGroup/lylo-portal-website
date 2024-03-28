@@ -89,7 +89,13 @@ const UploadCustom = ({
           })
           .then((res:any) => {
             return res
-          }) 
+          }).catch((e) => {
+            notification.error({
+              message: `Notification`,
+              description: e?.statusText,
+              placement: "topRight",
+            });
+          });
           console.log('uploadListData')
           console.log(uploadListData)
           const data =  JSON.parse(JSON.stringify(uploadListData));
