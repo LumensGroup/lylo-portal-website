@@ -1,35 +1,33 @@
+import EnterDriverInfo from "@/bases/components/enterDriverInfo";
 import StepInfoBar from "@/bases/components/steps";
-import EnterDriverInfo from "@/bases/components/enterDriverInfo"
 import { Space } from "antd";
+import OthersCollapseSummary from "../Addons/components/othersCollapseSummary";
 import PickUp from "../Addons/components/pickup";
 import "./styles.scss";
-import { CollapseSummary } from "../Addons/components/summary";
 
 const DriverInfo = () => {
   const RightChildren = (
     <Space direction="vertical" size={16} className="right-area">
-      <CollapseSummary />
       <PickUp />
+      <OthersCollapseSummary />
     </Space>
   );
-  const singpassSessionId = "test565" // todo receive form outside
+  const singpassSessionId = "abcde"; // todo receive form outside
   return (
     <>
       <StepInfoBar currentIndex={2} />
-      <div className='driverInfo-box'>
+      <div className="driverInfo-box">
         <div className="driverInfo-title">
-            &lt; 
-            <div>
-              Back 
-            </div>
+          &lt;
+          <div>Back</div>
         </div>
-        <div className='driverInfo-content'>
+        <div className="driverInfo-content">
           <div className="driverInfo-left">
-            <EnterDriverInfo singpassSessionId={singpassSessionId} ></EnterDriverInfo>
+            <EnterDriverInfo
+              singpassSessionId={singpassSessionId}
+            ></EnterDriverInfo>
           </div>
-          <div className="driverInfo-right">
-              {RightChildren}
-          </div>
+          <div className="driverInfo-right">{RightChildren}</div>
         </div>
       </div>
     </>

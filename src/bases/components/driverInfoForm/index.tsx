@@ -4,6 +4,7 @@ import { InfoCircleOutlined } from '@ant-design/icons';
 import UploadCustom from "@/bases/components/uploadCustom";
 import { useState,useEffect } from "react";
 import type { TabsProps } from 'antd';
+import { object } from "prop-types";
 
 type DriverInfoFormProps = {
   addDriver?: any,
@@ -124,13 +125,10 @@ const DriverInfoForm :React.FC<DriverInfoFormProps> = ({
                       <div>
                         Country Code
                       </div>
-                      <Form.Item name="phone_number" label="" >
+                      <Form.Item name="country_code" label="" >
                         <Select
                           style={{height:'22px',width:'100%'}}
-                          options={[
-                            { value: '1', label: '+86' },
-                            { value: '2', label: '+55' },
-                          ]}
+                          options={countrycodeData}
                         />
                       </Form.Item> 
                     </div>
@@ -215,6 +213,8 @@ const DriverInfoForm :React.FC<DriverInfoFormProps> = ({
     console.log(value)
     console.log("上传组件数据")
   }
+
+  
   const items: TabsProps['items'] = [
     {
       key: '1',
@@ -232,11 +232,28 @@ const DriverInfoForm :React.FC<DriverInfoFormProps> = ({
       children: 'Content of Tab Pane 3',
     },
   ];
+  const  cutBeforeChar = (str:any, charToFind:any) =>{
+    const index = str.indexOf(charToFind);
+    if (index !== -1) {
+      return str.substring(0, index);
+    }
+    return str; // 如果字符未找到，返回原字符串
+  }
+  const countrycodeData = [
+    {value: '65_SG', label: '+65' },
+    {value: '60_MY', label: '+60' },
+    {value: '86_CN', label: '+86' },
+    {value: '62_ID', label: '+62' },
+    {value: '84_VN', label: '+84' },
+  ]
   useEffect(() => {
     console.log('singpassData变化')
-    console.log(singpassData)
-    if(singpassData){
-      singpassForm.setFieldsValue(singpassData)
+    if(JSON.stringify(singpassData)!="{}"){
+      const newdata = {...singpassData}
+      newdata['country_code'] = cutBeforeChar(singpassData?.phone_number,'-')
+      newdata['singpass']=newdata?.metadata?.singpass?JSON.parse(newdata?.metadata?.singpass):{}
+      Object.assign(newdata,newdata.singpass)
+      singpassForm.setFieldsValue(newdata)
     }
   }, [singpassData]);
   return (
@@ -347,10 +364,7 @@ const DriverInfoForm :React.FC<DriverInfoFormProps> = ({
                               <Form.Item name="adadxsdsd" label="" >
                                 <Select
                                   style={{height:'22px',width:'100%'}}
-                                  options={[
-                                    { value: '1', label: '+86' },
-                                    { value: '2', label: '+55' },
-                                  ]}
+                                  options={countrycodeData}
                                 />
                               </Form.Item> 
                             </div>

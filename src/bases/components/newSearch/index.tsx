@@ -397,7 +397,13 @@ const NewSearch: React.FC<NewSearchProps> = ({
         dataValue.push(...newDate)
       })
       setBlackoutDateData(dataValue)
-    })
+    }).catch((e) => {
+      notification.error({
+        message: `Notification`,
+        description: e?.statusText,
+        placement: "topRight",
+      });
+    });
     // 获取开放时间
     request
     .get("/opening_hour/getlist")
@@ -405,7 +411,13 @@ const NewSearch: React.FC<NewSearchProps> = ({
       console.log("开放时间")
       console.log(res)
       setOpenData(res?.lists)
-    })
+    }).catch((e) => {
+      notification.error({
+        message: `Notification`,
+        description: e?.statusText,
+        placement: "topRight",
+      });
+    });
   }, []);
   const buttonClick= ()=>{
     setPickerMobileMaxTimeType(false)

@@ -1,10 +1,26 @@
 import { Button, ConfigProvider, Flex, Form, Input } from "antd";
-
+import "./styles.scss";
 const ApplyButton = () => (
-  <Button style={{ marginLeft: 10, height: 40 }}>Apply</Button>
+  <Button htmlType="submit" style={{ marginLeft: 10, height: 40 }}>
+    Apply
+  </Button>
 );
 
-const PromoCode = () => {
+const PromoCodeInput = ({
+  setPromoCode,
+  promoCodeInputError,
+  clearErrorStatus,
+}: {
+  promoCodeInputError: boolean;
+  clearErrorStatus: () => void;
+  setPromoCode: (value: string) => void;
+}) => {
+  const onFinish = (values: any) => {
+    const { promoCode } = values;
+    setPromoCode(promoCode);
+  };
+
+  console.log(promoCodeInputError, "promoCodeInputError");
   return (
     <ConfigProvider
       theme={{
@@ -29,25 +45,19 @@ const PromoCode = () => {
       }}
     >
       <h2>Promo code</h2>
-      <Form style={{ height: 40, marginTop: 8 }}>
+      <Form style={{ height: 40, marginTop: 8 }} onFinish={onFinish}>
         <Flex align="center">
           <Form.Item
             name="promoCode"
-            rules={[
-              ({ getFieldValue }) => ({
-                validator(_, value) {
-                  //   if (value && getFieldValue("promoCode") === value) {
-                  //     return Promise.resolve();
-                  //   }
-                  return Promise.reject(new Error("SDS !"));
-                },
-              }),
-            ]}
+            extra={
+              promoCodeInputError && "x Enter a valid promo code or gift card"
+            }
             style={{ flex: 1 }}
           >
             <Input
               style={{ fontWeight: "bold", borderRadius: 8 }}
-              // status="error"
+              onChange={() => clearErrorStatus()}
+              status={promoCodeInputError ? "error" : ""}
             />
           </Form.Item>
           <Form.Item>
@@ -59,4 +69,4 @@ const PromoCode = () => {
   );
 };
 
-export default PromoCode;
+export default PromoCodeInput;

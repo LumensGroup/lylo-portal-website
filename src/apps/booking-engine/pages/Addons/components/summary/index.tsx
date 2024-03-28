@@ -3,10 +3,10 @@ import Icon from "@/bases/components/icon";
 import { Button, Flex } from "antd";
 import clsx from "clsx";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import MoneyComponent from "../money";
-import PromoCode from "../promoInput";
+import PromoCodeInput from "../promoInput";
 import "./styles.scss";
-import TotalPriceHeader from "@/bases/components/TotalPriceHeader";
 
 interface Description {
   label: string | JSX.Element;
@@ -15,7 +15,8 @@ interface Description {
 }
 
 interface SummaryProps {
-  descList: Description[];
+  previewDetail: any;
+  deletePromoCode: (value: string) => void;
 }
 
 interface PriceCardProps {
@@ -26,89 +27,150 @@ interface PriceCardProps {
   onSelect: () => void;
 }
 
-const Summary: React.FC<SummaryProps> = ({ descList }) => {
+const Summary: React.FC<SummaryProps> = ({
+  previewDetail,
+  deletePromoCode,
+}) => {
+  const { pricing_breakdown, total_price } = previewDetail;
+
+  const descList = pricing_breakdown?.map(
+    (item: { name: string; value: string; type: string; title: string }) => {
+      const { name, value, type, title } = item;
+      let labelComponent;
+      switch (type) {
+        case "PRICE_ENGINE_RULE":
+          labelComponent = (
+            <RateDescLabel rateName={name} price={value} title={title} />
+          );
+          break;
+        case "DISCOUNT":
+          labelComponent = (
+            <PromoLabel
+              name={name}
+              deletePromoCode={() => deletePromoCode(name)}
+            />
+          );
+          break;
+        default:
+          labelComponent = name;
+      }
+      return {
+        label: labelComponent,
+        value: <MoneyComponent price={value} minus={type === "DISCOUNT"} />,
+      };
+    }
+  );
+
+  descList?.push({
+    label: "Total",
+    value: <MoneyComponent price={total_price} />,
+  });
+
   return (
     <div className="addons__summary">
-      {descList?.map((item) => (
-        <div key={item.key} className="summary__item">
+      {descList?.map((item: any, index: number) => (
+        <div key={index} className="summary__item">
           <div className="summary__label">{item.label}</div>
           {item.value && <div className="summary__value">{item.value}</div>}
         </div>
       ))}
+      <AvgRentalTip price={total_price / 100} />
     </div>
   );
 };
 
 const RateDescLabel = ({
   rateName,
-  price,
-  day,
+  title,
 }: {
   rateName: string;
   price: string;
-  day?: string;
+  title?: string;
 }) => {
   return (
     <div className="rate-desc__label">
       <div className="rate-desc__label__name">{rateName} </div>
-      <div className="rate-desc__label__price">{`S$ ${price} x ${day} day(S)`}</div>
+      <div className="rate-desc__label__price">{title}</div>
     </div>
   );
 };
 
-const CollapseSummary = () => {
+const CollapseSummary = ({
+  previewDetail,
+  handlePromoCodeInput,
+  promoCodeInputError,
+  setPromoCodeInputError,
+}: any) => {
+  const { total_price } = previewDetail;
   return (
-    <CustomizedCollapse
-      collapsed={true}
-      header={
-        <h1>
-          Total price <summary></summary>
-        </h1>
-      }
-      collapsedHeader={
-        <TotalPriceHeader price="123"/>
-      }
-    >
-      <Payment />
-      <TCTip />
-      <BreakLine />
-      <PromoCode />
-      <BreakLine />
+    <CustomizedCollapse header={<h1>Price summary</h1>}>
       <Summary
-        descList={[
-          {
-            label: "Booking surcharge",
-            key: 1,
-            value: <MoneyComponent price="123" />,
-          },
-          {
-            label: (
-              <RateDescLabel rateName="Regular rate" price="100" day="6" />
-            ),
-            key: 2,
-            value: <MoneyComponent price="123333" />,
-          },
-          {
-            label: (
-              <RateDescLabel rateName="CNY seasonal rate" price="80" day="1" />
-            ),
-            key: 3,
-            value: <MoneyComponent price="12333" />,
-          },
-          {
-            label: <PromoLabel percentage={10} />,
-            key: 4,
-            value: <MoneyComponent price="12333" minus />,
-          },
-        ]}
+        previewDetail={previewDetail}
+        deletePromoCode={handlePromoCodeInput}
       />
-      <AvgRentalTip price={10} />
+      <BreakLine />
+      <PromoCodeInput
+        clearErrorStatus={() => setPromoCodeInputError(false)}
+        promoCodeInputError={promoCodeInputError}
+        setPromoCode={(value: string) => handlePromoCodeInput(value)}
+      />
+      <BreakLine />
+      <Payment totalPrice={total_price} />
+      <BreakLine />
+      <TCTip />
     </CustomizedCollapse>
   );
 };
 
-const PromoLabel = ({ percentage }: { percentage: number }) => {
-  return <div className="promo-label">{`PROMO${percentage}%`}</div>;
+const PriceOverLayInMobile = ({
+  onChange,
+  isVisible,
+  previewDetail,
+  handlePromoCodeInput,
+  promoCodeInputError,
+  setPromoCodeInputError,
+}: any) => {
+  const { total_price } = previewDetail || {};
+  return (
+    <div className={clsx("drawer", { open: isVisible, close: !isVisible })}>
+      <div className="price__overlay__header" onClick={onChange}>
+        <h1>Price summary</h1>
+        <Icon source="collaps_down_arrow" />
+      </div>
+      <Summary
+        previewDetail={previewDetail}
+        deletePromoCode={handlePromoCodeInput}
+      />
+
+      <BreakLine />
+      <PromoCodeInput
+        clearErrorStatus={() => setPromoCodeInputError(false)}
+        promoCodeInputError={promoCodeInputError}
+        setPromoCode={(value: string) => handlePromoCodeInput(value)}
+      />
+      <BreakLine />
+      <Payment totalPrice={total_price} />
+    </div>
+  );
+};
+
+const PromoLabel = ({
+  name,
+  deletePromoCode,
+}: {
+  name: string;
+  deletePromoCode: () => void;
+}) => {
+  return (
+    <div className="promo-label">
+      {name}
+      <Icon
+        source="close"
+        style={{ marginLeft: 4 }}
+        handleClick={deletePromoCode}
+      />
+    </div>
+  );
 };
 
 const BreakLine = () => {
@@ -117,7 +179,9 @@ const BreakLine = () => {
 
 const AvgRentalTip = ({ price }: { price: number }) => {
   return (
-    <div className="avg-rental">{`Avg. rental rate per day - $9${price}`}</div>
+    <div className="avg-rental">{`Avg. rental rate per day - S$${price.toFixed(
+      2
+    )}`}</div>
   );
 };
 
@@ -168,14 +232,23 @@ const TCTip = ({
   );
 };
 
-const Payment = () => {
-  const [selectedIndex, setSelectedIndex] = useState(0);
+const Payment = ({ totalPrice }: { totalPrice: string }) => {
+  const [selectedIndex, setSelectedIndex] = useState(1);
+
+  const price = (parseInt(totalPrice) / 100).toString();
+  const halfPrice = (parseInt(totalPrice) / 200).toString();
+
+  const navigate = useNavigate();
+  const handleContinue = () => {
+    navigate("/driver-info");
+  };
+
   return (
     <>
       <PaymentCard
         tip="in full"
         key={1}
-        price={"123"}
+        price={price}
         description={
           <Flex align="center">
             <Icon source="acute" className="acute" />
@@ -190,19 +263,21 @@ const Payment = () => {
       <PaymentCard
         tip="less upfront"
         key={2}
-        price={"345"}
+        price={halfPrice}
         description={
           <div className="desc">
-            {
-              "The rest ($315.00) will be charged during vehicle collection. No extra fees."
-            }
+            {`The rest (S$ ${parseInt(halfPrice).toFixed(
+              2
+            )}) will be charged during vehicle collection. No extra fees.`}
           </div>
         }
         isSelected={selectedIndex === 2}
         onSelect={() => setSelectedIndex(2)}
       />
 
-      <Button className="payment-checkout__button">Checkout</Button>
+      <Button className="payment-checkout__button" onClick={handleContinue}>
+        Continue
+      </Button>
       {/* <TCTip /> */}
     </>
   );
@@ -213,6 +288,7 @@ export {
   BreakLine,
   CollapseSummary,
   Payment,
+  PriceOverLayInMobile,
   PromoLabel,
   RateDescLabel,
   Summary,
