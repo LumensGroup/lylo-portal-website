@@ -128,8 +128,8 @@ const NewSearch: React.FC<NewSearchProps> = ({
     console.log(type)
     console.log(equipment)
     dispatch(setSearchData({
-      collection_time: value[0].toString(),
-      return_time: value[1].toString(),
+      collection_time: value[0]?value[0].toString():'',
+      return_time: value[1]?value[1].toString():'',
     }));
     if(type=='Pick-up'&&equipment=='pc'){
       searchForm['pick_up_date'] =value[0].$d
