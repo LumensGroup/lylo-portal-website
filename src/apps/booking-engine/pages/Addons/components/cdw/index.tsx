@@ -2,8 +2,10 @@ import { Button, Collapse, Space } from "antd";
 import "./styles.scss";
 
 import CustomizedCollapse from "@/bases/components/collapse";
+import { setOrAddAddon } from "@/bases/store/reducers/selectAddons";
 import clsx from "clsx";
 import { ReactNode, useState } from "react";
+import { useDispatch } from "react-redux";
 
 const HideButton = ({ title }: { title: string }) => {
   return (
@@ -76,13 +78,15 @@ const FooterComponent = ({
 };
 
 const CDWCardsArea = ({ direction, cdwList }: any) => {
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [selectedId, setSelectedId] = useState("1");
+  const dispatch = useDispatch();
 
   const lists = cdwList?.map(
-    (item: { name: string; options: { price: number }[] }) => {
+    (item: { name: string; id: string; options: { price: number }[] }) => {
       return {
         title: item?.name,
-
+        id: item?.id,
+        price: item?.options[0].price / 100,
         footer: (
           <FooterComponent
             price={item?.options[0].price / 100}
@@ -92,6 +96,24 @@ const CDWCardsArea = ({ direction, cdwList }: any) => {
       };
     }
   );
+
+  // if (cdwList?.length > 0) {
+  //   console.log(cdwList, "cdwList");
+  //   dispatch(
+  //     setOrAddAddon({
+  //       selectedCdw: cdwList?.find((item: { id: string }) => item.id === "1"),
+  //     })
+  //   );
+  // }
+  const handleSelect = (item: {
+    id: string;
+    title: string;
+    footer: ReactNode;
+  }) => {
+    dispatch(setOrAddAddon({ selectedCdw: item }));
+    setSelectedId(item?.id);
+  };
+
   return (
     <Space
       className="cdw-card-wrapper"
@@ -99,26 +121,22 @@ const CDWCardsArea = ({ direction, cdwList }: any) => {
       direction={direction}
       style={{ display: "flex" }}
     >
-      {lists.map(
-        (
-          { title, footer }: { title: string; footer: ReactNode },
-          index: number
-        ) => {
-          return (
-            <div
-              className={clsx("card", selectedIndex === index && "active")}
-              key={index}
-              onClick={() => setSelectedIndex(index)}
-            >
-              <div className="title">
-                <SelectedRadio active />
-                <div style={{ marginLeft: "12px" }}>{title}</div>
-              </div>
-              {footer}
+      {lists.map((item: { id: string; title: string; footer: ReactNode }) => {
+        const { id, title, footer } = item;
+        return (
+          <div
+            className={clsx("card", selectedId === id && "active")}
+            key={id}
+            onClick={() => handleSelect(item)}
+          >
+            <div className="title">
+              <SelectedRadio active />
+              <div style={{ marginLeft: "12px" }}>{title}</div>
             </div>
-          );
-        }
-      )}
+            {footer}
+          </div>
+        );
+      })}
     </Space>
   );
 };

@@ -9,10 +9,16 @@ type CarCardProps = {
   onCardClick?: () => void;
 };
 const CarCard: React.FC<CarCardProps> = ({ active, onCardClick, item }) => {
-  const { name, sale_price, categories, images, market_price, features } =
-    item as any;
+  const {
+    name,
+    sale_price,
+    categories,
+    item_images,
+    market_price,
+    item_features,
+  } = item as any;
 
-  const currentItem = images?.find((item: { cover: boolean }) => {
+  const currentItem = item_images?.find((item: { cover: boolean }) => {
     return item.cover === true;
   });
   const currentCategories = categories?.find((item: { type: string }) => {
@@ -20,9 +26,11 @@ const CarCard: React.FC<CarCardProps> = ({ active, onCardClick, item }) => {
   });
 
   const seatNumber = currentCategories?.name?.match(/\d+/)[0];
-  const currentItemFeatures = features?.find((item: { slug: string }) => {
-    return item?.slug === "luggages";
-  });
+  const currentItemFeatures = item_features?.find(
+    (item: { feature: { slug: string } }) => {
+      return item?.feature?.slug === "luggages";
+    }
+  );
 
   const { image_url } = currentItem || {};
   const { value } = currentItemFeatures || {};

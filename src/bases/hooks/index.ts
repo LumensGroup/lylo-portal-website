@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { GoogleAnalyticsPayload } from "./types";
+import { DynamicAddon, GoogleAnalyticsPayload } from "./types";
 
 declare global {
   interface Window {
@@ -48,4 +48,21 @@ export const useGoogleAnalytics = () => {
   );
 
   return { init, dispatchEvent };
+};
+
+export const UseAddonSeparation = (
+  addonsList: DynamicAddon[] | undefined
+): { cdwList: DynamicAddon[]; addons: DynamicAddon[] } => {
+  const cdwList: DynamicAddon[] = [];
+  const addons: DynamicAddon[] = [];
+
+  addonsList?.forEach((item) => {
+    if (item.type.indexOf("CDW") !== -1) {
+      cdwList.push(item);
+    } else {
+      addons.push(item);
+    }
+  });
+
+  return { cdwList, addons };
 };

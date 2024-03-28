@@ -3,3 +3,7 @@ export type GoogleAnalyticsPayload = {
   screenName: string;
   parameters?: any;
 };
+
+export interface DynamicAddon {
+  [key: string]: any;
+}

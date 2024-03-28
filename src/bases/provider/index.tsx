@@ -1,5 +1,5 @@
 import { ReactNode, useCallback, useLayoutEffect } from "react";
-import { useGoogleAnalytics } from "../hooks/google-analytics";
+import { useGoogleAnalytics } from "../hooks";
 import AntdProvider from "../lib/antd/provider";
 import { GlobalStateProvider } from "../store";
 import StyleProvider from "./styleProvider";
