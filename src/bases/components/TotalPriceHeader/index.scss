@@ -9,7 +9,7 @@
      .header_price {
          position: absolute;
          top: 0px;
-         right: 25px;
+         right: 30px;
 
          .total-price {
              font-size: 20px;
@@ -17,19 +17,26 @@
          }
 
          .total-price-unit {
-             font-size: 16px;
-             font-weight: 400;
+             font-size: 14px;
+             font-weight: 500;
+         }
+
+         .tips {
+            font-size: 14px;
+            color:  map-get($colors, gray-4);
          }
 
      }
 
-     .payment-checkout__button {
+     .payment-checkout-button {
          height: 40px;
          background: #3762F6;
          border-radius: 20px;
+         font-size: 16px;
+         font-weight: 800;
          width: 100%;
          color: #ffffff;
-         margin-top: 32px;
+         margin-top: 24px;
          margin-bottom: 16px;
      }
  }

@@ -40,6 +40,7 @@
   display: flex;
   border: 1px solid #CACACA;
   border-radius: 8px;
+  min-height:58px
 }
 .search-content-left>div>div:nth-child(1){
   position: relative;
@@ -120,10 +121,12 @@
 }
 .search-content-right-one{
   border:1px solid #CACACA;
-  height: 54px;
+  height: 58px;
   border-radius: 8px;
-  padding: 8px 12px 8px 12px;
   margin-right: 12px;
+}
+.search-content-right-one>div{
+  margin:4px 12px
 }
 .search-content-right-one>div:nth-child(1){
   font-size: 12px;
@@ -138,11 +141,10 @@
   letter-spacing: 0em;
   color: rgb(44, 53, 59);
   cursor: pointer;
-  width: 100%;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  height:25px
+  height:30px;
 }
 .location-form{
   width: 537px;
@@ -312,8 +314,8 @@
   color:#FFFFFF
 }
 .picker-mobile-max-form-button-box{
-  position: fixed;
-  bottom:24px;
+  position: absolute;
+  bottom:0px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -383,6 +385,9 @@
   width:40px;
   height:40px
 }
+.time-picker-blockSpan{
+  display: none;
+}
 @media (max-width: 850px) {
   .search-content-left{
     width:100%;
@@ -392,7 +397,7 @@
     margin-top: 16px;
   }
   .search-content-right-one{
-    width: 89% !important;
+    width: 100% !important;
     margin-top: 12px;
   }
   .submit-div-pc{
@@ -406,5 +411,36 @@
   }
   .mobile-submit{
     padding: 0px
+  }
+  .search-content-left{
+    margin-right: 0px;
+  }
+  .search-content-left > div:nth-child(1){
+    display: block;
+    border: none;
+  }
+  .search-content-left > div:nth-child(1) > div{
+    width: 100%;    
+    border: 1px solid #CACACA;
+    border-radius: 8px;
+  }
+  .search-content-left > div:nth-child(1) > div:nth-child(2){
+    margin-top: 16px;
+  }
+  .time-picker,.date-box{
+    width: 60% !important;
+  }
+  .search-content-left > div > div > div:nth-child(2){
+    width: 100%;
+  }
+  .time-picker{
+    display: block;
+    text-align: center;
+  }
+  .search-content-left > div > div > div:nth-child(1){
+    text-align: left;
+  }
+  .time-picker-blockSpan{
+    display: inline-block;
   }
 }

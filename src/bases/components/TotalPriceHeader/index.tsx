@@ -1,23 +1,34 @@
 import { Button, Flex } from "antd";
-import { ReactNode, useCallback, useState } from "react";
-import Icon from "../icon";
 import "./index.scss";
-import { formatPrice } from "@/apps/booking-engine/pages/PaySuccess/components/PriceSummary/PriceSummaryItem";
 import { TCTip } from "@/apps/booking-engine/pages/Addons/components/summary";
+import MoneyComponent from "@/apps/booking-engine/pages/Addons/components/money";
 
-const TotalPriceHeader = () => {
+interface TotalPriceHeaderProps {
+  price: string;
+}
+
+const TotalPriceHeader: React.FC<TotalPriceHeaderProps> = ({ price }) => {
+  const priceStyle = {
+    fontSize: '19px',
+    fontWeight: 600,
+  };
+
+  const tipsStyle = {
+    fontWeight: 500,
+  };
+
   return (
     <div className="top_price_header">
       <h1>
-        Total Price
+        Total price
       </h1>
       <Flex className="header_price" align="center" vertical>
-        <div className="total-price">8989</div>
+        <div className="total-price"><MoneyComponent price={price} style={priceStyle} /></div>
         <div className="total-price-unit">(incl. of GST)</div>
       </Flex>
 
-      <Button className="payment-checkout__button">Checkout</Button>
-      <TCTip />
+      <Button className="payment-checkout-button">Checkout</Button>
+      <TCTip style={tipsStyle}/>
     </div>
   )
 }

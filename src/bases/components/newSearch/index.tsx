@@ -29,8 +29,10 @@ const NewSearch: React.FC<NewSearchProps> = ({
   const dispatch = useDispatch();
   const [clickType, SetClickType] = useState<any>('false');
   const [pickUp, SetPickUp] = useState<any>('09:00');
+  const [pickUpend, SetPickUpend] = useState<any>('10:00');
   const [dropOff, SetDropOff] = useState<any>('09:00');
-  const [selectType, setSelectType] = useState<any>(true);
+  const [dropOffend, SetDropOffend] = useState<any>('10:00');
+  const [selectType, setSelectType] = useState<any>(false);
   const [selectTimeValue, setSelectTimeValue] = useState<any>('');
   const [locationFormType, setLocationFormType] = useState<any>(false);
   const [popconfirmTyoe, setPopconfirmTyoe] = useState<any>(false);
@@ -128,8 +130,8 @@ const NewSearch: React.FC<NewSearchProps> = ({
     console.log(type)
     console.log(equipment)
     dispatch(setSearchData({
-      collection_time: value[0].toString(),
-      return_time: value[1].toString(),
+      collection_time: value[0]?value[0].toString():'',
+      return_time: value[1]?value[1].toString():'',
     }));
     if(type=='Pick-up'&&equipment=='pc'){
       searchForm['pick_up_date'] =value[0].$d
@@ -185,7 +187,14 @@ const NewSearch: React.FC<NewSearchProps> = ({
             onClick={()=>{
               setSelectTimeValue(item.start)
               setSelectType(false)
-              clickType=='Pick-up'?SetPickUp(item.start):SetDropOff(item.start)
+              console.log(clickType)
+              if(clickType=='Pick-up'){
+                SetPickUp(item.start)
+                SetPickUpend(item.end)
+              }else{
+                SetDropOff(item.start)
+                SetDropOffend(item.end)
+              }
               if(!item.disable){
                 searchForm['start_time']=item.start
                 searchForm['end_time']=item.end
@@ -352,9 +361,9 @@ const NewSearch: React.FC<NewSearchProps> = ({
     searchChange?searchChange(searchForm):console.log("没有传方法")
   }
   const timePickerClick = (value:any) => {
-    if(document.body.clientWidth>950){
+    SetClickType(value)
+    if(document.body.clientWidth>850){
       setSelectType(true)
-      SetClickType(value)
     }else{
       setPickerMobileMaxTimeType(true)
     }
@@ -421,7 +430,14 @@ const NewSearch: React.FC<NewSearchProps> = ({
                   onClick={()=>{
                     setSelectTimeValue(item.start)
                     setSelectType(false)
-                    clickType=='Pick-up'?SetPickUp(item.start):''
+                    console.log(clickType)
+                    if(clickType=='Pick-up'){
+                      SetPickUp(item.start)
+                      SetPickUpend(item.end)
+                    }else{
+                      SetDropOff(item.start)
+                      SetDropOffend(item.end)
+                    }
                     if(!item.disable){
                       searchForm['start_time']=item.start
                       searchForm['end_time']=item.end
@@ -496,7 +512,7 @@ const pickerMobileMaxForm = ()=>{
       <div className="search-content-right-one" style={{width:rightTwoValue}}>
         <div>drop-off location</div>
         <div onClick={()=>{
-            if(document.body.clientWidth>950){
+            if(document.body.clientWidth>850){
               setLocationFormType(true)
             }else{
               setPickerMobileMaxFormType(true)
@@ -532,6 +548,7 @@ const pickerMobileMaxForm = ()=>{
                       <div className="line-div"></div>
                       <div className="time-picker" onClick={()=>timePickerClick('Pick-up')}>
                         <span>{pickUp}</span>
+                        <span className="time-picker-blockSpan">-{pickUpend}</span>
                         <DownOutlined/>
                       </div>
                     </div>
@@ -549,6 +566,7 @@ const pickerMobileMaxForm = ()=>{
                       <div className="line-div"></div>
                       <div className="time-picker" onClick={()=>timePickerClick('Drop-off')}>
                         <span>{dropOff}</span>
+                        <span className="time-picker-blockSpan">-{dropOffend}</span>
                         <DownOutlined/>
                       </div>
                     </div>
@@ -568,7 +586,7 @@ const pickerMobileMaxForm = ()=>{
                   <div className="search-content-right-one" style={{width:rightOneValue,marginRight:'12px'}}>
                     <div>{rightOneTitle}</div>
                     <div onClick={()=>{
-                        if(document.body.clientWidth>950){
+                        if(document.body.clientWidth>850){
                           setLocationFormType(true)
                            console.log("1")
                         }else{
