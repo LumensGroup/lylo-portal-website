@@ -349,7 +349,7 @@ const NewSearch: React.FC<NewSearchProps> = ({
   const submitButton =()=>{
     console.log('searchData')
     console.log(searchData)
-    searchChange(searchForm)
+    searchChange?searchChange(searchForm):console.log("没有传方法")
   }
   const timePickerClick = (value:any) => {
     if(document.body.clientWidth>950){
