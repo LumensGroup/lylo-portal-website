@@ -1,4 +1,5 @@
 export default {
+
   "collection_location": {
       "id": 0,
       "address_full": "KINTO One Centre (Midview City)",
@@ -48,7 +49,14 @@ export default {
           "item_id": "1"
       }
   ],
-  "vouchers": [],
+  "vouchers": [
+     {
+            "code":"saul_Free_Add-On"
+        },
+        {
+            "code":"saul_-10"
+        }
+  ],
   "drivers": [
       {
           "email": "phamhaichauhc@gmail.com",

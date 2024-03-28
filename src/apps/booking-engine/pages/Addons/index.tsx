@@ -122,9 +122,7 @@ const AddonsPage = () => {
         },
       ],
       vouchers: [
-        {
-          code: "23223",
-        },
+        
       ],
     };
     await request.post("/order/preview", params);

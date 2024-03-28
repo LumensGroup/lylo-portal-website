@@ -84,6 +84,7 @@ export const PopupAddons = () => {
       }
     });
     const data = { ...demoData, details: [{ item_id: selectedCar.id }],add_on_options };
+    // const data = { ...demoData, details: [{ item_id: 1 }],add_on_options };
     messageApi.open({
       key,
       type: "loading",
@@ -200,7 +201,7 @@ export const PopupAddons = () => {
           Skip
         </Button>
         <Button 
-          disabled
+          // disabled
           onClick={handleOk}
           type="primary"
           className="addons-popup-button addons-popup-button-add"
