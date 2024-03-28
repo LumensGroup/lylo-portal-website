@@ -1,5 +1,6 @@
 import "./styles.scss";
 import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import NewDatePicker from "@/bases/components/newDatePicker";
 import { DownOutlined,InfoCircleOutlined,CloseOutlined } from '@ant-design/icons';
 import {
@@ -12,6 +13,8 @@ import {
 import type { CheckboxChangeEvent } from 'antd/es/checkbox';
 import request from "../../../bases/request";
 import moment from 'moment';
+import { setSearchData } from "../../store/reducers/count";
+import { RootState } from "../../store/reducers";
 
 type NewSearchProps = {
   searchChange?: any;
@@ -23,6 +26,7 @@ const NewSearch: React.FC<NewSearchProps> = ({
   radiusType,
   shadowType
 })  => {
+  const dispatch = useDispatch();
   const [clickType, SetClickType] = useState<any>('false');
   const [pickUp, SetPickUp] = useState<any>('09:00');
   const [dropOff, SetDropOff] = useState<any>('09:00');
@@ -42,12 +46,13 @@ const NewSearch: React.FC<NewSearchProps> = ({
   const [pickupDate, setPickupDate] = useState<any>('3-21'); 
   const [dropOffData, setDropOffData] = useState<any>('3-22'); 
   const [openData, setOpenData] = useState<any>([]);
-  const [pickupName, setPickupName] = useState<any>('');  //开始日期对应的周几
-  const [dropOffName, setDropOffName] = useState<any>('');  //结束日期对应的周几
+  // const [pickupName, setPickupName] = useState<any>('');  //开始日期对应的周几
+  // const [dropOffName, setDropOffName] = useState<any>('');  //结束日期对应的周几
   const [addressLineOne, setAddressLineOne] = useState<any>('Lylohaus - 300 Sin Ming Rd');
   const [addressLineTwo, setAddressLineTwo] = useState<any>('Singapore 575626');
   const [locationFormData] = Form.useForm();
   const [durationData, setDurationData] = useState<any>('0'); 
+  const { searchData } = useSelector((state: RootState) => state.count);
   
   
   const [timeSelectData, setTimeSelectData] = useState<any>([    
@@ -122,6 +127,10 @@ const NewSearch: React.FC<NewSearchProps> = ({
     console.log(value)
     console.log(type)
     console.log(equipment)
+    dispatch(setSearchData({
+      collection_time: value[0].toString(),
+      return_time: value[1].toString(),
+    }));
     if(type=='Pick-up'&&equipment=='pc'){
       searchForm['pick_up_date'] =value[0].$d
       searchForm['pick_off_date'] =value[1].$d
@@ -155,7 +164,8 @@ const NewSearch: React.FC<NewSearchProps> = ({
       console.log('相差日期'+days); // 输出31
       setDurationData(days)
     }
-    setPickupName(moment(value[0]).format('dddd'))
+    // setPickupName(moment(value[0]).format('dddd'))
+    // setDropOffName(moment(value[1]).format('dddd'))
     setpickuUp(value[0])
     setdropOff(value[1])
   }
@@ -196,6 +206,7 @@ const NewSearch: React.FC<NewSearchProps> = ({
 
     return  `${month}-${date}`;
   }
+
   const locationFormOnFinish = (values:any) => {
     Object.assign(searchForm,values)
     setAddressLineOne(values.address_line_one)
@@ -220,6 +231,19 @@ const NewSearch: React.FC<NewSearchProps> = ({
       setdropOff(now)
     }
     console.log(searchForm)
+    const searchDataNew = {...searchData,      collection_location:{
+      "address_full":searchForm.address_line_one,
+      'postal_code':searchForm.postalcode,
+      'id': '0',
+      "built_in": false
+    },
+    return_location:{
+      "address_full":searchForm.address_line_two_optional,
+      'postal_code':searchForm.postalcode,
+      'id': '0',
+      "built_in": false
+    }}
+    dispatch(setSearchData(searchDataNew));
   };
   const containsIgnoreCase=(str:any, substring:any) =>{
     if(str){
@@ -323,7 +347,9 @@ const NewSearch: React.FC<NewSearchProps> = ({
     }
   };
   const submitButton =()=>{
-    searchChange(searchForm)
+    console.log('searchData')
+    console.log(searchData)
+    searchChange?searchChange(searchForm):console.log("没有传方法")
   }
   const timePickerClick = (value:any) => {
     if(document.body.clientWidth>950){

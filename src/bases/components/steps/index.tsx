@@ -37,7 +37,7 @@ const StepInfoBar: React.FC<StepInfoBarProps> = ({ currentIndex = 0 }: any) => {
     const last = index === items.length - 1;
 
     return (
-      <div key={`step-info-bar-item-${item.href}`} className="step-item">
+      <div key={index} className="step-item">
         <div className="icon-wrapper">
           <Button
             shape="circle"
