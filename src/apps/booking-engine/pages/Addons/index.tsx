@@ -1,12 +1,15 @@
 import AddonsLayout from "@/bases/components/addons-layout";
 import Icon from "@/bases/components/icon";
 import StepInfoBar from "@/bases/components/steps";
+import { UseAddonSeparation } from "@/bases/hooks";
+import { DynamicAddon } from "@/bases/hooks/types";
 import request from "@/bases/request";
 import { RootState } from "@/bases/store/reducers";
+import { setOrAddAddon } from "@/bases/store/reducers/selectAddons";
 import { Flex, Space } from "antd";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useMediaQuery } from "react-responsive";
 import Addons from "./components/addons";
 import CDW from "./components/cdw";
@@ -26,34 +29,114 @@ import {
 } from "./components/summary";
 import "./styles.scss";
 
-interface DynamicAddon {
-  [key: string]: any;
-}
-
 const AddonsPage = () => {
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
+  const dispatch = useDispatch();
   const { selectedCar } = useSelector((state: RootState) => state.selectedCar);
-  const [addonsList, setAddonsList] = useState<DynamicAddon[]>([]);
+  const { selectedAddons } = useSelector(
+    (state: RootState) => state.selectedAddons
+  );
 
-  const cdwList: DynamicAddon[] = [];
-  const addons: DynamicAddon[] = [];
-  addonsList?.forEach((item) => {
-    if (item.type.indexOf("CDW") !== -1) {
-      cdwList.push(item);
-    } else {
-      addons.push(item);
-    }
-  });
+  const [addonsList, setAddonsList] = useState<DynamicAddon[]>([]);
+  const { cdwList, addons } = UseAddonSeparation(addonsList);
 
   const getAddonsList = async () => {
     const addonsList = (await request.get("/addon/getlist")) as any;
     const { lists } = addonsList || {};
+
+    lists?.forEach((item: { type: string | string[] }) => {
+      if (item?.type.indexOf("CDW_BASIC") !== -1) {
+        console.log(item);
+        dispatch(
+          setOrAddAddon({
+            selectedCdw: item,
+          })
+        );
+      }
+    });
     setAddonsList(lists);
+  };
+
+  const getPreviewDetail = async () => {
+    const params1: any = {};
+    params1.details = [{ item_id: selectedCar.id }];
+    console.log(selectedAddons, "selectedAddons");
+    const { selectedCdw, selectedAddonsItemList, seatNumber } = selectedAddons;
+    const { id, options } = selectedCdw;
+    const addonCdw = {
+      add_on_option_id: id,
+      value: options?.[0]?.price,
+      quantity: 1,
+    };
+    console.log(selectedAddonsItemList, "selectedAddonsItemList");
+    const addonItem = selectedAddonsItemList?.map(
+      (item: { id: string; options: { price: string }[] }) => {
+        console.log(id, typeof id, seatNumber, "seatNumber");
+        return {
+          add_on_option_id: item.id,
+          value: item?.options[0].price,
+          quantity: item.id === "6" ? seatNumber : 1,
+        };
+      }
+    );
+    addonItem.push(addonCdw);
+
+    params1.add_on_options = addonItem;
+    console.log(params1, "params1");
+
+    const params = {
+      collection_time: "2024-03-30T09:00:00+08:00",
+      return_time: "2024-04-02T15:00:00+08:00",
+      collection_location: {
+        id: "0",
+        address_full: "SAFRA Yishun",
+        postal_code: "769027",
+        built_in: true,
+      },
+      return_location: {
+        id: "0",
+        address_full: "SAFRA Yishun",
+        postal_code: "769027",
+        built_in: true,
+      },
+      details: [
+        {
+          item_id: "1",
+        },
+      ],
+      add_on_options: [
+        {
+          add_on_option_id: "9",
+          value: "500",
+          quantity: 1,
+        },
+        {
+          add_on_option_id: "7",
+          value: "300",
+          quantity: 1,
+        },
+        {
+          add_on_option_id: "1",
+          value: "1800",
+          quantity: 1,
+        },
+      ],
+      vouchers: [
+        {
+          code: "23223",
+        },
+      ],
+    };
+    await request.post("/order/preview", params);
   };
 
   useEffect(() => {
     getAddonsList();
   }, []);
+
+  useEffect(() => {
+    getPreviewDetail();
+  }, [selectedAddons]);
 
   const LeftChildren = (
     <Space direction="vertical" size={16} className="left-area">
@@ -82,7 +165,7 @@ const AddonsPage = () => {
       <div className={clsx("drawer", { open: isVisible, close: !isVisible })}>
         <div className="price__overlay__header" onClick={onChange}>
           <h1>Price summary</h1>
-          <Icon source="collaps_up_arrow" />
+          <Icon source="collaps_down_arrow" />
         </div>
         <Summary
           descList={[
@@ -178,7 +261,7 @@ const AddonsPage = () => {
           >
             <Flex align="center" style={{ height: 28 }}>
               <div className="add-ons__title">Total price</div>
-              <Icon source="collaps_down_arrow" className="down_arrow" />
+              <Icon source="collaps_up_arrow" className="down_arrow" />
             </Flex>
             <div>
               <MoneyComponent price="630" />
