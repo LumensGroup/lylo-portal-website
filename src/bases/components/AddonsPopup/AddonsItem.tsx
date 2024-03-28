@@ -33,9 +33,9 @@ export const AddonsItem: React.FC<AddonsItemData> = (props) => {
       <Flex vertical className="addons-right-content" justify="space-between">
         <Flex vertical gap={12}>
         <div className="addons-title">{props.title}</div>
-        <div className="addons-desc">{props.desc}</div>
+        {/* <div className="addons-desc">{props.desc}</div> */}
         </Flex>
-        <Flex justify="space-between" align="center">
+        <Flex className="addons-footer" justify="space-between" align="center">
           <div className="addons-price">{props.price}</div>
           <Button shape="round" 
           className={[props.added ? 'addons-popup-button-remove' : 'addons-popup-button-add','addons-popup-button'].join(' ')} 

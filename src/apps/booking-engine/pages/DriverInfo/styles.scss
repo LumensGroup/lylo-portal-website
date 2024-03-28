@@ -2,14 +2,17 @@
 
 .driverInfo-box{
     padding: 24px;
+    background: map-get($colors, blue-background);
 }
 .driverInfo-title{
     font-family: Noto Sans;
+    margin: 0 auto;
     font-size: 16px;
     font-weight: 600;
     display: flex;
     margin-bottom: 16px;
     cursor: pointer;
+    max-width: 980px;
 }
 .driverInfo-title>div{
     margin-left: 5px;
@@ -18,3 +21,35 @@
     width: 100%;
     cursor: pointer;
 }
+.driverInfo-left{
+    width:640px;
+}
+.driverInfo-right{
+    width:320px;
+    margin-left:16px
+}
+.driverInfo-content{
+    display: flex;
+    justify-content: center;
+}
+.global_provider__pvg8S{
+    height:0px
+}
+@media (max-width: 850px) {
+    .driverInfo-content{
+        display: block;
+    }
+    .driverInfo-left{
+        margin:  0 auto;
+        width: 100%;
+    }
+    .driverInfo-title{
+        width:100%
+    }
+    .driverInfo-right{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin:16px 0px 0px 0px;
+    }
+  }

@@ -5,5 +5,6 @@ export const ROUTESMAP = {
   Addons: "/add-ons",
   CheckOut: "/checkout",
   DriverInfo: "/driver-info",
+  OrderErrorPage: "/order-err",
 };
 

@@ -1,12 +1,134 @@
 import React, { useState } from "react";
-import { Button, Flex, Modal } from "antd";
+import { Button, Flex, Modal, message, notification } from "antd";
 import { AddonsItem } from "./AddonsItem";
 import "./AddonsItem.scss"
+import { getFullUrl } from "@/bases/utils/common";
+import { ROUTESMAP } from "@/apps/booking-engine/routes";
+import request from "@/bases/request";
+import { get } from "lodash";
+import demoData from './creatorderData'
+import { useSelector } from "react-redux";
+import { RootState } from "@/bases/store/reducers";
 
 export const PopupAddons = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [messageApi, contextHolder] = message.useMessage();
+  const key = 'updatable';
 
-  window.innerWidth;
+  const { selectedCar } = useSelector((state: RootState) => state.selectedCar);
+
+  const getPaymentIntent = (orderId:any)=>{
+    messageApi.open({
+      key,
+      type: 'loading',
+      content: 'Creating Order...',
+    });
+
+    request
+      .post(`/payment/intent?order_id=${orderId}`)
+      .then((res) => {
+        console.log(res);
+        
+        messageApi.open({
+          key,
+          type: 'success',
+          content: 'Created!',
+        });
+        const orderId = get(res,"id");
+        // checkOut(orderId);
+                
+      })
+      .catch((e) => {
+        console.log(e.data.message);
+        
+        notification.error({
+          message: `Notification`,
+          description: e?.statusText,
+          placement: "topRight",
+        });
+      });
+  }
+
+  const creatOrder = ()=>{
+    const data = {...demoData,details:[{item_id:selectedCar.id}]};
+    messageApi.open({
+      key,
+      type: 'loading',
+      content: 'Creating Order...',
+    });
+
+    request
+      .post("/order/create",data)
+      .then((res) => {
+        console.log(res);
+
+        for (let i = 0; i < 10; i++) {
+          setTimeout(() => {
+            messageApi.open({
+              key,
+              type: 'success',
+              content: `Created! After ${10 - i} seconds will jump to make payment page`,
+              duration: 1,
+            });
+          }, i * 1000);
+          
+        }
+        setTimeout(() => {
+          const orderId = get(res,"id");
+          checkOut(orderId);
+        }, 10 * 1000);
+        
+        // getPaymentIntent(orderId);   
+      })
+      .catch((e) => {
+        console.log(get(e,'e.data.message'));
+        
+        notification.error({
+          message: `Notification`,
+          description: e?.statusText,
+          placement: "topRight",
+        });
+      });
+
+  }
+
+  const checkOut = (orderId:any)=>{
+    const data = {
+      order_id: orderId,
+      redirect_url: `${getFullUrl(ROUTESMAP.PaySuccess)}?orderId=${orderId}`,
+      redirect_error_url: getFullUrl(ROUTESMAP.OrderErrorPage),
+      channel: 'HITPAY'
+    }
+    messageApi.open({
+      key,
+      type: 'loading',
+      content: 'Loading...',
+    });
+
+    request
+      .post("/payment/checkout",data)
+      .then((res) => {
+        console.log(res);
+        
+        // messageApi.open({
+        //   key,
+        //   type: 'success',
+        //   content: 'Loaded!',
+        //   // duration: 2,
+        // });
+        const checkoutUrl = get(res, "redirect_url");
+        if (!checkoutUrl) return;
+        window.location.href = checkoutUrl;
+      })
+      .catch((e) => {
+        notification.error({
+          message: `Notification`,
+          description: e?.statusText,
+          placement: "topRight",
+        });
+      });
+    
+  }
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -14,10 +136,12 @@ export const PopupAddons = () => {
 
   const handleOk = () => {
     setIsModalOpen(false);
+    creatOrder();
   };
 
   const handleCancel = () => {
     setIsModalOpen(false);
+    creatOrder();
   };
 
   const addonsData = [
@@ -63,16 +187,19 @@ export const PopupAddons = () => {
 
   return (
     <>
+    {contextHolder}
       <Button type="primary" onClick={showModal}>
         Open Modal
       </Button>
       <Modal
+        onCancel={()=>setIsModalOpen(false)}
+        maskClosable={true}
         closeIcon={null}
         centered={true}
         footer={footer()}
         title="Frequently bought together"
         open={isModalOpen}
-        width={window.innerWidth < 640 ? 390 : 654}
+        width={window.innerWidth < 640 ? 390 : 560}
       >
         <Flex vertical gap={24} align="center">
           {addonsData.map((e) => (

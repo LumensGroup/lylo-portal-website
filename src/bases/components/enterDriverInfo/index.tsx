@@ -20,6 +20,8 @@ const EnterDriverInfo:React.FC<EnterDriverInfoProps> = ({ singpassSessionId }) =
   const [open, setOpen] = useState(false)
   const [searchParams] = useSearchParams()
   const [querySingpass, setQuerySingpass] = useState(false)
+  const [singpassData, setSingpassData] = useState<any>({});
+  const [selectIndex, setSelectIndex] = useState<any>(0);
 
   const singpassUrl = useMemo(
     () =>
@@ -37,22 +39,24 @@ const EnterDriverInfo:React.FC<EnterDriverInfoProps> = ({ singpassSessionId }) =
   console.log(singpassUrl)
 
   useEffect(() => {
-    if (querySingpass) {
-    request
-    .get(`/driver/singpass/get-info?session_id=${singpassSessionId}`)
-    .then ((res:any) => {
-      console.log("result:" + res)
-    })
-    }
-  }, [querySingpass]);
-
-  useEffect(() => {
     const sid = searchParams.get("sid")
     const personId = searchParams.get("personId")
     if (sid && personId) {
       setQuerySingpass(true)
     }
-  }, [searchParams]);
+    if (querySingpass) {
+      request
+      .get(`/driver/singpass/get-info?session_id=${singpassSessionId}`)
+      .then ((res:any) => {
+        // console.log("result:")
+        // console.log(res)
+        console.log(userList)
+        const listData = [...userList]
+        listData[selectIndex].singpassType= false
+        setSingpassData(res)
+      })
+    }
+  }, [searchParams,querySingpass]);
   
   const onChange = (key: string) => {
     console.log(key);
@@ -100,6 +104,7 @@ const EnterDriverInfo:React.FC<EnterDriverInfoProps> = ({ singpassSessionId }) =
     }
   }
   const singpassClick = (index:any)=>{
+    setSelectIndex(index)
     window.location.href = singpassUrl
   }
   const getUserList = (data:any) =>{
@@ -107,7 +112,7 @@ const EnterDriverInfo:React.FC<EnterDriverInfoProps> = ({ singpassSessionId }) =
       console.log(item)
       return (
         <Collapse.Panel header={<>Driver #{(index+1)} -</>}  key={index}>
-          <DriverInfoForm addDriver={addDriver} index={index} key={index} deletDriver={deletDriver} singpassType={item.singpassType} singpassClick={singpassClick}></DriverInfoForm>
+          <DriverInfoForm singpassData={singpassData} addDriver={addDriver} index={index} key={index} deletDriver={deletDriver} singpassType={item.singpassType} singpassClick={singpassClick}></DriverInfoForm>
         </Collapse.Panel>      
       )
     })
@@ -130,7 +135,7 @@ const EnterDriverInfo:React.FC<EnterDriverInfoProps> = ({ singpassSessionId }) =
         accordion
         ghost
         expandIconPosition="end"
-        defaultActiveKey="1"
+        defaultActiveKey="0"
         >
           {getUserList(userList)}
         </Collapse>    
