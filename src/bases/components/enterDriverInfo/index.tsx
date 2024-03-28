@@ -1,5 +1,5 @@
 import "./styles.scss";
-import { Tabs, Modal, Collapse } from "antd";
+import { Tabs, Modal, Collapse,notification } from "antd";
 import DriverInfoForm from "@/bases/components/driverInfoForm";
 import { useEffect, useMemo, useState } from "react";
 import type { TabsProps } from 'antd';
@@ -54,7 +54,13 @@ const EnterDriverInfo:React.FC<EnterDriverInfoProps> = ({ singpassSessionId }) =
         const listData = [...userList]
         listData[selectIndex].singpassType= false
         setSingpassData(res)
-      })
+      }).catch((e) => {
+        notification.error({
+          message: `Notification`,
+          description: e?.statusText,
+          placement: "topRight",
+        });
+      });
     }
   }, [searchParams,querySingpass]);
   
