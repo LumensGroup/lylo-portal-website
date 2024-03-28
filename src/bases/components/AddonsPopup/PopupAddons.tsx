@@ -82,7 +82,7 @@ export const PopupAddons = () => {
         // getPaymentIntent(orderId);
       })
       .catch((e) => {
-        console.log(get(e, "e.data.message"));
+        console.log(get(e, "data.message"));
 
         notification.error({
           message: `Notification`,
