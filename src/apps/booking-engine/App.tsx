@@ -1,13 +1,13 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import AddonsPage from "./pages/Addons";
+import { CheckOutPage } from "./pages/CheckOutPage";
+import DriverInfo from "./pages/DriverInfo";
 import List from "./pages/ListDemo/list";
 import PaySuccess from "./pages/PaySuccess";
 import SelectCarPage from "./pages/SelectCar";
-import { ROUTESMAP } from "./routes";
-import { CheckOutPage } from "./pages/CheckOutPage";
-import DriverInfo from "./pages/DriverInfo";
 import OrderErrorPage from "./pages/order-error-page";
+import { ROUTESMAP } from "./routes";
 
 function App() {
   return (

@@ -2,7 +2,6 @@ import { Button, Collapse, Space } from "antd";
 import "./styles.scss";
 
 import CustomizedCollapse from "@/bases/components/collapse";
-import { setOrAddAddon } from "@/bases/store/reducers/selectAddons";
 import clsx from "clsx";
 import { ReactNode, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -110,7 +109,15 @@ const CDWCardsArea = ({ direction, cdwList }: any) => {
     title: string;
     footer: ReactNode;
   }) => {
-    dispatch(setOrAddAddon({ selectedCdw: item }));
+    const selectedCdw = cdwList?.find((i: { id: string }) => {
+      return i?.id === item.id;
+    });
+    console.log(selectedCdw, "selectedCdw");
+    // dispatch(
+    //   setOrAddAddon({
+    //     selectedCdw,
+    //   })
+    // );
     setSelectedId(item?.id);
   };
 

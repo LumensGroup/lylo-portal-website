@@ -5,9 +5,9 @@ import { UseAddonSeparation } from "@/bases/hooks";
 import { DynamicAddon } from "@/bases/hooks/types";
 import request from "@/bases/request";
 import { RootState } from "@/bases/store/reducers";
-import { setOrAddAddon } from "@/bases/store/reducers/selectAddons";
+import { AddonItem, CarDetails } from "@/bases/types";
+import { formatTimeToUTC } from "@/bases/utils/dates";
 import { Flex, Space } from "antd";
-import clsx from "clsx";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useMediaQuery } from "react-responsive";
@@ -17,16 +17,7 @@ import SelectCarDetail from "./components/details";
 import ImportantInfo from "./components/important-info";
 import MoneyComponent from "./components/money";
 import PickUp from "./components/pickup";
-import PromoCode from "./components/promoInput";
-import {
-  AvgRentalTip,
-  BreakLine,
-  CollapseSummary,
-  Payment,
-  PromoLabel,
-  RateDescLabel,
-  Summary,
-} from "./components/summary";
+import { CollapseSummary, PriceOverLayInMobile } from "./components/summary";
 import "./styles.scss";
 
 const AddonsPage = () => {
@@ -36,9 +27,23 @@ const AddonsPage = () => {
   const { selectedAddons } = useSelector(
     (state: RootState) => state.selectedAddons
   );
-
+  const { searchData } = useSelector((state: RootState) => state.count);
   const [addonsList, setAddonsList] = useState<DynamicAddon[]>([]);
+  const [previewDetail, setPreviewDetai] = useState<any>({});
+  const [promoCodeList, setPromoCodeList] = useState<string[]>([]);
+  const [promoCodeInputError, setPromoCodeInputError] = useState(false);
   const { cdwList, addons } = UseAddonSeparation(addonsList);
+
+  const handlePromoCodeList = (code: string) => {
+    console.log(code, "code------");
+    const index = promoCodeList.indexOf(code);
+    if (index !== -1) {
+      const newPromoCodeList = promoCodeList.filter((item) => item !== code);
+      setPromoCodeList(newPromoCodeList);
+    } else {
+      setPromoCodeList([...promoCodeList, code]);
+    }
+  };
 
   const getAddonsList = async () => {
     const addonsList = (await request.get("/addon/getlist")) as any;
@@ -47,87 +52,137 @@ const AddonsPage = () => {
     lists?.forEach((item: { type: string | string[] }) => {
       if (item?.type.indexOf("CDW_BASIC") !== -1) {
         console.log(item);
-        dispatch(
-          setOrAddAddon({
-            selectedCdw: item,
-          })
-        );
+        // dispatch(
+        //   setOrAddAddon({
+        //     selectedCdw: item,
+        //   })
+        // );
       }
     });
     setAddonsList(lists);
   };
 
-  const getPreviewDetail = async () => {
-    const params1: any = {};
-    params1.details = [{ item_id: selectedCar.id }];
-    console.log(selectedAddons, "selectedAddons");
+  const formatFormatParams = (
+    selectedCar: any,
+    selectedAddons: any,
+    searchData: any
+  ): any => {
+    const params: any = {
+      details: [{ item_id: selectedCar.id }] as CarDetails[],
+    };
+
     const { selectedCdw, selectedAddonsItemList, seatNumber } = selectedAddons;
     const { id, options } = selectedCdw;
-    const addonCdw = {
+    const addonCdw: AddonItem = {
       add_on_option_id: id,
-      value: options?.[0]?.price,
+      value: options?.[0]?.price || "",
       quantity: 1,
     };
-    console.log(selectedAddonsItemList, "selectedAddonsItemList");
-    const addonItem = selectedAddonsItemList?.map(
-      (item: { id: string; options: { price: string }[] }) => {
-        console.log(id, typeof id, seatNumber, "seatNumber");
-        return {
-          add_on_option_id: item.id,
-          value: item?.options[0].price,
-          quantity: item.id === "6" ? seatNumber : 1,
-        };
-      }
-    );
-    addonItem.push(addonCdw);
 
-    params1.add_on_options = addonItem;
-    console.log(params1, "params1");
+    const addonItem: AddonItem[] =
+      selectedAddonsItemList?.map(
+        (item: { id: string; options: { price: string }[] }) => {
+          console.log(id, typeof id, seatNumber, "seatNumber");
+          return {
+            add_on_option_id: item.id,
+            value: item?.options[0]?.price || "",
+            quantity: item.id === "6" ? seatNumber : 1,
+          };
+        }
+      ) || [];
 
-    const params = {
-      collection_time: "2024-03-30T09:00:00+08:00",
-      return_time: "2024-04-02T15:00:00+08:00",
-      collection_location: {
-        id: "0",
-        address_full: "SAFRA Yishun",
-        postal_code: "769027",
-        built_in: true,
-      },
-      return_location: {
-        id: "0",
-        address_full: "SAFRA Yishun",
-        postal_code: "769027",
-        built_in: true,
-      },
-      details: [
-        {
-          item_id: "1",
-        },
-      ],
-      add_on_options: [
-        {
-          add_on_option_id: "9",
-          value: "500",
-          quantity: 1,
-        },
-        {
-          add_on_option_id: "7",
-          value: "300",
-          quantity: 1,
-        },
-        {
-          add_on_option_id: "1",
-          value: "1800",
-          quantity: 1,
-        },
-      ],
-      vouchers: [
-        {
-          code: "23223",
-        },
-      ],
+    const { return_time, collection_time } = searchData as {
+      return_time: string;
+      collection_time: string;
     };
-    await request.post("/order/preview", params);
+
+    const formatVouchers = promoCodeList?.map((item) => ({
+      code: item,
+    }));
+
+    const timeObj = {
+      return_time: formatTimeToUTC(return_time),
+      collection_time: formatTimeToUTC(collection_time),
+    };
+    const vouchers = {
+      vouchers: formatVouchers,
+    };
+
+    params.add_on_options = [...addonItem, addonCdw] as AddonItem[];
+    params.collection_location = {
+      id: "0",
+      address_full: "SAFRA Yishun",
+      postal_code: "769027",
+      built_in: true,
+    };
+    params.return_location = {
+      id: "0",
+      address_full: "SAFRA Yishun",
+      postal_code: "769027",
+      built_in: true,
+    };
+
+    return { ...searchData, ...params, ...timeObj, ...vouchers };
+  };
+
+  const getPreviewDetail = async () => {
+    const params = formatFormatParams(selectedCar, selectedAddons, searchData);
+    console.log(params, "params");
+
+    // const params = {
+    //   collection_time: "2024-03-30T09:00:00+08:00",
+    //   return_time: "2024-04-02T15:00:00+08:00",
+    // collection_location: {
+    //   id: "0",
+    //   address_full: "SAFRA Yishun",
+    //   postal_code: "769027",
+    //   built_in: true,
+    // },
+    // return_location: {
+    //   id: "0",
+    //   address_full: "SAFRA Yishun",
+    //   postal_code: "769027",
+    //   built_in: true,
+    // },
+    //   details: [
+    //     {
+    //       item_id: "1",
+    //     },
+    //   ],
+    //   add_on_options: [
+    //     {
+    //       add_on_option_id: "9",
+    //       value: "500",
+    //       quantity: 1,
+    //     },
+    //     {
+    //       add_on_option_id: "7",
+    //       value: "300",
+    //       quantity: 1,
+    //     },
+    //     {
+    //       add_on_option_id: "1",
+    //       value: "1800",
+    //       quantity: 1,
+    //     },
+    //   ],
+    //   vouchers: [
+    //     {
+    //       code: "saul_-1",
+    //     },
+    //   ],
+    // };
+
+    try {
+      const data = await request.post("/order/preview", params);
+      console.log(data, "data");
+      setPreviewDetai(data);
+    } catch (error) {
+      if ((error as any).data.code === 600002) {
+        console.log("----");
+        setPromoCodeInputError(true);
+      }
+    }
   };
 
   useEffect(() => {
@@ -135,8 +190,9 @@ const AddonsPage = () => {
   }, []);
 
   useEffect(() => {
+    console.log(promoCodeList, "proCode");
     getPreviewDetail();
-  }, [selectedAddons]);
+  }, [selectedAddons, promoCodeList]);
 
   const LeftChildren = (
     <Space direction="vertical" size={16} className="left-area">
@@ -150,63 +206,15 @@ const AddonsPage = () => {
   const RightChildren = (
     <Space direction="vertical" size={16} className="right-area">
       <PickUp />
-      <CollapseSummary />
+      <CollapseSummary
+        previewDetail={previewDetail}
+        handlePromoCodeInput={handlePromoCodeList}
+        promoCodeInputError={promoCodeInputError}
+        setPromoCodeInputError={setPromoCodeInputError}
+      />
     </Space>
   );
-  const PriceOverLay = ({
-    onChange,
-    isVisible,
-  }: {
-    isVisible: boolean;
-    onChange: () => void;
-  }) => {
-    console.log(isVisible, "isVisible");
-    return (
-      <div className={clsx("drawer", { open: isVisible, close: !isVisible })}>
-        <div className="price__overlay__header" onClick={onChange}>
-          <h1>Price summary</h1>
-          <Icon source="collaps_down_arrow" />
-        </div>
-        <Summary
-          descList={[
-            {
-              label: "Booking surcharge",
-              key: 1,
-              value: <MoneyComponent price="123" />,
-            },
-            {
-              label: (
-                <RateDescLabel rateName="Regular rate" price="100" day="6" />
-              ),
-              key: 2,
-              value: <MoneyComponent price="123333" />,
-            },
-            {
-              label: (
-                <RateDescLabel
-                  rateName="CNY seasonal rate"
-                  price="80"
-                  day="1"
-                />
-              ),
-              key: 3,
-              value: <MoneyComponent price="12333" />,
-            },
-            {
-              label: <PromoLabel percentage={10} />,
-              key: 4,
-              value: <MoneyComponent price="12333" minus />,
-            },
-          ]}
-        />
-        <AvgRentalTip price={10} />
-        <BreakLine />
-        <PromoCode />
-        <BreakLine />
-        <Payment />
-      </div>
-    );
-  };
+
   const MobileChildren = ({
     isVisible,
     onChange,
@@ -216,7 +224,14 @@ const AddonsPage = () => {
   }) => {
     return (
       <>
-        <PriceOverLay onChange={onChange} isVisible={isVisible} />
+        <PriceOverLayInMobile
+          onChange={onChange}
+          isVisible={isVisible}
+          previewDetail={previewDetail}
+          handlePromoCodeInput={handlePromoCodeList}
+          promoCodeInputError={promoCodeInputError}
+          setPromoCodeInputError={setPromoCodeInputError}
+        />
         <Space direction="vertical" size={16} style={{ width: "100%" }}>
           <SelectCarDetail selectedCarDetail={selectedCar} />
           <CDW direction="vertical" cdwList={cdwList} />

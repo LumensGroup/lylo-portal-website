@@ -8,3 +8,13 @@ export type CommonProps = {
 export interface SelectedCarDetailProps {
   [key: string]: any;
 }
+
+export interface CarDetails {
+  item_id: string;
+}
+
+export interface AddonItem {
+  add_on_option_id: string;
+  value: string;
+  quantity: number;
+}

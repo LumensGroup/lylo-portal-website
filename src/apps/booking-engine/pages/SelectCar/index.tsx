@@ -129,10 +129,18 @@ const CarSelectPage = () => {
           .join("|");
     }
 
-    const data = await request.get("/vehicle/getlist", { params });
-    const { lists } = data as any;
-    setCarList(lists);
-    setIsLoading(false);
+    try {
+      const data = await request.get("/vehicle/getlist", { params });
+      const { lists } = data as any;
+      setCarList(lists);
+      setIsLoading(false);
+    } catch (error) {
+      console.error(
+        "An error occurred while fetching the vehicle list:",
+        error
+      );
+      setIsLoading(false);
+    }
   };
 
   const handleCardClick = (item: any) => {

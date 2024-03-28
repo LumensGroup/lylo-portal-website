@@ -47,7 +47,7 @@ export class Request {
       },
       (err: any) => {
         let message = "";
-        switch (err.response.status) {
+        switch (err?.response?.status) {
           case 400:
             message = "Bad Request";
             break;
