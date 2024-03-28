@@ -38,7 +38,7 @@ const DriverPageSummary = () => {
         </h1>
       }
       collapsedHeader={
-        <TotalPriceHeader />
+        <TotalPriceHeader price="123"/>
       }
     >
       <Payment />
