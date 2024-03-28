@@ -5,11 +5,14 @@ import { AddonItem, CarDetails } from "@/bases/types";
 import { formatTimeToUTC } from "@/bases/utils/dates";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router";
 import PromoCodeInput from "../promoInput";
 import { BreakLine, Payment, Summary, TCTip } from "../summary";
 
-const OthersCollapseSummary = ({ handlePromoCodeInput, handleClick }: any) => {
+const OthersCollapseSummary = ({
+  handlePromoCodeInput,
+  handleClick,
+  checkoutButtonText,
+}: any) => {
   const [previewDetail, setPreviewDetai] = useState<any>({});
   const [promoCodeList, setPromoCodeList] = useState<string[]>([]);
 
@@ -19,8 +22,6 @@ const OthersCollapseSummary = ({ handlePromoCodeInput, handleClick }: any) => {
     (state: RootState) => state.selectedAddons
   );
   const { searchData } = useSelector((state: RootState) => state.count);
-
-  const navigate = useNavigate();
 
   const formatFormatParams = (
     selectedCar: any,
@@ -129,7 +130,11 @@ const OthersCollapseSummary = ({ handlePromoCodeInput, handleClick }: any) => {
         setPromoCode={(value: string) => handlePromoCodeInput(value)}
       />
       <BreakLine />
-      <Payment totalPrice={total_price} handleClick={handleClick} />
+      <Payment
+        totalPrice={total_price}
+        handleClick={handleClick}
+        checkoutButtonText={checkoutButtonText}
+      />
       <BreakLine />
       <TCTip />
     </CustomizedCollapse>
