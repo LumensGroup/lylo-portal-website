@@ -14,7 +14,7 @@ const DriverInfo = () => {
       <CollapseSummary />
     </Space>
   );
-  const singpassSessionId = "abcde" // todo receive form outside
+  const singpassSessionId = "test565" // todo receive form outside
   return (
     <>
       <StepInfoBar currentIndex={2} />

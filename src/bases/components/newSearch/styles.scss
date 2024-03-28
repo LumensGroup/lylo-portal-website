@@ -40,7 +40,7 @@
   display: flex;
   border: 1px solid #CACACA;
   border-radius: 8px;
-  height:58px
+  min-height:58px
 }
 .search-content-left>div>div:nth-child(1){
   position: relative;
@@ -385,6 +385,9 @@
   width:40px;
   height:40px
 }
+.time-picker-blockSpan{
+  display: none;
+}
 @media (max-width: 850px) {
   .search-content-left{
     width:100%;
@@ -411,5 +414,33 @@
   }
   .search-content-left{
     margin-right: 0px;
+  }
+  .search-content-left > div:nth-child(1){
+    display: block;
+    border: none;
+  }
+  .search-content-left > div:nth-child(1) > div{
+    width: 100%;    
+    border: 1px solid #CACACA;
+    border-radius: 8px;
+  }
+  .search-content-left > div:nth-child(1) > div:nth-child(2){
+    margin-top: 16px;
+  }
+  .time-picker,.date-box{
+    width: 60% !important;
+  }
+  .search-content-left > div > div > div:nth-child(2){
+    width: 100%;
+  }
+  .time-picker{
+    display: block;
+    text-align: center;
+  }
+  .search-content-left > div > div > div:nth-child(1){
+    text-align: left;
+  }
+  .time-picker-blockSpan{
+    display: inline-block;
   }
 }
