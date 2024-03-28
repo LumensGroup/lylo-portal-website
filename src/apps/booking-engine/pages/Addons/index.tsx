@@ -149,8 +149,8 @@ const AddonsPage = () => {
 
   const RightChildren = (
     <Space direction="vertical" size={16} className="right-area">
-      <PickUp />
       <CollapseSummary />
+      <PickUp />
     </Space>
   );
   const PriceOverLay = ({

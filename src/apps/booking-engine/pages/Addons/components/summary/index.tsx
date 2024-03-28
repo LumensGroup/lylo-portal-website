@@ -6,6 +6,7 @@ import { useState } from "react";
 import MoneyComponent from "../money";
 import PromoCode from "../promoInput";
 import "./styles.scss";
+import TotalPriceHeader from "@/bases/components/TotalPriceHeader";
 
 interface Description {
   label: string | JSX.Element;
@@ -58,12 +59,21 @@ const RateDescLabel = ({
 const CollapseSummary = () => {
   return (
     <CustomizedCollapse
+      collapsed={true}
       header={
         <h1>
-          Price <summary></summary>
+          Total price <summary></summary>
         </h1>
       }
+      collapsedHeader={
+        <TotalPriceHeader price="123"/>
+      }
     >
+      <Payment />
+      <TCTip />
+      <BreakLine />
+      <PromoCode />
+      <BreakLine />
       <Summary
         descList={[
           {
@@ -93,12 +103,6 @@ const CollapseSummary = () => {
         ]}
       />
       <AvgRentalTip price={10} />
-      <BreakLine />
-      <PromoCode />
-      <BreakLine />
-      <Payment />
-      <BreakLine />
-      <TCTip />
     </CustomizedCollapse>
   );
 };

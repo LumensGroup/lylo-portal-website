@@ -3,12 +3,12 @@ import EnterDriverInfo from "@/bases/components/enterDriverInfo"
 import { Space } from "antd";
 import PickUp from "../Addons/components/pickup";
 import "./styles.scss";
-import { DriverPageSummary } from "./components/summary";
+import { CollapseSummary } from "../Addons/components/summary";
 
 const DriverInfo = () => {
   const RightChildren = (
     <Space direction="vertical" size={16} className="right-area">
-      <DriverPageSummary />
+      <CollapseSummary />
       <PickUp />
     </Space>
   );
