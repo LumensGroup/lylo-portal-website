@@ -362,7 +362,7 @@ const NewSearch: React.FC<NewSearchProps> = ({
   }
   const timePickerClick = (value:any) => {
     SetClickType(value)
-    if(document.body.clientWidth>950){
+    if(document.body.clientWidth>980){
       setSelectType(true)
     }else{
       setPickerMobileMaxTimeType(true)
@@ -524,7 +524,7 @@ const pickerMobileMaxForm = ()=>{
       <div className="search-content-right-one" style={{width:rightTwoValue}}>
         <div>drop-off location</div>
         <div onClick={()=>{
-            if(document.body.clientWidth>950){
+            if(document.body.clientWidth>980){
               setLocationFormType(true)
             }else{
               setPickerMobileMaxFormType(true)
@@ -598,7 +598,7 @@ const pickerMobileMaxForm = ()=>{
                   <div className="search-content-right-one" style={{width:rightOneValue,marginRight:'12px'}}>
                     <div>{rightOneTitle}</div>
                     <div onClick={()=>{
-                        if(document.body.clientWidth>950){
+                        if(document.body.clientWidth>980){
                           setLocationFormType(true)
                            console.log("1")
                         }else{
