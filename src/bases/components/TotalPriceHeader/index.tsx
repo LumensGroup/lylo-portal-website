@@ -9,7 +9,7 @@ const TotalPriceHeader = () => {
   return (
     <div className="top_price_header">
       <h1>
-        Total Price
+        Total price
       </h1>
       <Flex className="header_price" align="center" vertical>
         <div className="total-price">8989</div>
