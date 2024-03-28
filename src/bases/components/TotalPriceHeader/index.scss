@@ -1,0 +1,35 @@
+@import "/src/bases/styles/variables.module.scss";
+ .top_price_header {
+     position: relative;
+     border-radius: 16px;
+     max-width: 640px;
+     height: auto;
+     padding-bottom: 20px;
+
+     .header_price {
+         position: absolute;
+         top: 0px;
+         right: 25px;
+
+         .total-price {
+             font-size: 20px;
+             font-weight: 600;
+         }
+
+         .total-price-unit {
+             font-size: 16px;
+             font-weight: 400;
+         }
+
+     }
+
+     .payment-checkout__button {
+         height: 40px;
+         background: #3762F6;
+         border-radius: 20px;
+         width: 100%;
+         color: #ffffff;
+         margin-top: 32px;
+         margin-bottom: 16px;
+     }
+ }
